@@ -11,8 +11,8 @@ const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--f
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "Lando Norris | Official Store",
-  description: "Official Lando Norris merchandise and tech peripherals.",
+  title: "Sinners| Official Store",
+  description: "Official Tech merchandise and tech peripherals.",
 };
 
 export default function RootLayout({
