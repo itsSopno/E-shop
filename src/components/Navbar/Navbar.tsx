@@ -90,27 +90,13 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] px-8 md:px-[60px] py-8 flex items-center justify-between pointer-events-none">
+    <nav className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-[60px] py-6 md:py-8 flex items-center justify-between pointer-events-none w-full">
 
-      {/* Left Side: Brand Logo */}
+      {/* Left Side: Store Button (Moved to Left for Mobile Design Match) */}
       <div className="flex items-center pointer-events-auto">
-        <Link href="/" className="flex flex-col select-none group">
-          <span className="font-bebas text-[32px] md:text-[38px] leading-[0.7] text-[#1A1A1A] font-black uppercase tracking-[-0.02em]">
-            Lando
-          </span>
-          <span className="font-bebas text-[42px] md:text-[48px] leading-[0.8] text-[#1A1A1A] font-black uppercase tracking-[-0.02em]">
-            Norris
-          </span>
-        </Link>
-      </div>
-
-      {/* Right Side: Store & Menu Toggle */}
-      <div className="flex items-center gap-3 md:gap-4 pointer-events-auto">
-
-        {/* Store Button - Exact Design Match */}
         <Link
           href="/cart"
-          className="bg-[#D9FF00] text-[#1A1A1A] h-[54px] md:h-[62px] px-6 md:px-8 rounded-[12px] flex items-center gap-2 hover:bg-black hover:text-[#D9FF00] transition-all duration-300 shadow-sm active:scale-95"
+          className="bg-[#D9FF00] text-[#1A1A1A] h-[48px] md:h-[62px] px-4 md:px-8 rounded-[12px] flex items-center gap-2 hover:bg-black hover:text-[#D9FF00] transition-all duration-300 shadow-sm active:scale-95"
         >
           <svg
             width="20"
@@ -131,126 +117,112 @@ const Navbar = () => {
             Store
           </span>
         </Link>
+      </div>
 
-        {/* Menu Toggle Button - Exact Design Match */}
+      {/* Center: Stylized LN Logo */}
+      <div className="absolute left-1/2 -translate-x-1/2 pointer-events-auto">
+        <Link href="/" className="flex items-center justify-center group" aria-label="Home">
+          <svg width="34" height="34" viewBox="0 0 100 100" fill="none" className="transform skew-x-[-15deg]">
+            {/* Stylized LN4 Logo Representation - Two Parallel Slanted Shapes */}
+            <path 
+              d="M20 80 L45 20 L55 20 L30 80 Z" 
+              fill="#1A1A1A" 
+              className="group-hover:fill-[#D9FF00] transition-colors duration-300"
+            />
+            <path 
+              d="M50 80 L75 20 L85 20 L60 80 Z" 
+              fill="#1A1A1A" 
+              className="group-hover:fill-[#D9FF00] transition-colors duration-300"
+            />
+          </svg>
+        </Link>
+      </div>
+
+      {/* Right Side: Menu Toggle Button */}
+      <div className="flex items-center pointer-events-auto">
         <button
-          className="group h-[54px] w-[54px] md:h-[62px] md:w-[62px] flex flex-col items-center justify-center gap-[6px] border-[1.5px] border-[#1A1A1A] rounded-[12px] hover:bg-black transition-all duration-300"
+          className="group h-[52px] w-[52px] md:h-[62px] md:w-[62px] flex flex-col items-center justify-center gap-[5px] border-[1.5px] border-[#1A1A1A] rounded-[15px] hover:bg-black transition-all duration-300 bg-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <div className="w-7 h-[2.5px] bg-[#1A1A1A] group-hover:bg-white transition-all rounded-full"></div>
-          <div className="w-5 h-[2.5px] bg-[#1A1A1A] group-hover:bg-white transition-all self-start ml-[13px] rounded-full"></div>
+          <div className="w-6 h-[2.5px] bg-[#1A1A1A] group-hover:bg-white transition-all rounded-full ml-auto mr-3"></div>
+          <div className="w-6 h-[2.5px] bg-[#1A1A1A] group-hover:bg-white transition-all rounded-full mr-auto ml-3"></div>
         </button>
       </div>
 
       {/* Fullscreen Menu Overlay (Matches New Reference Image) */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#131411] z-[200] overflow-y-auto overflow-x-hidden flex flex-col pointer-events-auto animate-in fade-in duration-500">
+        <div className="fixed inset-0 bg-[#1A1D16] z-[200] overflow-y-auto overflow-x-hidden flex flex-col pointer-events-auto animate-in fade-in duration-500">
           
-          {/* Top Bar inside Menu - Matches Image */}
-          <div className="flex items-center justify-between px-8 md:px-[60px] py-8 w-full border-b border-white/5 relative z-[210]">
-            <Link href="/" className="flex flex-col select-none group" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="font-bebas text-[32px] md:text-[38px] leading-[0.7] text-white font-black uppercase tracking-[-0.02em]">
-                Lando
-              </span>
-              <span className="font-bebas text-[42px] md:text-[48px] leading-[0.8] text-white font-black uppercase tracking-[-0.02em]">
-                Norris
-              </span>
+          {/* Topographic Background Pattern Overlay */}
+          <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 200 50 400 100 T 800 100 M0 250 Q 200 200 400 250 T 800 250 M0 400 Q 200 350 400 400 T 800 400 M0 550 Q 200 500 400 550 T 800 550 M0 700 Q 200 650 400 700 T 800 700' stroke='%23D9FF00' fill='none' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
+
+          {/* Top Bar inside Menu - Updated Layout (Store Left, Close Right) */}
+          <div className="flex items-center justify-between px-6 py-8 w-full relative z-[210]">
+            <Link
+              href="/cart"
+              className="bg-[#D9FF00] text-[#1A1A1A] h-12 px-6 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 2L3 6V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <path d="M3 6h18" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+              <span className="font-bebas text-xl font-bold uppercase tracking-wider mt-1">Store</span>
             </Link>
 
-            <div className="flex items-center gap-4">
-               <Link
-                href="/cart"
-                className="bg-[#D9FF00] text-[#1A1A1A] h-[54px] md:h-[62px] px-6 md:px-8 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M6 2L3 6V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                  <path d="M3 6h18" />
-                  <path d="M16 10a4 4 0 0 1-8 0" />
-                </svg>
-                <span className="font-bebas text-xl md:text-2xl font-bold uppercase tracking-wider mt-1">Store</span>
-              </Link>
-
-              <button
-                className="h-[54px] w-[54px] md:h-[62px] md:w-[62px] flex items-center justify-center bg-white rounded-[12px] hover:bg-[#D9FF00] transition-all duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+            <button
+              className="h-[52px] w-[52px] flex items-center justify-center bg-white rounded-[15px] hover:bg-[#D9FF00] transition-all duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
           </div>
 
-          {/* Main Menu Content - Split Layout */}
-          <div className="flex-1 grid lg:grid-cols-2 w-full max-w-[1440px] mx-auto px-8 md:px-[60px]">
+          {/* Main Menu Content - Centered for Mobile */}
+          <div className="flex-1 flex flex-col items-center justify-center relative z-[210] px-6">
             
-            {/* Left Side: Image Grid (Desktop Only) */}
-            <div className="hidden lg:grid grid-cols-2 gap-6 h-full py-16 pr-16 border-r border-white/5">
-              <div className="relative aspect-square overflow-hidden rounded-sm grayscale-[0.8] hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                <Image src="https://i.pinimg.com/736x/b8/70/55/b870553a9cfde3ad5aa6600f236b5c8a.jpg" alt="Lando" fill className="object-cover" />
-              </div>
-              <div className="relative aspect-square overflow-hidden rounded-sm grayscale-[0.8] hover:grayscale-0 transition-all duration-700 shadow-2xl mt-16">
-                <Image src="https://i.pinimg.com/1200x/c5/4e/0e/c54e0e95578da2fc7884b70ddbcb921d.jpg" alt="Helmet" fill className="object-cover" />
-              </div>
-              <div className="relative aspect-square overflow-hidden rounded-sm grayscale-[0.8] hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                <Image src="https://i.pinimg.com/736x/29/5a/8e/295a8eb95f74ac12010e83fc399e1557.jpg" alt="Merch" fill className="object-cover" />
-              </div>
-              <div className="relative aspect-square overflow-hidden rounded-sm grayscale-[0.8] hover:grayscale-0 transition-all duration-700 shadow-2xl mt-16">
-                <Image src="https://i.pinimg.com/1200x/23/b1/2d/23b12da7f92b8d7cab9514e485b700be.jpg" alt="Track" fill className="object-cover" />
-              </div>
+            {/* Large Bold Links */}
+            <div className="flex flex-col items-center gap-2 mb-12">
+              {['HOME', 'ON TRACK', 'OFF TRACK', 'CALENDAR'].map((item, idx) => (
+                <div key={item} className="relative group text-center">
+                  <Link
+                    href="/"
+                    className={`font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white ${idx === 0 ? 'text-white' : 'text-white/40'}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                  {/* Lime green stroke for active/first item */}
+                  {idx === 0 && (
+                    <div className="absolute top-1/2 left-[-10%] w-[120%] h-[4px] bg-[#D9FF00] pointer-events-none shadow-[0_0_15px_rgba(217,255,0,0.5)]"></div>
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Right Side: Links & Footer */}
-            <div className="flex flex-col justify-between py-12 lg:py-20 lg:pl-20 h-full">
-              
-              {/* Massive Links */}
-              <div className="flex flex-col items-start lg:items-start gap-1 md:gap-2 mt-4 lg:mt-8">
-                {['HOME', 'ON TRACK', 'OFF TRACK', 'CALENDAR'].map((item, idx) => (
-                  <div key={item} className="relative group">
-                    <Link
-                      href="/"
-                      className={`font-bebas text-[54px] md:text-[80px] lg:text-[105px] leading-[0.82] uppercase transition-all duration-300 hover:tracking-wide inline-block ${idx === 0 ? 'text-white' : 'text-stone-400/30 hover:text-white'}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item}
-                    </Link>
-                    {/* Wavy active indicator for first item */}
-                    {idx === 0 && (
-                      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-12 pointer-events-none opacity-90 z-10 scale-x-110">
-                        <svg viewBox="0 0 400 50" className="w-full h-full">
-                          <path d="M0,25 Q100,5 200,25 T400,25" stroke="#D9FF00" strokeWidth="4" fill="none" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
+            {/* Middle Section Detail */}
+            <div className="flex flex-col items-center mb-16">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg viewBox="0 0 100 100" className="w-full h-full fill-white/80">
+                  <path d="M50 0 L100 100 L50 80 L0 100 Z" /> {/* Stylized Badge Shape */}
+                </svg>
+              </div>
+              <span className="font-bebas text-sm tracking-[0.4em] text-white/50 uppercase">MCLAREN F1 SINCE 2019</span>
+            </div>
+
+            {/* Footer Section */}
+            <div className="w-full flex flex-col items-center gap-8 mt-auto pb-12">
+              <span className="font-bebas text-base text-white/80 tracking-[0.3em] uppercase font-bold">Business Enquiries</span>
+              <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+                {['TIKTOK', 'INSTAGRAM', 'YOUTUBE', 'TWITCH'].map(social => (
+                  <Link key={social} href="#" className="font-bebas text-sm text-white/40 hover:text-[#D9FF00] transition-colors tracking-[0.2em]">{social}</Link>
                 ))}
               </div>
-
-              {/* Menu Footer Detail */}
-              <div className="mt-20 flex flex-col items-end space-y-10">
-                {/* Brand Logo & Since Detail */}
-                <div className="flex flex-col items-end">
-                   <div className="w-24 h-24 mb-2 opacity-60">
-                     <svg viewBox="0 0 100 100" className="fill-stone-400">
-                       <path d="M50 0 L100 100 L50 80 L0 100 Z" /> {/* Placeholder McLaren-ish shape */}
-                     </svg>
-                   </div>
-                   <span className="font-bebas text-xs tracking-[0.4em] text-stone-500">MCLAREN F1 SINCE 2019</span>
-                </div>
-
-                {/* Contact & Socials */}
-                <div className="flex flex-col items-end space-y-4 w-full">
-                  <span className="font-bebas text-lg text-stone-300 tracking-widest uppercase mb-2">Business Enquiries</span>
-                  <div className="flex flex-wrap justify-end gap-x-8 gap-y-2">
-                    {['TIKTOK', 'INSTAGRAM', 'YOUTUBE', 'TWITCH'].map(social => (
-                      <Link key={social} href="#" className="font-bebas text-lg text-stone-500 hover:text-[#D9FF00] transition-colors tracking-widest">{social}</Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
             </div>
+
           </div>
         </div>
       )}

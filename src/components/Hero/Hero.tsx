@@ -178,7 +178,7 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen bg-[#FDFDFD] flex items-center overflow-hidden pt-20"
+      className="relative min-h-screen bg-[#FDFDFD] flex items-start lg:items-center overflow-hidden pt-40 md:pt-48 pb-12"
     >
       {/* Background Decorative Lines */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15]">
@@ -188,31 +188,31 @@ const Hero = () => {
         </svg>
       </div>
 
-      <div className="container mx-auto px-8 md:px-[60px] flex flex-col lg:flex-row items-center relative z-10 gap-16 lg:gap-0">
+      <div className="container mx-auto px-6 md:px-[60px] flex flex-col lg:flex-row items-center relative z-10 gap-12 lg:gap-0">
 
         {/* Left Content Area */}
-        <div className="w-full lg:w-[48%] flex flex-col items-start pt-10">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="h-[1px] w-12 bg-black opacity-30"></span>
-            <span className="font-bebas text-[12px] tracking-[0.5em] uppercase text-gray-400">
+        <div className="w-full lg:w-[48%] flex flex-col items-start pt-12 lg:pt-10">
+          <div className="flex items-center gap-3 mb-6 md:mb-8">
+            <span className="h-[1px] w-8 md:w-12 bg-black opacity-30"></span>
+            <span className="font-bebas text-[10px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase text-gray-400">
               Lando Store / Tech Peripherals
             </span>
           </div>
 
-          <h1 className="font-bebas text-[clamp(60px,10vw,115px)] leading-[0.82] font-black uppercase text-[#1A1A1A] tracking-[-0.03em]">
-            <div className="hero-line overflow-hidden block"><span>World</span></div>
+          <h1 className="mt-8 md:mt-0 font-bebas text-[clamp(42px,12vw,115px)] leading-[0.82] font-black uppercase text-[#1A1A1A] tracking-[-0.03em]">
+            <div className="hero-line overflow-hidden block"><span>Ultimate</span></div>
             <div className="hero-line overflow-hidden block">
-              <span className="italic font-light opacity-100 [-webkit-text-stroke:1px_#1A1A1A] text-transparent">Drivers&apos;</span>
+              <span className="italic font-light opacity-100 [-webkit-text-stroke:1px_#1A1A1A] text-transparent">Custom&apos;</span>
             </div>
-            <div className="hero-line overflow-hidden block"><span>Champion</span></div>
+            <div className="hero-line overflow-hidden block"><span>Controls</span></div>
           </h1>
 
-          <p className="mt-8 text-[#555] max-w-[420px] text-[18px] font-medium leading-[1.3] uppercase tracking-[-0.01em]">
-            Celebrate this incredible moment with a collection designed for the fans who never stopped believing. Wear it, frame it, treasure it forever.
+          <p className="mt-6 md:mt-8 text-[#555] max-w-[420px] text-[15px] md:text-[18px] font-medium leading-[1.3] uppercase tracking-[-0.01em]">
+            Discover the ultimate collection of custom keyboards and peripherals. Designed for performance, built for you.
           </p>
 
-          <div className="mt-12 flex items-center gap-8">
-            <button className="group bg-[#D9FF00] text-black px-10 py-5 rounded-full font-bebas text-xl tracking-wider uppercase italic transition-all hover:bg-black hover:text-[#D9FF00] shadow-xl active:scale-95">
+          <div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-8 w-full sm:w-auto">
+            <button className="group bg-[#D9FF00] text-black px-8 md:px-10 py-4 md:py-5 rounded-full font-bebas text-lg md:text-xl tracking-wider uppercase italic transition-all hover:bg-black hover:text-[#D9FF00] shadow-xl active:scale-95 w-full sm:w-auto">
               Visit the store <span className="inline-block group-hover:translate-x-2 transition-transform ml-2">→</span>
             </button>
             <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 leading-tight">
