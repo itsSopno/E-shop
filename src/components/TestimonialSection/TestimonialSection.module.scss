@@ -1,0 +1,81 @@
+@use "../../styles/variables" as *;
+
+.section {
+  padding: 100px 0;
+  background: #111;
+  color: white;
+  overflow: hidden;
+
+  h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    margin-bottom: 60px;
+    
+    span {
+      color: #D9FF00;
+    }
+  }
+}
+
+.marqueeWrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    z-index: 2;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, #111, transparent);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, #111, transparent);
+  }
+}
+
+.marquee {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 20px;
+  width: 400px;
+  backdrop-filter: blur(10px);
+  
+  .stars {
+    color: #D9FF00;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  .user {
+    font-family: $font-bebas;
+    font-size: 1.2rem;
+    color: #D9FF00;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+}
