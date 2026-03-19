@@ -1,0 +1,76 @@
+@use "theme" as *;
+
+// Reset & Base
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  // অরিজিনাল ডিজাইনের জন্য Bebas Neue এবং Inter ফন্ট দরকার
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-inter);
+  background-color: #FDFDFD; // অরিজিনাল ব্যাকগ্রাউন্ড কালার
+  color: #1A1A1A;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+// --- Typography Utilities (Pixel Perfect) ---
+
+.font-bebas {
+  font-family: var(--font-bebas);
+}
+
+.hero-title {
+  font-family: var(--font-bebas);
+  line-height: 0.82; // ছবির মতো টাইট লুকের জন্য
+  letter-spacing: -0.02em;
+}
+
+.outline-text {
+  -webkit-text-stroke: 1px #1A1A1A;
+  color: transparent;
+  font-style: italic;
+
+  body.dark & {
+    -webkit-text-stroke: 1px #FDFDFD;
+  }
+}
+
+// --- Layout Fixes ---
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @media (min-width: 768px) {
+    padding: 0 60px;
+  }
+}
+
+// ছবির Polaroid Frame ইফেক্ট
+.img-frame {
+  background: white;
+  padding: 12px;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+// Mobile Responsive Fix
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 60px !important; // মোবাইলে টেক্সট যাতে ওভারল্যাপ না করে
+  }
+}
