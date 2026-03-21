@@ -1,8 +1,8 @@
 import Hero from "@/components/Hero/Hero";
-import Features from "@/components/Features/Features";
 import FeaturedProducts from "@/components/FeaturedProducts/FeaturedProducts";
 import CategorySection from "@/components/CategorySection/CategorySection";
 import TechShowcase from "@/components/TechShowcase/TechShowcase";
+import KeycapsSection from "@/components/KeycapsSection/KeycapsSection";
 import TestimonialSection from "@/components/TestimonialSection/TestimonialSection";
 
 export default function Home() {
@@ -10,9 +10,9 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedProducts />
+      <KeycapsSection />
       <CategorySection />
       <TechShowcase />
-      <Features />
       <TestimonialSection />
     </>
   );
