@@ -2,7 +2,7 @@ import Hero from "@/components/Hero/Hero";
 import FeaturedProducts from "@/components/FeaturedProducts/FeaturedProducts";
 import CategorySection from "@/components/CategorySection/CategorySection";
 import TechShowcase from "@/components/TechShowcase/TechShowcase";
-import KeycapsSection from "@/components/KeycapsSection/KeycapsSection";
+import KeycapsSection from "@/components/KeycapsSection/page";
 import TestimonialSection from "@/components/TestimonialSection/TestimonialSection";
 
 export default function Home() {

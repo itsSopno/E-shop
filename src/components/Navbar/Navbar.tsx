@@ -1,11 +1,13 @@
 
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-[60px] py-6 md:py-8 flex items-center justify-between pointer-events-none w-full">
@@ -106,8 +108,7 @@ const Navbar = () => {
             <div className="flex flex-col items-center gap-2 mb-12">
               {[
                 { name: "HOME", href: "/" },
-                { name: "KEYCAPS", href: "/KeycapsSection" },
-                { name: "LOGIN", href: "/login" },
+                { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
               ].map((item, idx) => (
                 <div key={item.name} className="relative group text-center">
@@ -118,12 +119,30 @@ const Navbar = () => {
                   >
                     {item.name}
                   </Link>
-                  {/* Lime green stroke for active/first item */}
                   {idx === 0 && (
                     <div className="absolute top-1/2 left-[-10%] w-[120%] h-[4px] bg-[#D9FF00] pointer-events-none shadow-[0_0_15px_rgba(217,255,0,0.5)]"></div>
                   )}
                 </div>
               ))}
+
+              {/* Dynamic Login / Logout */}
+              <div className="relative group text-center">
+                {session ? (
+                  <button
+                    className="font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white text-white/40"
+                    onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
+                  >
+                    LOGOUT
+                  </button>
+                ) : (
+                  <button
+                    className="font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white text-white/40"
+                    onClick={() => { signIn("google"); setIsMobileMenuOpen(false); }}
+                  >
+                    LOGIN
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Middle Section Detail */}
