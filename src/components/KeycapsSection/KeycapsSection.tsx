@@ -54,6 +54,8 @@ const KeycapsSection = () => {
             start: "top 80%",
           },
         });
+
+        ScrollTrigger.refresh();
       }, sectionRef);
 
       return () => ctx.revert();

@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-20 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-inter text-gray-500 tracking-widest uppercase">
-          <div>&copy; {new Date().getFullYear()} LANDO NORRIS. All rights reserved.</div>
+          <div>&copy; 2026 LANDO NORRIS. All rights reserved.</div>
           <div className="flex gap-8">
             <Link href="/privacy" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Shipping Info</Link>

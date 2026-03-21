@@ -15,20 +15,24 @@ export const metadata: Metadata = {
   description: "Official Tech merchandise and tech peripherals.",
 };
 
+import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${bebasNeue.variable} ${playfair.variable} antialiased bg-[#FDFDFD] text-[#1A1A1A]`}>
         <SessionProvider>
-          <div className="app-wrapper">
-            <Navbar />
-            <main className="main-content">{children}</main>
-            <Footer />
-          </div>
+          <SmoothScroll>
+            <div className="app-wrapper">
+              <Navbar />
+              <main className="main-content">{children}</main>
+              <Footer />
+            </div>
+          </SmoothScroll>
         </SessionProvider>
       </body>
     </html>
