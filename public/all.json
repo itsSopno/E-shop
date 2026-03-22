@@ -1,0 +1,82 @@
+[
+    {
+        "name": "N.E.R.V. Evangelion Unit-01 Mechanical Keyboard",
+        "image": "https://i.postimg.cc/X7jbyMHd/637e1f879925c6873acedbdc8e51a366.jpg",
+        "category": "Mechanical Keyboards",
+        "quantity": 1,
+        "description": "Custom mechanical keyboard featuring a matte gray frame and a white keycap set with unique 'NO REDRAW' lime-green escape key, N.E.R.V. logo key, and small integrated screen. Part of a limited production run.",
+        "price": 350.0
+    },
+    {
+        "name": "Artisan Keycaps Treasures - Retro Gaming Layout",
+        "image": "https://i.postimg.cc/3N9zZRSB/a1d5174dbf5fc7e45c1be3fd4e5f2eef.jpg",
+        "category": "Keycaps",
+        "quantity": 1,
+        "description": "Unique mechanical keyboard setup showcasing individual custom artisan keycaps and standard keycaps with varied iconography including retro camera, power, and media controls. Comes with additional keys in a tray.",
+        "price": 450.0
+    },
+    {
+        "name": "Evangelion Unit-01 Custom Mechanical Keyboard with Coiled Cable",
+        "image": "https://i.postimg.cc/pXXwLfrs/7ff9e9f88e92834533cd456a7f09cf4b.jpg",
+        "category": "Mechanical Keyboards",
+        "quantity": 1,
+        "description": "Custom mechanical keyboard with a split purple and green color scheme, detailed with stylized Japanese text and iconography. Features purple key backlighting and a purple coiled cable on a topo map pattern desk mat.",
+        "price": 400.0
+    },
+    {
+        "name": "Custom Samurai Warrior Themed Keyboard",
+        "image": "https://i.postimg.cc/Gm6VK6QJ/6556547574143be7b3abf24f6c5be26f.jpg",
+        "category": "Mechanical Keyboards",
+        "quantity": 1,
+        "description": "Custom mechanical keyboard featuring dark wood frame and unique burgundy/gold keycaps with white legends and integrated golden cloud patterns. Features unique stylized samurai/onibi artisan keycaps in top left and a black coiled cable.",
+        "price": 500.0
+    },
+    {
+        "name": "Starfield Limited Edition Xbox Controller",
+        "image": "https://i.postimg.cc/B6BzqbGm/ef8c95ea081edbabdd647ea709c40d2d.jpg",
+        "category": "Game Controllers",
+        "quantity": 1,
+        "description": "Starfield-themed custom Xbox wireless controller featuring a retro-futuristic aesthetic with blue and orange accents, stylized control panel text, and a golden faceted D-pad. Comes with themed packaging.",
+        "price": 100.0
+    },
+    {
+        "name": "Xbox Series S Console - Flame Hand-Painted Edition",
+        "image": "https://i.postimg.cc/J0TdkF0F/a01a8fe9d22dfd54a35684ec4113b91e.jpg",
+        "category": "Game Consoles",
+        "quantity": 1,
+        "description": "Hand-painted Xbox Series S console and controller set featuring a dynamic black and yellow flame pattern against a white background. Hand-painted details make each set unique.",
+        "price": 380.0
+    },
+    {
+        "name": "Mr Bushido Series X Console - Limited Run",
+        "image": "https://i.postimg.cc/LsdQLL90/07e4866d6e0889e3cee7a4d569fb8663.jpg",
+        "category": "Game Consoles",
+        "quantity": 1,
+        "description": "Mr Bushido-themed Xbox Series X console and controller featuring a detailed samurai silhouette against a crimson sun and ancient architectural patterns. Exclusive collector's edition with special Mr Bushido branding.",
+        "price": 600.0
+    },
+    {
+        "name": "Ragnarok Wolf & Bear DualSense Controllers (Set of 2)",
+        "image": "https://i.postimg.cc/9MbL6kdH/400ffc8fdcd20c94f9a31a2ff6efc1fc.jpg",
+        "category": "Game Controllers",
+        "quantity": 1,
+        "description": "A pair of custom DualSense controllers featuring stylized designs: one in blue with a double wolf sigil, the other in white/red with a bear sigil. Inspired by Ragnarok mythology and characters.",
+        "price": 180.0
+    },
+    {
+        "name": "GTA VI Vice City Neon PS5 DualSense Controller with Standard Packaging",
+        "image": "https://i.postimg.cc/66HHzD62/2446e55db13ebd9f3c3fbb50879766c8.jpg",
+        "category": "Game Controllers",
+        "quantity": 1,
+        "description": "Custom PS5 DualSense controller featuring vibrant neon pink, orange, and blue retro wave graphics, including palm trees and 'VI' logo, inspired by Vice City. Includes a custom PS5 display stand.",
+        "price": 130.0
+    },
+    {
+        "name": "Ghost of Yōtei Collectors DualSense Controller",
+        "image": "https://i.postimg.cc/c4rFzXrN/02c64d7cb651fbbeaee7ab386486f3a2.jpg",
+        "category": "Game Controllers",
+        "quantity": 1,
+        "description": "Ghost of Yōtei-themed DualSense controller with a subtle cream frame and striking gold leaf brushstroke patterns. Features golden Japanese character iconography and unique themed packaging.",
+        "price": 150.0
+    }
+]

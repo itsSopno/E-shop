@@ -17,9 +17,9 @@ const categories = [
   },
   {
     id: 2,
-    title: "Audio",
-    description: "Studio grade precision for elite gaming.",
-    image: "https://i.pinimg.com/736x/00/8c/30/008c30d6c0ecec30c3dc071817052e46.jpg",
+    title: "Controller",
+    description: "Controller for elite gaming.",
+    image: "https://i.pinimg.com/1200x/f9/15/4c/f9154c3575600da57660c9b719a9d6bc.jpg",
     color: "#D9FF00"
   },
   {
@@ -81,7 +81,7 @@ const CategorySection = () => {
               <span className={styles.index}>0{index + 1}</span>
               <h2 className="font-bebas">{cat.title}</h2>
               <p>{cat.description}</p>
-              <Link href="/cart" className={styles.exploreBtn}>Explore Category</Link>
+              <Link href="/Store" className={styles.exploreBtn}>Explore Category</Link>
             </div>
             <div className={styles.imageWrapper}>
               <div

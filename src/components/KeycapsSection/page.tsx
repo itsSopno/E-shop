@@ -26,7 +26,7 @@ const KeycapsSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://t-mark-3.vercel.app/api/keycaps");
+        const response = await fetch("https://t-mark-4.vercel.app/api/keycaps");
         const data = await response.json();
         // Adjust based on API structure (usually it's { success: true, keycaps: [...] })
         setKeycaps(data.keycaps || data);
@@ -96,7 +96,7 @@ const KeycapsSection = () => {
               <span className={styles.brand}>{item.brand}</span>
               <h3 className="font-bebas">{item.name}</h3>
               <p className={styles.description}>{item.description}</p>
-              
+
               <div className={styles.footer}>
                 <span className={styles.price}>${item.price}</span>
                 <Link href={`/keycaps/${item._id}`} className={styles.viewBtn}>

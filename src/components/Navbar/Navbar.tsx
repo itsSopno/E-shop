@@ -15,7 +15,7 @@ const Navbar = () => {
       {/* Left Side: Store Button (Moved to Left for Mobile Design Match) */}
       <div className="flex items-center pointer-events-auto">
         <Link
-          href="/cart"
+          href="/Store"
           className="bg-[#D9FF00] text-[#1A1A1A] h-[48px] md:h-[62px] px-4 md:px-8 rounded-[12px] flex items-center gap-2 hover:bg-black hover:text-[#D9FF00] transition-all duration-300 shadow-sm active:scale-95"
         >
           <svg
@@ -79,7 +79,7 @@ const Navbar = () => {
           {/* Top Bar inside Menu - Updated Layout (Store Left, Close Right) */}
           <div className="flex items-center justify-between px-6 py-8 w-full relative z-[210]">
             <Link
-              href="/cart"
+              href="/Store"
               className="bg-[#D9FF00] text-[#1A1A1A] h-12 px-6 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
               onClick={() => setIsMobileMenuOpen(false)}
             >
