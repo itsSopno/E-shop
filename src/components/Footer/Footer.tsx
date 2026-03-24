@@ -46,7 +46,7 @@ const LandoHero = () => {
               {/* Helmet Image Placeholder */}
               <div className="w-56 h-72 sm:w-64 sm:h-80 md:w-[380px] md:h-[480px] lg:w-[420px] lg:h-[520px] mt-8 md:mt-4 relative group">
                 <img
-                  src="/path-to-your-helmet-image.png"
+                  src="https://i.postimg.cc/Sx3H5zkH/Chat-GPT-Image-Mar-24-2026-10-49-52-PM.png"
                   alt="Lando Helmet"
                   className="object-contain w-full h-full drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)] transition-transform duration-700 group-hover:scale-105"
                 />

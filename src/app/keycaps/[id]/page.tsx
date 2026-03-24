@@ -39,7 +39,7 @@ const KeycapDetail = () => {
 
   // Always render the same root element — this prevents reconciliation crashes
   return (
-    <div className="min-h-screen bg-[#080808] text-white selection:bg-[#D9FF00] selection:text-black">
+    <div className="min-h-screen text-black selection:bg-[#D9FF00] selection:text-black">
 
       {/* Loading State */}
       {(!mounted || loading) && (
@@ -52,7 +52,7 @@ const KeycapDetail = () => {
       {mounted && !loading && !keycap && (
         <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center">
           <h1 className="font-bebas text-5xl mb-6 tracking-tighter text-red-500">404: ARTEFACT_LOST</h1>
-          <Link href="/" className="px-10 py-4 bg-[#D9FF00] text-black font-bebas text-xl hover:bg-white transition-all">
+          <Link href="/" className="px-10 py-4 bg-[#D9FF00] text-white font-bebas text-xl hover:bg-white transition-all">
             RETURN TO COLLECTION
           </Link>
         </div>
@@ -105,7 +105,7 @@ const KeycapDetail = () => {
                   {keycap.name}
                 </h1>
                 <div className="h-1 w-24 bg-[#D9FF00] mb-8" />
-                <p className="text-white/60 text-lg leading-relaxed max-w-lg font-light">
+                <p className="text-black/60 text-lg leading-relaxed max-w-lg font-light">
                   {keycap.description}
                 </p>
               </header>

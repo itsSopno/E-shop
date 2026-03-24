@@ -20,7 +20,7 @@
 html,
 body {
   font-family: var(--font-inter);
-  background-color: #F2F8FC;
+  background-color: #f5f4ee;
   color: #1A1A1A;
   line-height: 1.2;
   -webkit-font-smoothing: antialiased;
@@ -74,24 +74,35 @@ body {
 
 @font-face {
   font-family: 'DirtyLine';
-  src: url('../Font/Dirtyline\ 36daysoftype\ 2022.woff') format('woff'),
-    url('../Font/Dirtyline\ 36daysoftype\ 2022.woff2') format('woff2');
+  src: url('../Font/Dirtyline 36daysoftype 2022.woff') format('woff'),
+    url('../Font/Dirtyline 36daysoftype 2022.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'CRENZO';
-  src: url('../Font/CRENZO.ttf') format('truetype') url('../Font/CRENZO.otf') format('opentype');
+  src: url('../Font/CRENZO.ttf') format('truetype'), url('../Font/CRENZO.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "MilkyWalky";
-  src: url('../Font/MilkyWalky-Regular.otf') format('opentype') url('../Font/MilkyWalky-Regular.ttf') format('truetype');
+  src: url('../Font/MilkyWalky-Regular.otf') format('opentype'), url('../Font/MilkyWalky-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "Creme Espana";
+  src: url('../Font/Creme Espana.woff') format('woff'), url('../Font/Creme Espana.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-creme {
+  font-family: "Creme Espana";
 }
 
 .font-milky {
