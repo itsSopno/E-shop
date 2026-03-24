@@ -114,7 +114,9 @@ const Navbar = () => {
                   ? [{ name: "LOGOUT", isLogout: true }]
                   : [
                     { name: "REGISTER", href: "/register" },
-                    { name: "LOGIN", href: "/login" }
+                    { name: "LOGIN", href: "/login" }, {
+                      name: "TESTIMONIAL", href: "/Testimonial"
+                    }
                   ]
                 )
               ].map((item, idx) => (

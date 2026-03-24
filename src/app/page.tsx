@@ -3,7 +3,7 @@ import FeaturedProducts from "@/components/FeaturedProducts/FeaturedProducts";
 import CategorySection from "@/components/CategorySection/CategorySection";
 import TechShowcase from "@/components/TechShowcase/TechShowcase";
 import KeycapsSection from "@/components/KeycapsSection/page";
-import TestimonialSection from "@/components/TestimonialSection/TestimonialSection";
+import TestiMonial from '@/components/Testimonial/Testimonial'
 
 export default function Home() {
   return (
@@ -12,6 +12,7 @@ export default function Home() {
       <FeaturedProducts />
       <KeycapsSection />
       <CategorySection />
+      <TestiMonial></TestiMonial>
       <TechShowcase />
       {/* <TestimonialSection /> */}
     </>

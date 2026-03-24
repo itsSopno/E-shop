@@ -23,7 +23,7 @@ const ContactPage = () => {
     }, []);
 
     return (
-        <main className="min-h-screen bg-black text-white pt-40 pb-20 px-6 md:px-12 relative overflow-hidden flex flex-col justify-between">
+        <main className="min-h-screen text-black pt-40 pb-20 px-6 md:px-12 relative overflow-hidden flex flex-col justify-between">
             {/* Interactive Background Blob */}
             <div id="blob" className="absolute w-[400px] h-[400px] bg-white opacity-[0.03] rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
 
@@ -63,7 +63,7 @@ const ContactPage = () => {
                             <input
                                 type="text"
                                 placeholder="YOUR NAME"
-                                className="w-full bg-transparent border-b-2 border-white/10 py-6 font-bebas text-3xl md:text-5xl outline-none focus:border-white transition-all placeholder:text-white/5 uppercase"
+                                className="w-full bg-transparent border-b-2 border-black/10 py-6 font-bebas text-3xl md:text-5xl outline-none focus:border-black transition-all placeholder:text-black/5 uppercase"
                             />
                         </div>
 
@@ -71,7 +71,7 @@ const ContactPage = () => {
                             <input
                                 type="email"
                                 placeholder="YOUR EMAIL"
-                                className="w-full bg-transparent border-b-2 border-white/10 py-6 font-bebas text-3xl md:text-5xl outline-none focus:border-white transition-all placeholder:text-white/5 uppercase"
+                                className="w-full bg-transparent border-b-2 border-black/10 py-6 font-bebas text-3xl md:text-5xl outline-none focus:border-black transition-all placeholder:text-black/5 uppercase"
                             />
                         </div>
 

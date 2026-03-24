@@ -13,7 +13,7 @@ const categories = [
     title: "Keyboards",
     description: "Custom built mechanical masterpieces.",
     image: "https://i.pinimg.com/736x/16/c2/e8/16c2e88dac825e3d1c74bd05c8ace463.jpg",
-    color: "#1A1A1A"
+    color: "#050505"
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const categories = [
     title: "Mouse",
     description: "Ultra-lightweight speed and accuracy.",
     image: "https://i.pinimg.com/1200x/fc/51/78/fc5178b63e4d793742daeda6685661c9.jpg",
-    color: "#1A1A1A"
+    color: "#050505"
   }
 ];
 
