@@ -1,38 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import styles from "./login.module.scss";
+import styles from "../login/login.module.scss"; // Reusing login styles for consistency
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleCredentialsLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
+      const res = await fetch("https://t-mark-4.vercel.app/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
       });
 
-      if (result?.error) {
-        setError("Invalid email or password");
-      } else {
-        router.push("/dashboard");
+      const rawText = await res.text();
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        throw new Error("Invalid response format from server - please try again later.");
       }
-    } catch (err) {
-      console.error("Sign in error:", err);
-      setError("An error occurred during sign in");
+
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      // Automatically push to login so they can sign in now
+      router.push("/login?registered=true");
+    } catch (err: unknown) {
+      console.error("Registration error:", err);
+      const e = err as Error;
+      setError(e.message || "An error occurred during registration");
     } finally {
       setLoading(false);
     }
@@ -41,11 +52,12 @@ export default function LoginPage() {
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginCard}>
-        <h1>Welcome Back</h1>
-        <p>Sign in to your account to continue</p>
+        <h1>Create an Account</h1>
+        <p>Sign up to get started</p>
         
         <div className={styles.authOptions}>
           <button 
+            type="button"
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             className={styles.googleBtn}
           >
@@ -55,7 +67,7 @@ export default function LoginPage() {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.14-4.53z"/>
             </svg>
-            Sign in with Google
+            Sign up with Google
           </button>
         </div>
 
@@ -65,7 +77,18 @@ export default function LoginPage() {
 
         {error && <div style={{ color: "red", textAlign: "center", marginBottom: "1rem" }}>{error}</div>}
 
-        <form className={styles.form} onSubmit={handleCredentialsLogin}>
+        <form className={styles.form} onSubmit={handleRegister}>
+          <div className={styles.formGroup}>
+            <label htmlFor="name">Full Name</label>
+            <input 
+              id="name" 
+              type="text" 
+              placeholder="John Doe" 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required 
+            />
+          </div>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input 
@@ -89,13 +112,13 @@ export default function LoginPage() {
             />
           </div>
           <button type="submit" className={styles.submitBtn} disabled={loading}>
-            {loading ? "Signing in..." : "Email Sign In"}
+            {loading ? "Creating account..." : "Register"}
           </button>
         </form>
 
-        <div className={styles.divider} style={{ marginTop: "1.5rem" }}>
+        <div className={styles.divider}>
           <span style={{ fontSize: "14px" }}>
-            Don&apos;t have an account? <Link href="/register" style={{ color: "#D9FF00", textDecoration: "none" }}>Register</Link>
+            Already have an account? <Link href="/login" style={{ color: "#D9FF00", textDecoration: "none" }}>Log in</Link>
           </span>
         </div>
       </div>

@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -104,45 +104,53 @@ const Navbar = () => {
           {/* Main Menu Content - Centered for Mobile */}
           <div className="flex-1 flex flex-col items-center justify-center relative z-[210] px-6">
 
-            {/* Large Bold Links */}
+            {/* Large Bold Links & Dynamic Auth */}
             <div className="flex flex-col items-center gap-2 mb-12">
               {[
                 { name: "HOME", href: "/" },
                 { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
+                ...(session 
+                  ? [{ name: "LOGOUT", isLogout: true }]
+                  : [
+                      { name: "REGISTER", href: "/register" },
+                      { name: "LOGIN", href: "/login" }
+                    ]
+                )
               ].map((item, idx) => (
                 <div key={item.name} className="relative group text-center">
-                  <Link
-                    href={item.href}
-                    className={`font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white ${idx === 0 ? 'text-white' : 'text-white/40'}`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
+                  {item.isLogout ? (
+                    <button
+                      className={`font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white ${idx === 0 ? 'text-white' : 'text-white/40'}`}
+                      onClick={async () => {
+                        try {
+                          await Promise.allSettled([
+                            fetch("https://t-mark-4.vercel.app/api/logout", { method: "GET", credentials: "include" }),
+                            fetch("https://t-mark-4.vercel.app/api/google/logout", { method: "GET", credentials: "include" })
+                          ]);
+                        } catch (e) {
+                          console.error("Backend logout error", e);
+                        }
+                        signOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      {item.name}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href!}
+                      className={`font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white ${idx === 0 ? 'text-white' : 'text-white/40'}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
                   {idx === 0 && (
                     <div className="absolute top-1/2 left-[-10%] w-[120%] h-[4px] bg-[#D9FF00] pointer-events-none shadow-[0_0_15px_rgba(217,255,0,0.5)]"></div>
                   )}
                 </div>
               ))}
-
-              {/* Dynamic Login / Logout */}
-              <div className="relative group text-center">
-                {session ? (
-                  <button
-                    className="font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white text-white/40"
-                    onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
-                  >
-                    LOGOUT
-                  </button>
-                ) : (
-                  <button
-                    className="font-bebas text-[54px] sm:text-[70px] leading-[0.85] uppercase transition-all duration-300 hover:text-white text-white/40"
-                    onClick={() => { signIn("google"); setIsMobileMenuOpen(false); }}
-                  >
-                    LOGIN
-                  </button>
-                )}
-              </div>
             </div>
 
             {/* Middle Section Detail */}
