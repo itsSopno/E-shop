@@ -17,9 +17,10 @@ const ProductShowcase = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
 
   const handleInteraction = (id: number, e: React.MouseEvent | React.TouchEvent) => {
+    if (!containerRef.current) return;
     const target = e.currentTarget as HTMLElement;
     const isMobile = window.innerWidth < 1024;
-    const others = Array.from(containerRef.current?.children || []).filter(el => el !== target);
+    const others = Array.from(containerRef.current.children).filter(el => el !== target);
 
     setActiveId(id);
 
@@ -37,13 +38,14 @@ const ProductShowcase = () => {
   };
 
   const resetLayout = () => {
+    if (!containerRef.current) return;
     const isMobile = window.innerWidth < 1024;
     setActiveId(null);
 
     if (isMobile) {
-      gsap.to(containerRef.current?.children, { height: "20vh", duration: 0.6, ease: "power4.out" });
+      gsap.to(containerRef.current.children, { height: "20vh", duration: 0.6, ease: "power4.out" });
     } else {
-      gsap.to(containerRef.current?.children, { width: "20%", duration: 0.6, ease: "power4.out" });
+      gsap.to(containerRef.current.children, { width: "20%", duration: 0.6, ease: "power4.out" });
     }
     gsap.to("img", { scale: 1, duration: 0.8 });
   };
