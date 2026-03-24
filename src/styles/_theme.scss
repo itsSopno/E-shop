@@ -1,3 +1,4 @@
+@use "sass:map";
 // _theme.scss
 
 // Modern Premium Color Palette
@@ -100,15 +101,15 @@ $breakpoints: (
 }
 
 @mixin mobile {
-  @media (max-width: map-get($breakpoints, 'sm')) { @content; }
+  @media (max-width: map.get($breakpoints, 'sm')) { @content; }
 }
 
 @mixin tablet {
-  @media (max-width: map-get($breakpoints, 'md')) { @content; }
+  @media (max-width: map.get($breakpoints, 'md')) { @content; }
 }
 
 @mixin desktop {
-  @media (max-width: map-get($breakpoints, 'lg')) { @content; }
+  @media (max-width: map.get($breakpoints, 'lg')) { @content; }
 }
 
 // Glassmorphism
