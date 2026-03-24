@@ -1,11 +1,8 @@
 @use "../../styles/theme" as *;
 
 .footer {
-  background-color: $secondary;
-  color: $dark-text;
-  padding: $space-xxl 0 $space-md;
-  margin-top: auto;
-  border-top: 1px solid $dark-border;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
   :global(.container) {
     @include container;
@@ -29,16 +26,16 @@
     ul {
       list-style: none;
       padding: 0;
-      
+
       li {
         margin-bottom: $space-xs;
-        
+
         a {
           color: $dark-text;
           opacity: 0.7;
           transition: $transition-fast;
           text-decoration: none;
-          
+
           &:hover {
             opacity: 1;
             color: $primary;

@@ -75,7 +75,7 @@ const TechShowcase = () => {
     // Tall section — NO GSAP pin, CSS handles the sticky effect
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#FDFDFD] overflow-hidden"
+      className="relative w-full  overflow-hidden"
       style={{ minHeight: "100vh" }}
     >
       <div

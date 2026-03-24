@@ -110,12 +110,12 @@ const Navbar = () => {
                 { name: "HOME", href: "/" },
                 { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
-                ...(session 
+                ...(session
                   ? [{ name: "LOGOUT", isLogout: true }]
                   : [
-                      { name: "REGISTER", href: "/register" },
-                      { name: "LOGIN", href: "/login" }
-                    ]
+                    { name: "REGISTER", href: "/register" },
+                    { name: "LOGIN", href: "/login" }
+                  ]
                 )
               ].map((item, idx) => (
                 <div key={item.name} className="relative group text-center">

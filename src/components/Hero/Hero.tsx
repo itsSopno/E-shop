@@ -177,8 +177,8 @@ const KineticHero = () => {
       className="relative w-full min-h-[100vh] bg-[#FDFDFD] flex flex-col items-center justify-center overflow-hidden px-6"
     >
       {/* ── BACKGROUND OVERLAY TEXT ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0">
-        <h2 className="font-bebas text-[20vw] leading-none text-black/[0.03] uppercase select-none italic">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0 font-line">
+        <h2 className="font-bebas text-[20vw] leading-none text-black/[0.03] uppercase select-none italic font-line">
           Artisan // 2026
         </h2>
       </div>
@@ -189,10 +189,10 @@ const KineticHero = () => {
         <div className="w-full lg:w-1/2">
           <div className="ui-element flex items-center gap-3 mb-6">
             <span className="h-[1px] w-12 bg-black"></span>
-            <span className="font-bebas tracking-[0.3em] text-sm text-gray-400">Sinners Studio Original</span>
+            <span className="tracking-[0.3em] text-sm text-gray-400">Sinners Studio Original</span>
           </div>
 
-          <h1 className="hero-title font-bebas text-[clamp(60px,10vw,140px)] leading-[0.85] text-black uppercase italic mb-8">
+          <h1 className="hero-title font-bebas text-[clamp(60px,10vw,140px)] leading-[0.85] text-black uppercase italic mb-8 ">
             <div className="overflow-hidden h-[1.1em]"><span className="block">Ultimate</span></div>
             <div className="overflow-hidden h-[1.1em] text-transparent [-webkit-text-stroke:1px_#000]">
               <span className="block">Custom</span>

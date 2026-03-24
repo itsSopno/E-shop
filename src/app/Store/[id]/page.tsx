@@ -106,7 +106,7 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
     if (!product) return <div className="h-screen flex items-center justify-center font-bebas text-3xl">Product Not Found.</div>;
 
     return (
-        <main className="min-h-screen bg-[#050505] text-white pt-32 pb-20 px-6 md:px-20 overflow-hidden">
+        <main className="min-h-screen text-black pt-32 pb-20 px-6 md:px-20 overflow-hidden">
             {/* Back Button */}
             <Link href="/Store" className="inline-flex items-center gap-2 mb-10 text-white/50 hover:text-white transition-colors group">
                 <span className="group-hover:-translate-x-2 transition-transform">←</span>
@@ -132,18 +132,18 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="flex flex-col gap-8" ref={infoRef}>
                     <div className="space-y-4">
                         <h1 className="font-bebas text-6xl md:text-8xl leading-none reveal">{product.name}</h1>
-                        <p className="text-white/40 text-lg md:text-xl max-w-xl leading-relaxed reveal">
+                        <p className="text-black/40 text-lg md:text-xl max-w-xl leading-relaxed reveal">
                             {product.description}
                         </p>
                     </div>
 
                     <div className="flex items-center gap-10 reveal">
                         <div className="space-y-1">
-                            <p className="text-white/30 font-bebas tracking-widest">Price</p>
+                            <p className="text-black/30 font-bebas tracking-widest">Price</p>
                             <p className="text-5xl font-bebas text-white">${product.price}</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-white/30 font-bebas tracking-widest">Availability</p>
+                            <p className="text-black/30 font-bebas tracking-widest">Availability</p>
                             <p className={`text-xl font-bebas ${product.stock > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                 {product.stock > 0 ? `In Stock (${product.stock})` : 'Sold Out'}
                             </p>
@@ -154,7 +154,7 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-6 reveal">
-                        <button 
+                        <button
                             onClick={() => setIsCheckoutOpen(true)}
                             className="flex-1 min-w-[200px] bg-white text-black py-5 font-bebas text-2xl hover:bg-[#e0e0e0] transition-all transform hover:scale-[1.02] active:scale-95"
                         >
@@ -168,21 +168,21 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
                     {/* Specs / Details */}
                     <div className="mt-10 grid grid-cols-2 gap-8 reveal">
                         <div className="p-6 border border-white/5 bg-white/[0.02]">
-                            <h4 className="font-bebas text-white/30 mb-2">Authenticity</h4>
+                            <h4 className="font-bebas text-black/30 mb-2">Authenticity</h4>
                             <p className="text-sm uppercase tracking-widest">100% Official Merchandise</p>
                         </div>
                         <div className="p-6 border border-white/5 bg-white/[0.02]">
-                            <h4 className="font-bebas text-white/30 mb-2">Shipping</h4>
+                            <h4 className="font-bebas text-black/30 mb-2">Shipping</h4>
                             <p className="text-sm uppercase tracking-widest">Global Express Delivery</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <CheckoutModal 
-                isOpen={isCheckoutOpen} 
-                onClose={() => setIsCheckoutOpen(false)} 
-                product={product} 
+            <CheckoutModal
+                isOpen={isCheckoutOpen}
+                onClose={() => setIsCheckoutOpen(false)}
+                product={product}
             />
         </main>
     );

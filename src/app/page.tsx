@@ -13,7 +13,7 @@ export default function Home() {
       <KeycapsSection />
       <CategorySection />
       <TechShowcase />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
     </>
   );
 }
