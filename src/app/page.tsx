@@ -6,6 +6,7 @@ import KeycapsSection from "@/components/KeycapsSection/page";
 import TestiMonial from '@/components/Testimonial/Testimonial'
 import TechPartners from "@/components/Pertner/Partner";
 import TopProducts from "@/components/TopProduct/product";
+import AboutPage from "@/components/About/about";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <CategorySection />
       <TopProducts></TopProducts>
       <TestiMonial></TestiMonial>
+      <AboutPage></AboutPage>
       <TechPartners />
       {/* <TechShowcase /> */}
       {/* <TestimonialSection /> */}

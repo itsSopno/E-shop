@@ -9,6 +9,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useSession } from "next-auth/react";
 
 // Make sure to replace with your actual publishable key
 const stripePromise = loadStripe(
@@ -35,6 +36,7 @@ const CheckoutForm = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { data: session } = useSession();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -68,9 +70,9 @@ const CheckoutForm = ({
     }
 
     try {
-      // Fake user data since we might not have a session wrapper here
-      const userEmail = "testuser@example.com";
-      const userImage = "https://ui-avatars.com/api/?name=Test+User";
+      // Use real user data from session, fallback to existing if undefined
+      const userEmail = session?.user?.email || "guest@example.com";
+      const userImage = session?.user?.image || "https://ui-avatars.com/api/?name=Guest+User";
 
       // Items array expected by backend
       const items = [

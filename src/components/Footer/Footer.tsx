@@ -66,8 +66,8 @@ const LandoHero = () => {
           </div>
 
           {/* Bottom Logos / Sponsors */}
-          <div className="w-full mt-16 flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-500 pb-4">
-            {["Android", "McLaren", "Quadrant", "Tumi", "Dell"].map((brand) => (
+          <div className="pb-[20px] w-full mt-16 flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-500 pb-4">
+            {["ASUS", "AJAZZ", "REDDRAGON", "HYPERX", "LOGITECH"].map((brand) => (
               <span key={brand} className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white">
                 {brand}
               </span>

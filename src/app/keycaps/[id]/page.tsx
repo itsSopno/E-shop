@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import CheckoutModal from "@/components/CheckoutModal/CheckoutModal";
 
 interface Keycap {
   _id: string;
@@ -18,6 +19,7 @@ const KeycapDetail = () => {
   const [keycap, setKeycap] = useState<Keycap | null>(null);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -122,7 +124,10 @@ const KeycapDetail = () => {
               </section>
 
               <div className="flex flex-col gap-4">
-                <button className="w-full bg-[#D9FF00] text-black font-bebas text-3xl py-6 italic hover:bg-white hover:scale-[0.99] active:scale-95 transition-all">
+                <button 
+                  onClick={() => setIsCheckoutOpen(true)}
+                  className="w-full bg-[#D9FF00] text-black font-bebas text-3xl py-6 italic hover:bg-white hover:scale-[0.99] active:scale-95 transition-all"
+                >
                   ADD TO ARSENAL
                 </button>
                 <p className="text-center text-[10px] text-white/20 font-bold tracking-[0.3em] uppercase">
@@ -132,6 +137,17 @@ const KeycapDetail = () => {
             </div>
 
           </div>
+
+          <CheckoutModal
+            isOpen={isCheckoutOpen}
+            onClose={() => setIsCheckoutOpen(false)}
+            product={{
+              name: keycap.name,
+              price: keycap.price,
+              image: keycap.image,
+              _id: keycap._id
+            }}
+          />
         </>
       )}
     </div>

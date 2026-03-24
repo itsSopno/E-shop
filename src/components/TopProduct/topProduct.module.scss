@@ -1,7 +1,7 @@
 @use "../../styles/theme" as *;
 
 .productSection {
-    background-color: #131410; // Dark olive-black
+    // background-color: #131410; // Dark olive-black
     color: white;
     padding: 120px 0;
     overflow: hidden;
@@ -23,6 +23,7 @@
             line-height: 0.8;
             text-transform: uppercase;
             letter-spacing: -0.05em;
+            color: black;
 
             span {
                 color: #d9ff00; // Acid Green
@@ -35,7 +36,7 @@
 
         .description {
             max-width: 300px;
-            color: rgba(255, 255, 255, 0.5);
+            color: black;
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
