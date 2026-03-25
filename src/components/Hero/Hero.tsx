@@ -1,120 +1,11 @@
-// "use client";
-// import React, { useEffect, useRef } from "react";
-// import Image from "next/image";
-// import gsap from "gsap";
-
-// const ArtisanHero = () => {
-//   const containerRef = useRef<HTMLElement>(null);
-
-//   useEffect(() => {
-//     const ctx = gsap.context(() => {
-//       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-
-//       tl.from(".reveal", { y: 150, stagger: 0.1, duration: 1.5 })
-//         .from(".glass-card", { opacity: 0, scale: 0.8, stagger: 0.15, duration: 1.2 }, "-=1")
-//         .from(".accent-line", { width: 0, duration: 1 }, "-=0.5");
-
-//       // Floating macro effect
-//       gsap.to(".float", {
-//         y: -15,
-//         duration: 3,
-//         repeat: -1,
-//         yoyo: true,
-//         ease: "sine.inOut"
-//       });
-//     }, containerRef);
-
-//     return () => ctx.revert();
-//   }, []);
-
-//   return (
-//     <section ref={containerRef} className="relative bg-[#FDFDFD] min-h-screen overflow-hidden flex flex-col justify-center px-6 lg:px-16">
-
-//       {/* ── AMBIENT DEPTH (Resin Glow) ── */}
-//       <div className="absolute top-[-20%] right-[-10%] w-[70%] h-[70%] bg-[#CCFF00]/10 blur-[180px] rounded-full pointer-events-none" />
-//       <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-blue-400/5 blur-[150px] rounded-full pointer-events-none" />
-
-//       <div className="relative z-10 grid lg:grid-cols-12 gap-12 items-center">
-
-//         {/* ── LEFT: BOLD TYPOGRAPHY ── */}
-//         <div className="lg:col-span-6">
-//           <div className="accent-line h-[2px] w-24 bg-black mb-8" />
-
-//           <h1 className="font-bebas text-[clamp(80px,14vw,180px)] leading-[0.75] uppercase italic font-black tracking-tighter text-[#1A1A1A]">
-//             <div className="overflow-hidden"><span className="reveal block">Ultimate</span></div>
-//             <div className="overflow-hidden">
-//               <span className="reveal block text-transparent [-webkit-text-stroke:2px_#1A1A1A] opacity-20">Custom</span>
-//             </div>
-//             <div className="overflow-hidden"><span className="reveal block">Tech Collection</span></div>
-//           </h1>
-
-//           <p className="mt-8 text-xl text-gray-400 font-medium max-w-sm leading-tight uppercase tracking-widest">
-//             Hand-crafted precision. <span className="text-black">Limited to 100 units.</span> Inspired by the track.
-//           </p>
-
-//           <div className="mt-12 flex items-center gap-6">
-//             <button className="bg-black text-[#CCFF00] px-12 py-6 font-bebas text-3xl uppercase italic hover:scale-105 transition-transform active:scale-95 shadow-2xl">
-//               Get the Capsule
-//             </button>
-//             <div className="hidden sm:block">
-//               <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-300">Edition // 001</p>
-//               <p className="text-lg font-bebas">2026 SERIES</p>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* ── RIGHT: THE MACRO BENTO GRID ── */}
-//         <div className="lg:col-span-6 relative h-[500px] lg:h-[750px]">
-
-//           {/* Main Display (The Lando Shot) */}
-//           <div className="glass-card absolute top-10 left-10 w-[70%] h-[80%] rounded-[2rem] overflow-hidden border-[12px] border-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] z-20">
-//             <Image
-//               src="https://i.pinimg.com/736x/b8/70/55/b870553a9cfde3ad5aa6600f236b5c8a.jpg"
-//               alt="Lando" fill className="object-cover"
-//             />
-//           </div>
-
-//           {/* Resin Macro 1 (Top Right) */}
-//           <div className="glass-card float absolute top-0 right-0 w-[45%] h-[35%] rounded-[1.5rem] overflow-hidden border-8 border-white shadow-2xl z-30">
-//             <Image
-//               src="https://i.pinimg.com/1200x/ad/f8/2d/adf82db538dda3b52c788333f043fe54.jpg"
-//               alt="Resin Detail" fill className="object-cover"
-//             />
-//             <div className="absolute inset-0 bg-gradient-to-tr from-[#CCFF00]/20 to-transparent mix-blend-overlay" />
-//           </div>
-
-//           {/* Resin Macro 2 (Bottom Left) */}
-//           <div className="glass-card float absolute bottom-0 left-0 w-[40%] h-[30%] rounded-[1.5rem] overflow-hidden border-8 border-white shadow-2xl z-30 delay-700">
-//             <Image
-//               src="https://i.pinimg.com/1200x/23/b1/2d/23b12da7f92b8d7cab9514e485b700be.jpg"
-//               alt="Product Detail" fill className="object-cover"
-//             />
-//           </div>
-
-//           {/* Floating Artisan Tag */}
-//           <div className="absolute -bottom-4 -right-4 bg-[#CCFF00] p-6 rounded-2xl z-40 -rotate-6 shadow-xl border-4 border-black">
-//             <p className="font-bebas text-black text-2xl leading-none uppercase">Authentic<br />Artisan</p>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Decorative Text Stroke Background */}
-//       <div className="absolute bottom-[-5%] left-0 w-full whitespace-nowrap opacity-[0.03] select-none pointer-events-none">
-//         <h2 className="font-bebas text-[25vw] leading-none uppercase tracking-tighter">STUDIO SINNERS</h2>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default ArtisanHero;
 "use client";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import Link from "next/link";
 
-const KineticHero = () => {
+const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const portalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -177,8 +68,8 @@ const KineticHero = () => {
       className="relative w-full min-h-[100vh] bg-[#FDFDFD] flex flex-col items-center justify-center overflow-hidden px-6"
     >
       {/* ── BACKGROUND OVERLAY TEXT ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0 font-line">
-        <h2 className="font-bebas text-[20vw] leading-none text-black/[0.03] uppercase select-none italic font-line">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0">
+        <h2 className="font-bebas text-[20vw] leading-none text-black/[0.03] uppercase select-none italic">
           Artisan // 2026
         </h2>
       </div>
@@ -201,10 +92,10 @@ const KineticHero = () => {
           </h1>
 
           <div className="ui-element flex flex-wrap gap-4">
-            <button className="group relative bg-black text-[#CCFF00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
+            <Link href="/Store" className="group relative bg-black text-[#CCFF00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
               <span className="relative z-10">Shop the Drop</span>
               <div className="absolute inset-0 bg-[#CCFF00] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </button>
+            </Link>
             <button className="px-10 py-5 border border-black/10 font-bebas text-2xl uppercase italic hover:bg-black/5 transition-colors">
               Archive
             </button>
@@ -220,7 +111,7 @@ const KineticHero = () => {
             <div className="portal-inner relative w-full h-full rounded-full overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
               <Image
                 src="https://i.pinimg.com/736x/b8/70/55/b870553a9cfde3ad5aa6600f236b5c8a.jpg"
-                alt="Main" fill className="object-cover scale-110"
+                alt="Main" fill className="object-cover scale-110" priority
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
             </div>
@@ -261,4 +152,4 @@ const KineticHero = () => {
   );
 };
 
-export default KineticHero;
+export default Hero;

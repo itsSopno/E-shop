@@ -1,83 +1,73 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-
-// আপনার স্ক্রিনশটগুলোর পাথ এখানে দিন
-const sectionImages = [
-    "https://i.postimg.cc/d0zNLgzP/Sinners-Official-Store-Mozilla-Firefox-3-25-2026-7-01-20-PM.png",
-    "https://i.postimg.cc/g22T5VvR/Sinners-Official-Store-Mozilla-Firefox-3-25-2026-7-01-09-PM.png",
-    "https://i.postimg.cc/brf5F4TD/Sinners-Official-Store-Mozilla-Firefox-3-25-2026-7-00-07-PM.png",
-    "https://i.postimg.cc/VkfxwQcG/Sinners-Official-Store-Mozilla-Firefox-3-25-2026-6-59-53-PM.png",
+import Hero from "@/components/Hero/Hero";
+import Footer from "@/components/Footer/Footer";
+import TechPartners from "@/components/Pertner/Partner";
+import TopProducts from "@/components/TopProduct/product";
+// sections to be stacked in the loader
+const loaderSections = [
+    { id: 1, component: <Footer /> },
+    { id: 2, component: <TechPartners /> },
+    { id: 3, component: <TopProducts /> },
+    { id: 4, component: <Hero /> },
 ];
 
-const OchiImageStackLoader = ({ onComplete }: { onComplete: () => void }) => {
+const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
     const [percent, setPercent] = useState(0);
     const loaderRef = useRef(null);
-    const cardContainerRef = useRef(null);
 
     useEffect(() => {
         const tl = gsap.timeline();
 
-        // ১. কাউন্টার এনিমেশন (০ থেকে ১০০)
+        // 1. Percentage counter animation
         tl.to({}, {
-            duration: 4, // ইমেজ লোড হতে একটু সময় বেশি লাগতে পারে
-            ease: "none",
+            duration: 4,
+            ease: "power2.inOut",
             onUpdate: function () {
                 setPercent(Math.floor(this.progress() * 100));
             },
         });
 
-        // ২. কার্ড স্ট্যাকিং এনিমেশন (একটার পর একটা ইমেজ স্লাইড হয়ে আসবে)
+        // 2. Card stacking animation
         tl.fromTo(".loader-card",
-            { y: "100vh", rotationX: 15 }, // একটু থ্রিডি ইফেক্ট
-            { y: 0, rotationX: 0, duration: 1.2, stagger: 0.5, ease: "expo.inOut" },
-            0.2
+            { y: "100vh", rotationX: 10 },
+            {
+                y: (index) => `${index * 15}px`, // slight vertical gap between cards
+                rotationX: 0,
+                duration: 1.5,
+                stagger: 0.5,
+                ease: "expo.inOut"
+            },
+            0
         );
 
-        // ৩. ফাইনাল এক্সিট (পুরো স্ট্যাক উপরে উঠে যাবে)
+        // 3. Final exit animation
         tl.to(loaderRef.current, {
-            y: "-100%",
+            yPercent: -100,
             duration: 1.5,
             ease: "expo.inOut",
-            delay: 0.8,
+            delay: 0.5,
             onComplete: onComplete,
         });
     }, [onComplete]);
 
     return (
         <div ref={loaderRef} className="fixed inset-0 z-[9999] bg-[#000] overflow-hidden perspective-1000">
-
-            {/* Cards Stack Container */}
-            <div ref={cardContainerRef} className="relative w-full h-full flex items-center justify-center p-4 md:p-10">
-
-                {sectionImages.map((imgSrc, index) => (
+            {/* Cards Stack */}
+            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-10">
+                {loaderSections.map((section, index) => (
                     <div
-                        key={index}
-                        className="loader-card absolute w-[90%] h-[80%] md:w-[80%] md:h-[85%] bg-white rounded-[25px] md:rounded-[40px] shadow-2xl overflow-hidden border border-black/5"
-                        style={{
-                            zIndex: index + 1,
-                            // কার্ডগুলোর মধ্যে একটু গ্যাপ (Offset) তৈরির জন্য
-                            top: `${(index + 1) * 20}px`,
-                            transformOrigin: "bottom center"
-                        }}
+                        key={section.id}
+                        className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-t-[30px]"
+                        style={{ zIndex: index + 1 }}
                     >
-                        {/* স্ক্রিনশট ইমেজ */}
-                        <img
-                            src={imgSrc}
-                            alt={`Section ${index + 1}`}
-                            className="w-full h-full object-cover object-top"
-                        />
+                        {section.component}
 
-                        {/* অপশনাল: উপরের কার্ডে পারসেন্টেজ দেখানো (আপনার ইমেজের মতো) */}
-                        {index === sectionImages.length - 1 && (
-                            <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg flex items-end gap-2">
-                                <div className="flex flex-col items-end">
-                                    <span className="text-black/40 font-mono text-[10px] uppercase tracking-widest">Loading</span>
-                                    <div className="w-20 h-[1px] bg-black/10 relative">
-                                        <div className="absolute h-full bg-black transition-all duration-300" style={{ width: `${percent}%` }} />
-                                    </div>
-                                </div>
-                                <div className="text-5xl md:text-8xl font-bebas font-black leading-none text-[#212121] tracking-tighter">
+                        {/* অপশনাল: শেষ কার্ডে পারসেন্টেজ (আপনার ইমেজের মতো) */}
+                        {index === loaderSections.length - 1 && (
+                            <div className="absolute bottom-10 right-10 flex items-end gap-2 bg-white/10 backdrop-blur-sm p-4 rounded-xl">
+                                <div className="font-bebas text-7xl md:text-[10vw] leading-none text-black tracking-tighter">
                                     {percent}%
                                 </div>
                             </div>
@@ -94,4 +84,4 @@ const OchiImageStackLoader = ({ onComplete }: { onComplete: () => void }) => {
     );
 };
 
-export default OchiImageStackLoader;
+export default OchiComponentLoader;

@@ -31,7 +31,7 @@ export default function RootLayout({
               <div className="app-wrapper">
                 <Navbar />
                 <main className="main-content">{children}</main>
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </SmoothScroll>
           </LoadingWrapper>

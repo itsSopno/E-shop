@@ -7,7 +7,7 @@ import TestiMonial from '@/components/Testimonial/Testimonial'
 import TechPartners from "@/components/Pertner/Partner";
 import TopProducts from "@/components/TopProduct/product";
 import AboutPage from "@/components/About/about";
-
+import Footer from "@/components/Footer/Footer";
 export default function Home() {
   return (
     <>
@@ -20,6 +20,7 @@ export default function Home() {
       <TestiMonial></TestiMonial>
       <AboutPage></AboutPage>
       <TechPartners />
+      <Footer />
       {/* <TechShowcase /> */}
       {/* <TestimonialSection /> */}
     </>
