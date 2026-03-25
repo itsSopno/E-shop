@@ -81,6 +81,7 @@ const CheckoutForm = ({
           name: product.name,
           quantity: 1,
           price: product.price,
+          productImage: product.image,
         },
       ];
 
@@ -144,7 +145,7 @@ const CheckoutForm = ({
   return (
     <form onSubmit={handleSubmit} className="p-6">
       <h3 className="font-bebas text-3xl mb-6 text-white text-center">Checkout</h3>
-      
+
       <div className="mb-6 p-4 bg-white/5 border border-white/10 rounded-lg flex items-center gap-4">
         <Image src={product.image} alt={product.name} width={64} height={64} className="w-16 h-16 object-cover rounded" />
         <div>
@@ -194,8 +195,8 @@ const CheckoutModal = ({ isOpen, onClose, product }: CheckoutModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div 
-        className="absolute inset-0" 
+      <div
+        className="absolute inset-0"
         onClick={onClose}
       />
       <div className="relative bg-[#111] border border-white/10 rounded-xl w-full max-w-md overflow-hidden shadow-2xl z-10">
@@ -207,7 +208,7 @@ const CheckoutModal = ({ isOpen, onClose, product }: CheckoutModalProps) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        
+
         <Elements stripe={stripePromise}>
           <CheckoutForm product={product} onClose={onClose} />
         </Elements>

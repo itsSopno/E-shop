@@ -110,6 +110,7 @@ const Navbar = () => {
                 { name: "HOME", href: "/" },
                 { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
+                { name: "PAYMENT", href: "/Payment" },
                 ...(session
                   ? [{ name: "LOGOUT", isLogout: true }]
                   : [

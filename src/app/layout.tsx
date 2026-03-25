@@ -5,6 +5,8 @@ import "../styles/globals.scss";
 import { SessionProvider } from "next-auth/react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
+import LoadingWrapper from "@/components/LoadingWrapper/LoadingWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
@@ -15,8 +17,6 @@ export const metadata: Metadata = {
   description: "Official Tech merchandise and tech peripherals.",
 };
 
-import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
-
 export default function RootLayout({
   children,
 }: {
@@ -26,13 +26,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${bebasNeue.variable} ${playfair.variable} antialiased bg-[#FDFDFD] text-[#1A1A1A]`}>
         <SessionProvider>
-          <SmoothScroll>
-            <div className="app-wrapper">
-              <Navbar />
-              <main className="main-content">{children}</main>
-              <Footer />
-            </div>
-          </SmoothScroll>
+          <LoadingWrapper>
+            <SmoothScroll>
+              <div className="app-wrapper">
+                <Navbar />
+                <main className="main-content">{children}</main>
+                <Footer />
+              </div>
+            </SmoothScroll>
+          </LoadingWrapper>
         </SessionProvider>
       </body>
     </html>
