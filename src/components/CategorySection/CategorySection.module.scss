@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .section {
-  background: #111;
+  background: var(--obsidian);
   overflow: hidden;
 }
 
@@ -20,12 +20,12 @@
 
   &.dark {
     background: #0D0D0D;
-    color: white;
+    color: var(--silver);
   }
 
   &.light {
-    background: #D9FF00;
-    color: #1A1A1A;
+    background: var(--neon-lime);
+    color: #161e00;
 
     .index, p, .exploreBtn {
       color: rgba(26, 26, 26, 0.7);
@@ -60,9 +60,13 @@
   }
 
   h2 {
+    font-family: var(--font-space);
     font-size: clamp(3.5rem, 8vw, 7rem);
     line-height: 0.85;
     margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
 
   p {
@@ -90,7 +94,7 @@
     left: 0;
     width: 40px;
     height: 2px;
-    background: #D9FF00;
+    background: var(--neon-lime);
     transition: width 0.3s ease;
   }
 

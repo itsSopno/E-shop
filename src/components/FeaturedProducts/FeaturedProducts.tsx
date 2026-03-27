@@ -62,7 +62,7 @@ const ProductShowcase = () => {
             key={cat.id}
             onMouseEnter={(e) => handleInteraction(cat.id, e)}
             onClick={(e) => handleInteraction(cat.id, e)}
-            className="relative w-full lg:w-1/5 h-[20vh] lg:h-full border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden cursor-pointer group transition-all"
+            className="relative w-full lg:w-1/5 h-[20vh] lg:h-full border-b lg:border-b-0 lg:border-r border-white/5 overflow-hidden cursor-pointer group transition-all"
           >
             {/* Background Image */}
             <Image
@@ -80,7 +80,7 @@ const ProductShowcase = () => {
               <h3 className="font-bebas text-2xl lg:text-4xl text-white uppercase tracking-tighter leading-none">
                 {cat.title}
               </h3>
-              <div className={`h-[2px] bg-[#D9FF00] mt-2 transition-all duration-500 ${activeId === cat.id ? 'w-full' : 'w-0'}`} />
+              <div className={`h-[2px] bg-neon-lime mt-2 transition-all duration-300 ${activeId === cat.id ? 'w-full' : 'w-0'}`} />
             </div>
 
             {/* Index Number */}

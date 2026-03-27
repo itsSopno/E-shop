@@ -77,7 +77,7 @@ const KeycapsSection = () => {
     <section ref={sectionRef} className={styles.section} id="keycaps">
       <div className={styles.titleWrapper}>
         <span className={styles.subtitle}>Limited Edition</span>
-        <h2 className="font-bebas">Artisan Keycaps</h2>
+        <h2 className="font-space font-bold uppercase italic text-silver">Artisan Keycaps</h2>
       </div>
 
       <div ref={gridRef} className={styles.grid}>
@@ -94,7 +94,7 @@ const KeycapsSection = () => {
             </div>
             <div className={styles.content}>
               <span className={styles.brand}>{item.brand}</span>
-              <h3 className="font-bebas">{item.name}</h3>
+              <h3 className="font-space font-bold uppercase italic text-silver">{item.name}</h3>
               <p className={styles.description}>{item.description}</p>
 
               <div className={styles.footer}>

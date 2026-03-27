@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, Playfair_Display } from "next/font/google";
+import { Inter, Bebas_Neue, Playfair_Display, Space_Grotesk } from "next/font/google";
 import "../styles/tailwind.css";
 import "../styles/globals.scss";
 import { SessionProvider } from "next-auth/react";
@@ -12,6 +12,7 @@ import LoadingWrapper from "@/components/LoadingWrapper/LoadingWrapper";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
   title: "Sinners| Official Store",
@@ -25,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${bebasNeue.variable} ${playfair.variable} antialiased bg-[#FDFDFD] text-[#1A1A1A]`}>
+      <body className={`${inter.variable} ${bebasNeue.variable} ${playfair.variable} ${spaceGrotesk.variable} antialiased bg-[#131313] text-[#c6c6c6]`}>
         <SessionProvider>
           <LoadingWrapper>
             <SmoothScroll>

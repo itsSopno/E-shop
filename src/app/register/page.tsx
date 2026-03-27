@@ -64,8 +64,8 @@ export default function RegisterPage() {
           <div className={styles.demoBox}>
             <span className={styles.demoLabel}>Quick Start Demo</span>
             <div className={styles.demoItem}><span>Name :</span>Studio Sinners</div>
-            <div className={styles.demoItem}><span>Email:</span> guest@sinners.com</div>
-            <div className={styles.demoItem}><span>Pass:</span> sinners2026</div>
+            <div className={styles.demoItem}><span>Email:</span>admin@user</div>
+            <div className={styles.demoItem}><span>Pass:</span>zxc5566ed</div>
           </div>
         </div>
 

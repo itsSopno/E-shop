@@ -55,8 +55,8 @@ export default function LoginPage() {
           {/* Demo Credential Box */}
           <div className={styles.demoBox}>
             <span className={styles.demoLabel}>Demo Access</span>
-            <div className={styles.demoItem}><span>User:</span> lando@norris.com</div>
-            <div className={styles.demoItem}><span>Key:</span> precision2026</div>
+            <div className={styles.demoItem}><span>User:</span>admin@user</div>
+            <div className={styles.demoItem}><span>Key:</span>zxc5566ed</div>
           </div>
         </div>
 

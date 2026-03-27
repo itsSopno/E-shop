@@ -31,7 +31,7 @@ const PremiumTestimonials = () => {
     }, []);
 
     return (
-        <main className="min-h-screen bg-[#050505] text-white overflow-hidden relative flex items-center justify-center">
+        <main className="min-h-screen bg-obsidian text-silver overflow-hidden relative flex items-center justify-center">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
             <div className="bg-text absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <h1 className="text-[25vw] font-black text-white/[0.02] leading-none uppercase italic tracking-tighter">
@@ -43,8 +43,8 @@ const PremiumTestimonials = () => {
                 {/* Header */}
                 <div className="px-6 md:px-20 mb-12 flex justify-between items-end">
                     <div className="space-y-2">
-                        <span className="text-[#d9ff00] font-mono text-xs tracking-[5px] uppercase">Validated_Users</span>
-                        <h2 className="text-5xl md:text-7xl font-bebas leading-none uppercase">Arsenal <br /> Feedback</h2>
+                        <span className="text-neon-lime font-mono text-xs tracking-[5px] uppercase">Validated_Users</span>
+                        <h2 className="text-5xl md:text-7xl font-space font-bold leading-none uppercase">Arsenal <br /> Feedback</h2>
                     </div>
                     <p className="hidden md:block text-white/30 font-mono text-[10px] w-48 text-right uppercase tracking-widest">
                         Encryption: Active // Database_Sync: 100% // Stable_Build_V4
@@ -66,30 +66,30 @@ const PremiumTestimonials = () => {
                                 <img src={item.img} alt="" className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-transform duration-1000" />
                             </div>
 
-                            {/* Card Content */}
+                             {/* Card Content */}
                             <div className="relative z-10">
-                                <span className="text-[#d9ff00] font-mono text-xs mb-2 block">{item.id} // LOG</span>
-                                <h3 className="text-4xl font-bebas tracking-wider group-hover:italic transition-all uppercase">{item.product}</h3>
+                                <span className="text-neon-lime font-mono text-xs mb-2 block">{item.id} {'// LOG'}</span>
+                                <h3 className="text-4xl font-space font-bold tracking-wider group-hover:italic transition-all uppercase">{item.product}</h3>
                             </div>
 
                             <div className="relative z-10 space-y-6">
                                 <p className="text-xl md:text-2xl font-light leading-snug text-white/80">
-                                    "{item.feedback}"
+                                    &ldquo;{item.feedback}&rdquo;
                                 </p>
 
                                 <div className="flex items-center justify-between border-t border-white/10 pt-6">
                                     <div>
                                         <p className="text-xs text-white/40 uppercase tracking-widest">Buyer</p>
-                                        <p className="font-bebas text-2xl text-[#d9ff00]">{item.user}</p>
+                                        <p className="font-space font-bold text-2xl text-neon-lime">{item.user}</p>
                                     </div>
-                                    <div className="w-10 h-10 border border-white/10 flex items-center justify-center rounded-full group-hover:bg-[#d9ff00] group-hover:text-black transition-all">
+                                    <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:bg-neon-lime group-hover:text-black transition-all">
                                         →
                                     </div>
                                 </div>
                             </div>
 
                             {/* Top Accent Line */}
-                            <div className="absolute top-0 left-0 w-0 h-[2px] bg-[#d9ff00] group-hover:w-full transition-all duration-700"></div>
+                            <div className="absolute top-0 left-0 w-0 h-[2px] bg-neon-lime group-hover:w-full transition-all duration-700"></div>
                         </div>
                     ))}
                 </div>

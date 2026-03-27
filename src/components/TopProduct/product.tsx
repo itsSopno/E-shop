@@ -50,6 +50,7 @@ const products: Product[] = [
     }
 ];
 
+
 const TopProducts: React.FC = () => {
     return (
         <section className={styles.productSection}>
@@ -57,8 +58,8 @@ const TopProducts: React.FC = () => {
 
                 {/* Section Header */}
                 <div className={styles.header}>
-                    <h2 className={styles.title}>
-                        Top <br /> <span>Picks.</span>
+                    <h2 className="font-space font-bold text-5xl md:text-8xl text-silver uppercase italic">
+                        Top <br /> <span className="text-neon-lime">Picks.</span>
                     </h2>
                     <p className={styles.description}>
                         Engineered for speed. Built for precision. The ultimate desk setup starts here.
@@ -84,12 +85,12 @@ const TopProducts: React.FC = () => {
                                 />
                             </div>
 
-                            {/* Product Info */}
-                            <div className={styles.info}>
-                                <p className={styles.brand}>{product.brand}</p>
-                                <h3 className={styles.productName}>{product.name}</h3>
-                                <p className={styles.price}>{product.price}</p>
+                            {/* Card Content */}
+                            <div className="relative z-10">
+                                <span className="text-neon-lime font-mono text-xs mb-2 block">{product.id} {'// LOG'}</span>
+                                <h3 className="text-4xl font-space font-bold tracking-wider group-hover:italic transition-all uppercase">{product.name}</h3>
                             </div>
+                            <p className={styles.price}>{product.price}</p>
 
                             {/* Action Button */}
                             <button className={styles.buyBtn}>

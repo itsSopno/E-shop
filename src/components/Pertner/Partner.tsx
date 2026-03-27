@@ -25,7 +25,7 @@ const TechPartners = () => {
     ];
 
     return (
-        <section className="relative w-full min-h-[600px] bg-[#f5f4ee]  overflow-hidden flex flex-col justify-center px-6 md:px-16 py-20">
+        <section className="relative w-full min-h-[600px] bg-[#131313] overflow-hidden flex flex-col justify-center px-6 md:px-16 py-20">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
             {/* Background Huge Text (The "Collabs" Style) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none font-creme">
@@ -38,7 +38,7 @@ const TechPartners = () => {
 
                 {/* Left Side: Main Heading */}
                 <div className="max-w-xl">
-                    <h2 className="text-6xl md:text-8xl font-black text-[#1a1a1a] leading-[0.9] uppercase tracking-tighter">
+                    <h2 className="text-6xl md:text-8xl font-black text-[#666] leading-[0.9] uppercase tracking-tighter">
                         Partners <br />
                         <span className="italic font-serif font-light">& Campaigns</span>
                     </h2>
@@ -46,7 +46,7 @@ const TechPartners = () => {
 
                 {/* Right Side: Description */}
                 <div className="md:max-w-sm">
-                    <p className="text-lg text-gray-800 font-medium leading-relaxed">
+                    <p className="text-lg text-[#666] font-medium leading-relaxed">
                         Collaborating with the world's leading tech pioneers to push the boundaries of performance, speed, and precision in every keystroke.
                     </p>
                 </div>
@@ -56,7 +56,7 @@ const TechPartners = () => {
             <div className="container mx-auto relative z-10 mt-24 border-t border-black/10 pt-12">
                 <div className="flex flex-wrap justify-between items-center gap-10 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                     {techBrands.map((brand, index) => (
-                        <div key={index} className="text-xl md:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                        <div key={index} className="text-xl md:text-2xl font-bold uppercase tracking-widest text-[#666]">
                             {brand.logo}
                         </div>
                     ))}

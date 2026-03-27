@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Hero from "@/components/Hero/Hero";
 import Footer from "@/components/Footer/Footer";
-import TechPartners from "@/components/Pertner/Partner";
 import TopProducts from "@/components/TopProduct/product";
+import AboutPage from "@/components/Aboutt/aboutt";
 // sections to be stacked in the loader
 const loaderSections = [
     { id: 1, component: <Footer /> },
-    { id: 2, component: <TechPartners /> },
+    { id: 2, component: <AboutPage></AboutPage> },
     { id: 3, component: <TopProducts /> },
     { id: 4, component: <Hero /> },
 ];
@@ -77,7 +77,7 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
                     <div
                         key={section.id}
                         className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-[30px]"
-                        style={{ 
+                        style={{
                             zIndex: index + 1,
                             transformOrigin: "center center"
                         }}

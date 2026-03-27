@@ -66,11 +66,11 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100vh] bg-[#FDFDFD] flex flex-col items-center justify-center overflow-hidden px-6"
+      className="relative w-full min-h-[100vh] bg-obsidian flex flex-col items-center justify-center overflow-hidden px-6"
     >
       {/* ── BACKGROUND OVERLAY TEXT ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0">
-        <h2 className="font-bebas text-[20vw] leading-none text-black/[0.03] uppercase select-none italic">
+        <h2 className="font-space text-[20vw] leading-none text-white/[0.03] uppercase select-none italic">
           Artisan // 2026
         </h2>
       </div>
@@ -80,24 +80,24 @@ const Hero = () => {
         {/* ── LEFT: DYNAMIC TYPOGRAPHY ── */}
         <div className="w-full lg:w-1/2">
           <div className="ui-element flex items-center gap-3 mb-6">
-            <span className="h-[1px] w-12 bg-black"></span>
+            <span className="h-[1px] w-12 bg-silver"></span>
             <span className="tracking-[0.3em] text-sm text-gray-400">Sinners Studio Original</span>
           </div>
 
-          <h1 className="hero-title font-bebas text-[clamp(60px,10vw,140px)] leading-[0.85] text-black uppercase italic mb-8 ">
+          <h1 className="hero-title font-space font-bold text-[clamp(60px,10vw,140px)] leading-[0.85] text-silver uppercase italic mb-8 -tracking-[0.03em]">
             <div className="overflow-hidden h-[1.1em]"><span className="block">Ultimate</span></div>
-            <div className="overflow-hidden h-[1.1em] text-transparent [-webkit-text-stroke:1px_#000]">
+            <div className="overflow-hidden h-[1.1em] text-transparent [-webkit-text-stroke:1px_var(--color-silver)]">
               <span className="block">Custom</span>
             </div>
             <div className="overflow-hidden h-[1.1em]"><span className="block">Collection</span></div>
           </h1>
 
           <div className="ui-element flex flex-wrap gap-4">
-            <Link href="/Store" className="group relative bg-black text-[#CCFF00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
+            <Link href="/Store" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
               <span className="relative z-10">Shop the Drop</span>
-              <div className="absolute inset-0 bg-[#CCFF00] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             </Link>
-            <button className="px-10 py-5 border border-black/10 font-bebas text-2xl uppercase italic hover:bg-black/5 transition-colors">
+            <button className="px-10 py-5 border border-silver/10 font-bebas text-2xl uppercase italic hover:bg-silver/5 transition-colors">
               Archive
             </button>
           </div>
@@ -107,9 +107,9 @@ const Hero = () => {
         <div className="relative w-full lg:w-1/2 h-[450px] sm:h-[600px] flex items-center justify-center">
 
           {/* Main Portal Frame */}
-          <div className="portal-frame relative w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] rounded-full border-[1.5px] border-black/5 p-4 flex items-center justify-center">
+          <div className="portal-frame relative w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] border-[1.5px] border-silver/5 p-4 flex items-center justify-center">
 
-            <div className="portal-inner relative w-full h-full rounded-full overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
+            <div className="portal-inner relative w-full h-full overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)]">
               <Image
                 src="https://i.pinimg.com/736x/b8/70/55/b870553a9cfde3ad5aa6600f236b5c8a.jpg"
                 alt="Main" fill className="object-cover scale-110" priority
@@ -135,7 +135,7 @@ const Hero = () => {
           </div>
 
           {/* Liquid Badge */}
-          <div className="ui-element absolute bottom-0 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-2 rounded-full font-bebas text-lg tracking-widest -rotate-3 border-2 border-[#CCFF00]">
+          <div className="ui-element absolute bottom-0 left-1/2 -translate-x-1/2 bg-obsidian text-silver px-6 py-2 font-bebas text-lg tracking-widest -rotate-3 border-2 border-neon-lime">
             LIMIT: 1/100
           </div>
         </div>
