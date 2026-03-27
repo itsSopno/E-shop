@@ -16,7 +16,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-        
+
         try {
           const res = await fetch("https://t-mark-4.vercel.app/api/login", {
             method: "POST",
@@ -26,12 +26,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               password: credentials.password,
             }),
           });
-          
+
           if (!res.ok) {
             console.error("Local Login API failed with status:", res.status);
             return null;
           }
-          
+
           const rawText = await res.text();
           let data;
           try {
@@ -44,9 +44,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             // Adjust based on strict backend returns
             const userObj = data.user || data.data || data;
             return {
-               id: userObj._id || userObj.id || Date.now().toString(),
-               name: userObj.name || userObj.firstName || "",
-               email: userObj.email || credentials.email,
+              id: userObj._id || userObj.id || Date.now().toString(),
+              name: userObj.name || userObj.firstName || "",
+              email: userObj.email || credentials.email,
             };
           }
           return null;
@@ -79,7 +79,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    
+
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;

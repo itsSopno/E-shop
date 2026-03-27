@@ -17,6 +17,7 @@ const Hero = () => {
         skewY: 10,
         stagger: 0.1,
         duration: 1.5,
+        delay: 0.5
       })
         .from(".portal-frame", {
           scale: 0,

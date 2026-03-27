@@ -124,7 +124,7 @@ const KeycapDetail = () => {
               </section>
 
               <div className="flex flex-col gap-4">
-                <button 
+                <button
                   onClick={() => setIsCheckoutOpen(true)}
                   className="w-full bg-[#D9FF00] text-black font-bebas text-3xl py-6 italic hover:bg-white hover:scale-[0.99] active:scale-95 transition-all"
                 >

@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
+import AIChat from "@/components/AIChat/AIChat";
 import LoadingWrapper from "@/components/LoadingWrapper/LoadingWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -35,6 +36,7 @@ export default function RootLayout({
               </div>
             </SmoothScroll>
           </LoadingWrapper>
+          <AIChat />
         </SessionProvider>
       </body>
     </html>

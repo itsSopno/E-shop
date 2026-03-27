@@ -4,10 +4,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const pathname = usePathname();
+  const isAdmin = session?.user?.email === "admin@user";
+
+  if (pathname.startsWith("/dashboard")) return null;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-[60px] py-6 md:py-8 flex items-center justify-between pointer-events-none w-full">
@@ -37,6 +42,16 @@ const Navbar = () => {
             Store
           </span>
         </Link>
+        {isAdmin && (
+          <Link
+            href="/dashboard"
+            className="bg-[#D9FF00] text-[#1A1A1A] h-[48px] md:h-[62px] px-4 md:px-8 rounded-[12px] flex items-center gap-2 hover:bg-black hover:text-[#D9FF00] transition-all duration-300 shadow-sm active:scale-95 ml-3"
+          >
+            <span className="font-bebas text-xl md:text-2xl font-bold uppercase tracking-wider mt-1">
+              Dashboard
+            </span>
+          </Link>
+        )}
       </div>
 
       {/* Center: Stylized LN Logo */}
@@ -78,18 +93,30 @@ const Navbar = () => {
 
           {/* Top Bar inside Menu - Updated Layout (Store Left, Close Right) */}
           <div className="flex items-center justify-between px-6 py-8 w-full relative z-[210]">
-            <Link
-              href="/Store"
-              className="bg-[#D9FF00] text-[#1A1A1A] h-12 px-6 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2L3 6V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                <path d="M3 6h18" />
-                <path d="M16 10a4 4 0 0 1-8 0" />
-              </svg>
-              <span className="font-bebas text-xl font-bold uppercase tracking-wider mt-1">Store</span>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/Store"
+                className="bg-[#D9FF00] text-[#1A1A1A] h-12 px-6 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 2L3 6V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                  <path d="M3 6h18" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                <span className="font-bebas text-xl font-bold uppercase tracking-wider mt-1">Store</span>
+              </Link>
+
+              {isAdmin && (
+                <Link
+                  href="/dashboard"
+                  className="bg-[#D9FF00] text-[#1A1A1A] h-12 px-6 rounded-[12px] flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span className="font-bebas text-xl font-bold uppercase tracking-wider mt-1">Dashboard</span>
+                </Link>
+              )}
+            </div>
 
             <button
               className="h-[52px] w-[52px] flex items-center justify-center bg-white rounded-[15px] hover:bg-[#D9FF00] transition-all duration-300"
@@ -111,13 +138,12 @@ const Navbar = () => {
                 { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
                 { name: "PAYMENT", href: "/Payment" },
+                ...(isAdmin ? [{ name: "DASHBOARD", href: "/dashboard" }] : []),
                 ...(session
                   ? [{ name: "LOGOUT", isLogout: true }]
                   : [
                     { name: "REGISTER", href: "/register" },
-                    { name: "LOGIN", href: "/login" }, {
-                      name: "TESTIMONIAL", href: "/Testimonial"
-                    }
+                    { name: "LOGIN", href: "/login" }
                   ]
                 )
               ].map((item, idx) => (

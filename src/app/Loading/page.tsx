@@ -42,31 +42,51 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
             0
         );
 
-        // 3. Final exit animation
+        // 3. Final reveal exit animation
+        tl.to(".loader-card:not(:last-child)", {
+            y: "100vh",
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "expo.inOut"
+        }, "+=0.5");
+
+        tl.to(".loader-card:last-child", {
+            width: "100vw",
+            height: "100vh",
+            top: 0,
+            left: 0,
+            borderRadius: 0,
+            duration: 1.2,
+            ease: "expo.inOut"
+        }, "-=0.8");
+
         tl.to(loaderRef.current, {
-            yPercent: -100,
-            duration: 1.5,
-            ease: "expo.inOut",
-            delay: 0.5,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.inOut",
             onComplete: onComplete,
-        });
+        }, "+=0.2");
     }, [onComplete]);
 
     return (
         <div ref={loaderRef} className="fixed inset-0 z-[9999] bg-[#000] overflow-hidden perspective-1000">
             {/* Cards Stack */}
-            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-10">
+            <div className="relative w-full h-full flex items-center justify-center p-0">
                 {loaderSections.map((section, index) => (
                     <div
                         key={section.id}
-                        className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-t-[30px]"
-                        style={{ zIndex: index + 1 }}
+                        className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-[30px]"
+                        style={{ 
+                            zIndex: index + 1,
+                            transformOrigin: "center center"
+                        }}
                     >
                         {section.component}
 
-                        {/* অপশনাল: শেষ কার্ডে পারসেন্টেজ (আপনার ইমেজের মতো) */}
+                        {/* Percentage on the last card */}
                         {index === loaderSections.length - 1 && (
-                            <div className="absolute bottom-10 right-10 flex items-end gap-2 bg-white/10 backdrop-blur-sm p-4 rounded-xl">
+                            <div className="absolute bottom-10 right-10 flex items-end gap-2 bg-white/10 backdrop-blur-sm p-4 rounded-xl z-[100]">
                                 <div className="font-bebas text-7xl md:text-[10vw] leading-none text-black tracking-tighter">
                                     {percent}%
                                 </div>
@@ -74,12 +94,11 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
                         )}
                     </div>
                 ))}
-
             </div>
 
             <style jsx global>{`
-        .perspective-1000 { perspective: 1000px; }
-      `}</style>
+                .perspective-1000 { perspective: 1000px; }
+            `}</style>
         </div>
     );
 };

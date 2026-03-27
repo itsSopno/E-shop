@@ -90,7 +90,7 @@ const PaymentPage = () => {
         <>
             <section className="bg-black text-white min-h-screen font-inter overflow-x-hidden flex items-center justify-center">
                 <div className="max-w-4xl w-full py-20 px-6 flex flex-col items-center">
-                    
+
                     {/* User Profile Section */}
                     <div className="flex flex-col items-center mb-16 space-y-4">
                         <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#d9ff00] shadow-[0_0_30px_rgba(217,255,0,0.2)]">
@@ -133,8 +133,8 @@ const PaymentPage = () => {
                                         <p className="text-5xl md:text-7xl font-bebas font-black tracking-tighter mb-2">
                                             ${item.totalAmount.toFixed(2)}
                                         </p>
-                                        <span className={`inline-block text-[10px] uppercase font-black tracking-[0.3em] px-6 py-2 rounded-full border-2 ${item.paymentStatus === 'pending' 
-                                            ? 'border-yellow-500/50 text-yellow-500 bg-yellow-500/5' 
+                                        <span className={`inline-block text-[10px] uppercase font-black tracking-[0.3em] px-6 py-2 rounded-full border-2 ${item.paymentStatus === 'pending'
+                                            ? 'border-yellow-500/50 text-yellow-500 bg-yellow-500/5'
                                             : 'border-[#d9ff00]/50 text-[#d9ff00] bg-[#d9ff00]/5 shadow-[0_0_20px_rgba(217,255,0,0.1)]'
                                             }`}>
                                             {item.paymentStatus}
@@ -162,7 +162,7 @@ const PaymentPage = () => {
                         </div>
                     )}
                 </div>
-                
+
                 {/* Visual Watermark */}
                 <div className="fixed bottom-10 right-10 opacity-10 font-bebas text-8xl italic pointer-events-none select-none text-white overflow-hidden">
                     SINNERS
@@ -172,4 +172,4 @@ const PaymentPage = () => {
     );
 }
 
-export default PaymentPage;
+export default PaymentPage;

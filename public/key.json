@@ -39,21 +39,24 @@
         "image": "https://i.postimg.cc/J4J8bh7q/955a71533fb7cf39c3522606565e1c36.jpg",
         "description": "A highly-detailed mecha cockpit-inspired keycap in an industrial orange and black frame, with integrated blue and yellow 'heads-up display' graphics.",
         "price": "90.00",
-        "brand": "Sinners"
+        "brand": "Sinners",
+        "category": "Keycaps"
     },
     {
         "name": "Crimson Core Reactor Keycap",
         "image": "https://i.postimg.cc/1tfh4mYf/bd97ba4130fee4a3ffea4bb28286dbaf.jpg",
         "description": "This keycap features a detailed white 'energy-core' structure within a rich red honeycomb grid, framed by polished metal. Highly illuminated.",
         "price": "75.00",
-        "brand": "Sinners"
+        "brand": "Sinners",
+        "category": "Keycaps"
     },
     {
         "name": "Galactic-Blastoise Keycap",
         "image": "https://i.postimg.cc/PrRQWtxY/3b03a1eb206e521cb7beb363d1a939a9.jpg",
         "description": "A dynamic 'Blastoise' figure caught mid-attack, riding a swirling blue and gold-flake wave of cosmic energy, all within a custom clear enclosure.",
         "price": "110.00",
-        "brand": "Sinners"
+        "brand": "Sinners",
+        "category": "Keycaps"
     },
     {
         "name": "Onyx Nebula Serpent Keycap",
