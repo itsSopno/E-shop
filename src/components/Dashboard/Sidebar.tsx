@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  LayoutPanelLeft, Cuboid, ShoppingCart, BarChart3,
-  Settings, PlusSquare, X, LogOut, Cpu
+  LayoutDashboard, Zap, Package, Users, FileText, X, Settings, Database, Scan
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -19,171 +19,144 @@ interface SidebarProps {
 const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }: SidebarProps) => {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
-
+  const { data: session } = useSession();
+  console.log(session);
   useEffect(() => {
     setMounted(true);
   }, []);
+  const userEmail = session?.user?.email;
+  const userImage = session?.user?.image;
+  const primaryOps = [
+    { name: "DASHBOARD", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
+    { name: "INVENTORY", href: "/dashboard/store", icon: <Package size={20} /> },
+    { name: "NODES", href: "/dashboard/nodes", icon: <Users size={20} />, badge: "128_ONLINE" },
+  ];
 
-  const menuItems = [
-    { name: "Overview", href: "/dashboard", icon: <LayoutPanelLeft size={22} /> },
-    { name: "Products", href: "/dashboard/Store", icon: <Cuboid size={22} /> },
-    { name: "Orders", href: "/dashboard/orders", icon: <ShoppingCart size={22} /> },
-    { name: "Analytics", href: "/dashboard/analytics", icon: <BarChart3 size={22} /> },
-    { name: "Divider", isDivider: true },
-    { name: "Add Keycaps", href: "/dashboard/add-keycaps", icon: <PlusSquare size={22} /> },
-    { name: "Add Keyboard", href: "/dashboard/add-keyboard", icon: <Cpu size={22} /> },
-    { name: "Settings", href: "/dashboard/settings", icon: <Settings size={22} /> },
+  const systemOps = [
+    { name: "SYSTEM_LOGS", href: "/dashboard/system-logs", icon: <Database size={18} /> },
+    { name: "SETTINGS", href: "/dashboard/settings", icon: <Settings size={18} /> },
   ];
 
   if (!mounted) return null;
 
-  return (
-    <>
+  const isOpen = isMobileOpen || !isCollapsed;
 
-      <motion.div
-        animate={{ 
-          width: (isMobileOpen || !isCollapsed) ? 300 : 0,
-          x: (isMobileOpen || !isCollapsed) ? 0 : -300
-        }}
-        initial={false}
-        transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        className={`fixed left-0 top-0 h-full bg-[#0A0A0A] text-white z-[110] border-r border-white/5 flex flex-col backdrop-blur-3xl shadow-[5px_0_30px_rgba(0,0,0,0.5)] md:translate-x-0 transition-transform duration-500`}
-      >
-        {/* Header / Logo */}
-        <div className="h-24 flex items-center px-6 justify-between border-b border-white/5 relative bg-black/20 overflow-hidden">
-          <Link href="/" className="flex items-center gap-3 group min-w-[150px]">
-            <div className="w-10 h-10 bg-[#D9FF00] rounded-lg flex items-center justify-center rotate-45 flex-shrink-0 shadow-[0_0_20px_rgba(217,255,0,0.2)]">
-              <div className="-rotate-45 font-bebas text-black text-2xl font-bold">S</div>
+  return (
+    <motion.div
+      animate={{
+        width: isOpen ? 280 : 0,
+        x: isOpen ? 0 : -280
+      }}
+      initial={false}
+      transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      className="fixed left-0 top-0 h-full bg-[#050505] text-white z-[110] border-r border-white/5 flex flex-col overflow-hidden"
+    >
+      {/* 1. Header: Profile System */}
+      <div className="p-8 pb-6 shrink-0">
+        <div className="flex items-center gap-5 mb-8">
+          <div className="relative">
+            <div className="w-14 h-14 bg-[#111] rounded-sm border border-white/10 p-[1px] overflow-hidden">
+              <div className="w-full h-full bg-[#0A0A0A] flex items-center justify-center">
+                {/* Generic dark avatar placeholder */}
+                <img src={userImage || "https://ui-avatars.com/api/?name=Guest+User"} alt="" width={24} height={24} className="text-white/20" />
+              </div>
             </div>
-            <motion.div
-              animate={{ opacity: (isMobileOpen || !isCollapsed) ? 1 : 0 }}
-              className="flex flex-col leading-none"
-            >
-              <span className="font-bebas text-2xl tracking-[3px] text-[#D9FF00]">SINNERS</span>
-              <span className="text-[9px] font-mono text-white/30 tracking-[1px] mt-1 uppercase">DASHBOARD_v4.2</span>
-            </motion.div>
-          </Link>
+            {/* Status Indicator Dot */}
+            <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[#D9FF00] rounded-full border-[3px] border-[#050505] shadow-[0_0_10px_#D9FF00]" />
+          </div>
+
+          <div className="flex flex-col">
+            <h1 className="font-bebas text-2xl tracking-[3.2px] text-[#D9FF00] leading-none uppercase">{userEmail}</h1>
+            <span className="text-[10px] font-mono text-white/20 tracking-[1px] mt-2 font-bold select-none whitespace-nowrap">V.4.2_STABLE</span>
+          </div>
+
           <button
-            onClick={() => {
-              setIsCollapsed(true);
-              setIsMobileOpen(false);
-            }}
-            className="p-2.5 rounded-xl bg-white/5 text-white/40 hover:bg-red-500 hover:text-white transition-all duration-500 border border-white/5"
+            onClick={() => { setIsCollapsed(true); setIsMobileOpen(false); }}
+            className="flex items-center gap-2 px-3 py-1.5 border border-white/10 hover:border-[#D9FF00]/50 transition-all bg-white/[0.02] group"
           >
-            <X size={18} />
+            <span className="text-[9px] font-mono text-white/20 group-hover:text-white transition-colors uppercase tracking-widest">CLOSE</span>
+            <X size={14} className="text-white/20 group-hover:text-[#D9FF00] transition-colors" />
           </button>
         </div>
 
-        {/* Nav Links */}
-        <nav className="flex-1 px-4 py-8 space-y-3 overflow-y-auto no-scrollbar scroll-smooth">
-          <AnimatePresence>
-            {(isMobileOpen || !isCollapsed) && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="space-y-3"
+        {/* 2. Action Button: INITIATE_SCAN */}
+        <button className="w-full py-4 bg-[#D9FF00] text-black font-bebas text-lg tracking-[3px] hover:shadow-[0_0_30px_rgba(217,255,0,0.3)] transition-all duration-500 rounded-sm font-black uppercase flex items-center justify-center gap-3 active:scale-[0.98]">
+          <Scan size={20} strokeWidth={3} />
+          <span>INITIATE_SCAN</span>
+        </button>
+      </div>
+
+      {/* 3. Navigation: PRIMARY_OPERATIONS */}
+      <div className="flex-1 overflow-y-auto no-scrollbar scroll-smooth">
+        <div className="px-8 mt-6">
+          <h3 className="text-[10px] font-mono text-white/10 tracking-[4.5px] uppercase mb-10 select-none">PRIMARY_OPERATIONS</h3>
+        </div>
+
+        <nav className="space-y-1">
+          {primaryOps.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => { if (window.innerWidth < 768) setIsMobileOpen(false); }}
               >
-                {menuItems.map((item, idx) => {
-                  if (item.isDivider) {
-                    return <div key={`div-${idx}`} className="h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent my-8 mx-4" />;
-                  }
+                <div className={`group relative flex items-center justify-between px-8 py-5 transition-all duration-300 ${isActive ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}>
+                  {/* Active Indicator Bar */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="sidebar-active-bar"
+                      className="absolute left-0 top-0 bottom-0 w-[4px] bg-[#D9FF00] shadow-[0_0_15px_rgba(217,255,0,0.5)]"
+                    />
+                  )}
 
-                  const isActive = pathname === item.href;
-
-                  return (
-                    <Link
-                      key={item.href || `item-${idx}`}
-                      href={item.href || "#"}
-                      onClick={() => {
-                        if (typeof window !== 'undefined' && window.innerWidth < 768) {
-                          setIsMobileOpen(false);
-                        }
-                      }}
-                    >
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        className={`relative flex items-center gap-5 p-4 rounded-2xl cursor-pointer group transition-all duration-500 ${isActive ? "text-[#D9FF00]" : "text-white/30 hover:text-white"
-                          }`}
-                      >
-                        {/* Active Indicator Backdrop */}
-                        {isActive && (
-                          <motion.div
-                            layoutId="sidebar-active"
-                            className="absolute inset-0 bg-white/5 rounded-2xl border border-white/5"
-                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                          />
-                        )}
-
-                        <div className={`relative z-10 transition-all duration-500 ${isActive ? "text-[#D9FF00] drop-shadow-[0_0_10px_rgba(217,255,0,0.6)]" : "group-hover:text-white"}`}>
-                          {item.icon}
-                        </div>
-
-                        <motion.span
-                          initial={false}
-                          animate={{ opacity: 1 }}
-                          className="relative z-10 font-bebas text-lg tracking-[3px] uppercase transition-colors"
-                        >
-                          {item.name}
-                        </motion.span>
-
-                        {isActive && (
-                          <motion.div
-                            layoutId="active-dot"
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="ml-auto w-1.5 h-1.5 bg-[#D9FF00] rounded-full shadow-[0_0_10px_#D9FF00]"
-                          />
-                        )}
-                      </motion.div>
-                    </Link>
-                  );
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </nav>
-
-        {/* Footer / User Profile */}
-        <AnimatePresence>
-          {(isMobileOpen || !isCollapsed) && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="p-4 bg-black/40 backdrop-blur-md border-t border-white/5"
-            >
-              <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/5 border border-white/5 group hover:border-[#D9FF00]/30 transition-all duration-500">
-                <div className="relative">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D9FF00] to-yellow-200 p-[1px] group-hover:rotate-[360deg] transition-all duration-700">
-                    <div className="w-full h-full bg-[#0A0A0A] rounded-xl flex items-center justify-center font-bebas text-[#D9FF00] text-lg">
-                      NH
+                  <div className="flex items-center gap-5">
+                    <div className={`transition-all duration-500 ${isActive ? 'text-[#D9FF00]' : 'text-white/30 group-hover:text-white/60'}`}>
+                      {item.icon}
                     </div>
+                    <span className={`font-bebas text-xl tracking-[4.5px] uppercase transition-all duration-500 ${isActive ? 'text-white' : 'text-white/30 group-hover:text-white/60'}`}>
+                      {item.name}
+                    </span>
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-[#1A1A1A] rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+
+                  {/* Status Markers */}
+                  <div className="flex items-center">
+                    {item.hasNotification && (
+                      <div className="w-2.5 h-2.5 bg-red-600 rounded-full shadow-[0_0_8px_rgba(220,38,38,0.5)]" />
+                    )}
+                    {item.badge && (
+                      <div className="px-2 py-1 bg-white/[0.05] border border-white/5 rounded-sm">
+                        <span className="text-[7px] font-mono text-white/30 tracking-widest">{item.badge}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
 
-                <motion.div 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex-1 min-w-0"
-                >
-                  <p className="font-bebas text-sm tracking-widest uppercase truncate text-white/90">Nabil Hasan</p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1 h-1 bg-white/20 rounded-full" />
-                    <p className="text-[8px] font-mono text-white/40 truncate tracking-tighter">SUPER_ADMIN_CORE</p>
-                  </div>
-                </motion.div>
-
-                <button className="p-2 text-white/10 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-300">
-                  <LogOut size={16} />
-                </button>
+      {/* 4. Bottom Section: System Elements */}
+      <div className="p-8 pb-10 border-t border-white/5 bg-black/40 mt-auto">
+        <div className="space-y-4">
+          {systemOps.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="flex items-center gap-5 py-2 group"
+            >
+              <div className="text-white/20 group-hover:text-white transition-colors">
+                {item.icon}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </>
+              <span className="font-bebas text-lg tracking-[3px] text-white/20 group-hover:text-white transition-colors uppercase">
+                {item.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
