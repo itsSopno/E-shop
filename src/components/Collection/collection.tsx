@@ -44,8 +44,8 @@ export default function PureShowcase() {
                             <Target size={14} className="text-neon-lime" />
                             <span className="text-[10px] font-mono tracking-[4px] text-white/40 uppercase">COLLABORATION_SERIES</span>
                         </div>
-                        <h1 className="font-display text-7xl md:text-9xl font-black tracking-aggressive uppercase font-crenzo leading-none">
-                            UNIT_<span className="text-white/10">ARCHIVE</span>
+                        <h1 className="font-display text-7xl md:text-8xl font-black tracking-aggressive uppercase font-crenzo leading-none">
+                            LIMITED_<span className="text-white/10">EDITION</span>
                         </h1>
                     </div>
 

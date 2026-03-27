@@ -26,6 +26,8 @@ const LandoHero = () => {
                 <Link href="/" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Home</Link>
                 <Link href="/Contact" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Contact</Link>
                 <Link href="/Payment" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Payments</Link>
+                <Link href="/Story" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Story</Link>
+                <Link href="/Caps" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Caps</Link>
                 <Link href="/store" className="text-xl md:text-3xl font-bold uppercase text-[#d9ff00] md:mt-4">Store</Link>
               </div>
             </div>
