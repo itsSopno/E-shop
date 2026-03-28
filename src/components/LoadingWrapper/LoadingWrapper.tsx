@@ -9,9 +9,7 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <div 
-        className="transition-opacity duration-700"
         style={{ 
-          opacity: loading ? 0 : 1,
           pointerEvents: loading ? "none" : "auto"
         }}
       >
