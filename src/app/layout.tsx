@@ -33,11 +33,11 @@ export default function RootLayout({
               <div className="app-wrapper">
                 <Navbar />
                 <main className="main-content">{children}</main>
-                {/* <Footer /> */}
+                <AIChat />
               </div>
             </SmoothScroll>
           </LoadingWrapper>
-          <AIChat />
+          {/* <AIChat /> */}
         </SessionProvider>
       </body>
     </html>

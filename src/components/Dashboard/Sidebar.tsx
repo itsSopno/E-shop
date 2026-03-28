@@ -26,13 +26,21 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }:
   }, []);
   const userEmail = session?.user?.email;
   const userImage = session?.user?.image;
-  const primaryOps = [
+  type NavItem = {
+    name: string;
+    href: string;
+    icon: React.ReactNode;
+    badge?: string;
+    hasNotification?: boolean;
+  };
+
+  const primaryOps: NavItem[] = [
     { name: "DASHBOARD", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "INVENTORY", href: "/dashboard/store", icon: <Package size={20} /> },
     { name: "NODES", href: "/dashboard/nodes", icon: <Users size={20} />, badge: "128_ONLINE" },
   ];
 
-  const systemOps = [
+  const systemOps: NavItem[] = [
     { name: "SYSTEM_LOGS", href: "/dashboard/system-logs", icon: <Database size={18} /> },
     { name: "SETTINGS", href: "/dashboard/settings", icon: <Settings size={18} /> },
   ];
