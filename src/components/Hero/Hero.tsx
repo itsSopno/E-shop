@@ -70,8 +70,8 @@ const Hero = () => {
     >
       {/* ── BACKGROUND OVERLAY TEXT ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0">
-        <h2 className="font-space text-[20vw] leading-none text-white/[0.03] uppercase select-none italic">
-          Artisan // 2026
+        <h2 className="font-space text-[20vw] leading-none text-white/[0.03] uppercase select-none font-crenzo italic">
+          SINNERS_<br></br>TECH
         </h2>
       </div>
 
@@ -81,7 +81,7 @@ const Hero = () => {
         <div className="w-full lg:w-1/2">
           <div className="ui-element flex items-center gap-3 mb-6">
             <span className="h-[1px] w-12 bg-silver"></span>
-            <span className="tracking-[0.3em] text-sm text-gray-400">Sinners Studio Original</span>
+            <span className="tracking-[0.3em] text-sm text-gray-400">MADE BY STUDIO SINNERS</span>
           </div>
 
           <h1 className="hero-title font-space font-bold text-[clamp(60px,10vw,140px)] leading-[0.85] text-silver uppercase italic mb-8 -tracking-[0.03em]">
@@ -97,9 +97,10 @@ const Hero = () => {
               <span className="relative z-10">Shop the Drop</span>
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             </Link>
-            <button className="px-10 py-5 border border-silver/10 font-bebas text-2xl uppercase italic hover:bg-silver/5 transition-colors">
-              Archive
-            </button>
+            <Link href="/Story" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
+              <span className="relative z-10">Our Story</span>
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </Link>
           </div>
         </div>
 

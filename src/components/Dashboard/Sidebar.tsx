@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  LayoutDashboard, Zap, Package, Users, FileText, X, Settings, Database, Scan
+  LayoutDashboard, Zap, Package, Users, FileText, X, Settings, Database, Scan, Home
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -38,6 +38,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }:
     { name: "DASHBOARD", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "INVENTORY", href: "/dashboard/store", icon: <Package size={20} /> },
     { name: "NODES", href: "/dashboard/nodes", icon: <Users size={20} />, badge: "128_ONLINE" },
+    { name: "Add_Product", href: "/dashboard/add-product", icon: <Package size={20} /> },
+    { name: "Add_Keycaps", href: "/dashboard/add-keycaps", icon: <Package size={20} /> },
+    { name: "Add_Keyboard", href: "/dashboard/add-keyboard", icon: <Package size={20} /> }
   ];
 
   const systemOps: NavItem[] = [
@@ -88,10 +91,10 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }:
         </div>
 
         {/* 2. Action Button: INITIATE_SCAN */}
-        <button className="w-full py-4 bg-[#D9FF00] text-black font-bebas text-lg tracking-[3px] hover:shadow-[0_0_30px_rgba(217,255,0,0.3)] transition-all duration-500 rounded-sm font-black uppercase flex items-center justify-center gap-3 active:scale-[0.98]">
-          <Scan size={20} strokeWidth={3} />
-          <span>INITIATE_SCAN</span>
-        </button>
+        <Link href="/" className="w-full py-4 bg-[#D9FF00] text-black font-bebas text-lg tracking-[3px] hover:shadow-[0_0_30px_rgba(217,255,0,0.3)] transition-all duration-500 rounded-sm font-black uppercase flex items-center justify-center gap-3 active:scale-[0.98]">
+          <Home size={20} strokeWidth={3} />
+          <span>HOME</span>
+        </Link>
       </div>
 
       {/* 3. Navigation: PRIMARY_OPERATIONS */}

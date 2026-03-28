@@ -1,16 +1,124 @@
+// "use client";
+// import React, { useEffect, useRef, useState } from "react";
+// import { gsap } from "gsap";
+// import Hero from "@/components/Hero/Hero";
+// import Footer from "@/components/Footer/Footer";
+// import TopProducts from "@/components/TopProduct/product";
+// import AboutPage from "@/components/Aboutt/aboutt";
+// // sections to be stacked in the loader
+// const loaderSections = [
+//     { id: 1, component: <Footer /> },
+//     { id: 2, component: <AboutPage></AboutPage> },
+//     { id: 3, component: <TopProducts /> },
+//     { id: 4, component: <Hero /> },
+// ];
+
+// const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
+//     const [percent, setPercent] = useState(0);
+//     const loaderRef = useRef(null);
+
+//     useEffect(() => {
+//         const tl = gsap.timeline();
+
+//         // 1. Percentage counter animation
+//         tl.to({}, {
+//             duration: 4,
+//             ease: "power2.inOut",
+//             onUpdate: function () {
+//                 setPercent(Math.floor(this.progress() * 100));
+//             },
+//         });
+
+//         // 2. Card stacking animation
+//         tl.fromTo(".loader-card",
+//             { y: "100vh", rotationX: 10 },
+//             {
+//                 y: (index) => `${index * 15}px`, // slight vertical gap between cards
+//                 rotationX: 0,
+//                 duration: 1.5,
+//                 stagger: 0.5,
+//                 ease: "expo.inOut"
+//             },
+//             0
+//         );
+
+//         // 3. Final reveal exit animation
+//         tl.to(".loader-card:not(:last-child)", {
+//             y: "100vh",
+//             opacity: 0,
+//             duration: 1,
+//             stagger: 0.1,
+//             ease: "expo.inOut"
+//         }, "+=0.5");
+
+//         tl.to(".loader-card:last-child", {
+//             width: "100vw",
+//             height: "100vh",
+//             top: 0,
+//             left: 0,
+//             borderRadius: 0,
+//             duration: 1.2,
+//             ease: "expo.inOut"
+//         }, "-=0.8");
+
+//         tl.to(loaderRef.current, {
+//             opacity: 0,
+//             duration: 0.5,
+//             ease: "power2.inOut",
+//             onComplete: onComplete,
+//         }, "+=0.2");
+//     }, [onComplete]);
+
+//     return (
+//         <div ref={loaderRef} className="fixed inset-0 z-[9999] bg-[#000] overflow-hidden perspective-1000">
+//             {/* Cards Stack */}
+//             <div className="relative w-full h-full flex items-center justify-center p-0">
+//                 {loaderSections.map((section, index) => (
+//                     <div
+//                         key={section.id}
+//                         className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-[30px]"
+//                         style={{
+//                             zIndex: index + 1,
+//                             transformOrigin: "center center"
+//                         }}
+//                     >
+//                         {section.component}
+
+//                         {/* Percentage on the last card */}
+//                         {index === loaderSections.length - 1 && (
+//                             <div className="absolute bottom-10 right-10 flex items-end gap-2 bg-white/10 backdrop-blur-sm p-4 rounded-xl z-[100]">
+//                                 <div className="font-bebas text-7xl md:text-[10vw] leading-none text-black tracking-tighter">
+//                                     {percent}%
+//                                 </div>
+//                             </div>
+//                         )}
+//                     </div>
+//                 ))}
+//             </div>
+
+//             <style jsx global>{`
+//                 .perspective-1000 { perspective: 1000px; }
+//             `}</style>
+//         </div>
+//     );
+// };
+
+// export default OchiComponentLoader;
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import Hero from "@/components/Hero/Hero";
-import Footer from "@/components/Footer/Footer";
-import TopProducts from "@/components/TopProduct/product";
-import AboutPage from "@/components/Aboutt/aboutt";
-// sections to be stacked in the loader
-const loaderSections = [
-    { id: 1, component: <Footer /> },
-    { id: 2, component: <AboutPage></AboutPage> },
-    { id: 3, component: <TopProducts /> },
-    { id: 4, component: <Hero /> },
+import Image from "next/image";
+import img1 from './hero.png'
+import img2 from './2nd.png'
+import img3 from './3rd.png'
+import img4 from './4th.png'
+import img5 from './brand.png'
+const loaderImages = [
+    { id: 1, src: img4, alt: "Archive 01" },
+    { id: 2, src: img3, alt: "Archive 02" },
+    { id: 3, src: img2, alt: "Archive 03" },
+    { id: 4, src: img1, alt: "Studio Sinners" },
+    { id: 5, src: img5, alt: "store" }
 ];
 
 const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
@@ -20,75 +128,88 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
     useEffect(() => {
         const tl = gsap.timeline();
 
-        // 1. Percentage counter animation
+        // ১. পার্সেন্টেজ কাউন্টার এনিমেশন
         tl.to({}, {
-            duration: 4,
+            duration: 3.5,
             ease: "power2.inOut",
             onUpdate: function () {
                 setPercent(Math.floor(this.progress() * 100));
             },
         });
 
-        // 2. Card stacking animation
+        // ২. কার্ড স্ট্যাকিং এনিমেশন (Responsive Y Offset)
         tl.fromTo(".loader-card",
-            { y: "100vh", rotationX: 10 },
+            { y: "110vh", rotationX: 15 },
             {
-                y: (index) => `${index * 15}px`, // slight vertical gap between cards
+                y: (index) => `${index * -10}px`, // নেগেটিভ ভ্যালু দিলে কার্ডগুলো একে অপরের উপরে সুন্দর দেখাবে
                 rotationX: 0,
                 duration: 1.5,
-                stagger: 0.5,
+                stagger: 0.4,
                 ease: "expo.inOut"
             },
             0
         );
 
-        // 3. Final reveal exit animation
+        // ৩. এক্সিট এনিমেশন (লাস্ট কার্ড বাদে বাকিগুলো নিচে চলে যাবে)
         tl.to(".loader-card:not(:last-child)", {
-            y: "100vh",
+            y: "110vh",
             opacity: 0,
             duration: 1,
             stagger: 0.1,
             ease: "expo.inOut"
-        }, "+=0.5");
+        }, "+=0.3");
 
+        // ৪. লাস্ট কার্ড ফুল স্ক্রিন হওয়া
         tl.to(".loader-card:last-child", {
             width: "100vw",
             height: "100vh",
-            top: 0,
-            left: 0,
-            borderRadius: 0,
+            borderRadius: "0px",
             duration: 1.2,
             ease: "expo.inOut"
-        }, "-=0.8");
+        }, "-=0.7");
 
         tl.to(loaderRef.current, {
             opacity: 0,
             duration: 0.5,
-            ease: "power2.inOut",
             onComplete: onComplete,
         }, "+=0.2");
+
     }, [onComplete]);
 
     return (
-        <div ref={loaderRef} className="fixed inset-0 z-[9999] bg-[#000] overflow-hidden perspective-1000">
-            {/* Cards Stack */}
-            <div className="relative w-full h-full flex items-center justify-center p-0">
-                {loaderSections.map((section, index) => (
+        <div ref={loaderRef} className="fixed inset-0 z-[9999] bg-[#050505] overflow-hidden perspective-2000">
+            <div className="relative w-full h-full flex items-center justify-center">
+                {loaderImages.map((image, index) => (
                     <div
-                        key={section.id}
-                        className="loader-card absolute w-[95%] h-[85%] md:w-[85%] md:h-[90%] overflow-hidden rounded-[30px]"
+                        key={image.id}
+                        className="loader-card absolute w-[90%] h-[70%] md:w-[70%] md:h-[80%] overflow-hidden rounded-[20px] md:rounded-[40px] border border-white/5 shadow-2xl"
                         style={{
                             zIndex: index + 1,
-                            transformOrigin: "center center"
+                            transformOrigin: "bottom center"
                         }}
                     >
-                        {section.component}
+                        {/* Next.js Optimized Image */}
+                        <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                            priority
+                        />
 
-                        {/* Percentage on the last card */}
-                        {index === loaderSections.length - 1 && (
-                            <div className="absolute bottom-10 right-10 flex items-end gap-2 bg-white/10 backdrop-blur-sm p-4 rounded-xl z-[100]">
-                                <div className="font-bebas text-7xl md:text-[10vw] leading-none text-black tracking-tighter">
-                                    {percent}%
+                        {/* গ্রেডিয়েন্ট ওভারলে যাতে পার্সেন্টেজ বোঝা যায় */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+                        {/* পার্সেন্টেজ ডিসপ্লে (শুধুমাত্র লাস্ট কার্ডে) */}
+                        {index === loaderImages.length - 1 && (
+                            <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-[100]">
+                                <div className="flex flex-col items-end">
+                                    <span className="text-[10px] md:text-xs font-mono tracking-[5px] text-[#D9FF00] uppercase mb-2">
+                                        Loading_System
+                                    </span>
+                                    <div className="font-bebas text-[20vw] md:text-[12vw] leading-[0.8] text-[#D9FF00] tracking-tighter shadow-sm">
+                                        {percent}%
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -97,7 +218,7 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
             </div>
 
             <style jsx global>{`
-                .perspective-1000 { perspective: 1000px; }
+                .perspective-2000 { perspective: 2000px; }
             `}</style>
         </div>
     );

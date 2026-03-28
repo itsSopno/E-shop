@@ -127,7 +127,7 @@ export default function LongStoryPage() {
                     <Image src="https://i.pinimg.com/1200x/c7/16/d5/c716d5cd729c74bc63fc0d211fe32c2b.jpg" alt="Studio Sinners Genesis" fill className="object-cover" priority />
                 </div>
                 <div className="relative z-10">
-                    <h1 className="font-display text-4xl md:text-9xl font-black tracking-aggressive leading-none italic uppercase font-crenzo">
+                    <h1 className="font-display text-2xl md:text-9xl font-black tracking-aggressive leading-none uppercase font-crenzo">
                         SINNERS_<span className="text-neon-lime">TECH</span>
                     </h1>
                     <div className="mt-12 flex items-center gap-6">

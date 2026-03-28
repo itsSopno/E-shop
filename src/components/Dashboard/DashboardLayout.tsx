@@ -23,12 +23,12 @@ export default function DashboardLayout({
     return () => clearInterval(timer);
   }, []);
 
-  const footerTabs = [
-    { name: "INVENTORY_HOT_LIST", active: true },
-    // { name: "ORDER_PRECISION", active: false },
-    // { name: "REVENUE_STREAM", active: false },
-    // { name: "NODE_STATUS", active: false },
-  ];
+  // const footerTabs = [
+  //   // { name: "INVENTORY_HOT_LIST", active: true },
+  //   // { name: "ORDER_PRECISION", active: false },
+  //   // { name: "REVENUE_STREAM", active: false },
+  //   // { name: "NODE_STATUS", active: false },
+  // ];
 
   const headerTabs = ["SYSTEM_CORE"];
 
@@ -125,7 +125,7 @@ export default function DashboardLayout({
         </main>
 
         {/* Absolute Footer Navigation */}
-        <footer className="fixed bottom-0 left-0 right-0 h-24 bg-[#080808]/80 backdrop-blur-xl border-t border-white/5 z-[100] px-6 md:px-12 flex items-center justify-between pointer-events-none">
+        {/* <footer className="fixed bottom-0 left-0 right-0 h-24 bg-[#080808]/80 backdrop-blur-xl border-t border-white/5 z-[100] px-6 md:px-12 flex items-center justify-between pointer-events-none">
           <div className={`flex flex-1 transition-all duration-500 ${isCollapsed ? 'md:pl-0' : 'md:pl-[280px]'} pointer-events-auto`}>
             <div className="flex items-center w-full max-w-7xl mx-auto justify-between">
               {footerTabs.map((tab) => (
@@ -143,7 +143,7 @@ export default function DashboardLayout({
               ))}
             </div>
           </div>
-        </footer>
+        </footer> */}
       </div>
 
       <style jsx global>{`
