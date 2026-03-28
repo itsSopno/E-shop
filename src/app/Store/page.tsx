@@ -225,7 +225,16 @@ import styles from "./store.module.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ... (Interface Keycap remains the same)
+interface Keycap {
+    _id: string;
+    name: string;
+    image: string;
+    description: string;
+    price: number;
+    quantity: number;
+    stock: number;
+    category: string;
+}
 
 const StoreSection = () => {
     const [keycaps, setKeycaps] = useState<Keycap[]>([]);
