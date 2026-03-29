@@ -9,7 +9,6 @@ const Navbar = () => {
   const { data: session } = useSession();
   const isAdmin = session?.user?.email === "admin@user";
 
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-[60px] py-6 md:py-8 flex items-center justify-between pointer-events-none w-full">
 
@@ -131,6 +130,7 @@ const Navbar = () => {
                 { name: "PAYMENT", href: "/Payment" },
                 { name: "STORY", href: "/Story" },
                 { name: "ARCHIVE", href: "/Caps" },
+                // { name: "PROFILE", href: "/LocalProfile" },
                 ...(isAdmin ? [{ name: "DASHBOARD", href: "/dashboard" }] : []),
                 ...(session
                   ? [{ name: "LOGOUT", isLogout: true }]

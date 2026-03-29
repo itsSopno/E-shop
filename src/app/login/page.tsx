@@ -28,7 +28,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError("Invalid credentials. Please verify and try again.");
       } else {
-        router.push("/dashboard");
+        router.push("/Store");
       }
     } catch (err) {
       setError("A connection error occurred. Please try again.");

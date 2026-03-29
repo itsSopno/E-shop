@@ -41,12 +41,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return null;
           }
           if (res.ok && data) {
-            // Adjust based on strict backend returns
             const userObj = data.user || data.data || data;
             return {
               id: userObj._id || userObj.id || Date.now().toString(),
               name: userObj.name || userObj.firstName || "",
               email: userObj.email || credentials.email,
+              // ✅ Store backend JWT token so we can use it in session
+              backendToken: data.token || null,
             };
           }
           return null;
@@ -83,6 +84,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        // ✅ Forward backend token into NextAuth JWT
+        const extUser = user as typeof user & { backendToken?: string };
+        if (extUser.backendToken) {
+          token.backendToken = extUser.backendToken;
+        }
       }
       return token;
     },
@@ -92,6 +98,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id as string;
       } else if (token.sub && session.user) {
         session.user.id = token.sub;
+      }
+      // ✅ Expose backend token so client components can use it
+      if (token.backendToken && session.user) {
+        (session.user as typeof session.user & { backendToken: string }).backendToken = token.backendToken as string;
       }
       return session;
     },
