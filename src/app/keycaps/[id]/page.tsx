@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import CheckoutModal from "@/components/CheckoutModal/CheckoutModal";
-
+import { useSession } from "next-auth/react";
 interface Keycap {
   _id: string;
   name: string;
@@ -20,7 +20,8 @@ const KeycapDetail = () => {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-
+  const { data: session } = useSession();
+  const email = session?.user?.email === "admin@user"
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -128,8 +129,15 @@ const KeycapDetail = () => {
                   onClick={() => setIsCheckoutOpen(true)}
                   className="w-full bg-[#D9FF00] text-black font-bebas text-3xl py-6 italic hover:bg-white hover:scale-[0.99] active:scale-95 transition-all"
                 >
-                  ADD TO ARSENAL
+                  BUY NOW
                 </button>
+                {email && (
+                  <Link href={`/Edit-keycaps/${id}`}
+                    className="w-full bg-[#D9FF00] text-black font-bebas text-3xl py-6 italic hover:bg-white hover:scale-[0.99] active:scale-95 transition-all flex items-center justify-center"
+                  >
+                    EDIT PRODUCT
+                  </Link>
+                )}
                 <p className="text-center text-[10px] text-white/20 font-bold tracking-[0.3em] uppercase">
                   Limited Edition Artisan Peripheral
                 </p>

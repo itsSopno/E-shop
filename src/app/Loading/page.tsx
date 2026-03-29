@@ -182,7 +182,7 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
                 {loaderImages.map((image, index) => (
                     <div
                         key={image.id}
-                        className="loader-card absolute w-[90%] h-[70%] md:w-[70%] md:h-[80%] overflow-hidden rounded-[20px] md:rounded-[40px] border border-white/5 shadow-2xl"
+                        className="loader-card absolute w-[20%] h-[70%] md:w-[70%] md:h-[80%] overflow-hidden rounded-[20px] md:rounded-[40px] border border-white/5 shadow-2xl"
                         style={{
                             zIndex: index + 1,
                             transformOrigin: "bottom center"

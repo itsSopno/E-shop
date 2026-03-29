@@ -1,43 +1,4 @@
-// "use client";
-// import React, { useEffect, useState, useRef } from "react";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { gsap } from "gsap";
-// import styles from "./details.module.scss";
 
-// // টাইপ ডিফাইন করুন
-// interface Product {
-//     _id: string;
-//     name: string;
-//     image: string;
-//     description: string;
-//     price: number;
-//     category: string;
-//     stock: number;
-// }
-
-// const ProductDetails = ({ params }: { params: { id: string } }) => {
-//     const [product, setProduct] = useState<Product | null>(null);
-//     const [loading, setLoading] = useState(true);
-//     const imgRef = useRef(null);
-//     const infoRef = useRef(null);
-
-//     useEffect(() => {
-//         const fetchProduct = async () => {
-//             try {
-//                 const response = await fetch(`https://t-mark-4.vercel.app/api/all-products/getOne/${params.id}`);
-//                 const data = await response.json();
-//                 if (data && data.product) {
-//                     setProduct(data.product);
-//                 }
-//                 setLoading(false);
-//             } catch (error) {
-//                 console.error("Error:", error);
-//                 setLoading(false);
-//             }
-//         };
-//         fetchProduct();
-//     }, [params.id]);
 "use client";
 import React, { useEffect, useState, useRef, use } from "react"; // 'use' ইমপোর্ট করুন
 
@@ -46,6 +7,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import styles from "./details.module.scss";
 import CheckoutModal from "@/components/CheckoutModal/CheckoutModal";
+import { useSession } from "next-auth/react";
 
 // টাইপ ডিফাইন করুন
 interface Product {
@@ -68,7 +30,8 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const imgRef = useRef(null);
     const infoRef = useRef(null);
-
+    const { data: session } = useSession();
+    const email = session?.user?.email === "admin@user"
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -160,6 +123,14 @@ const ProductDetails = ({ params }: { params: Promise<{ id: string }> }) => {
                         >
                             Acquire Item
                         </button>
+                        {email && (
+                            <Link
+                                href={`/dashboard/edit-product/${product._id}`}
+                                className="flex-1 min-w-[200px] bg-white text-black py-5 font-bebas text-2xl hover:bg-[#e0e0e0] transition-all transform hover:scale-[1.02] active:scale-95"
+                            >
+                                EDIT PRODUCT
+                            </Link>
+                        )}
                         <button className="flex-1 min-w-[200px] border border-white/20 py-5 font-bebas text-2xl hover:bg-white hover:text-black transition-all">
                             Add to Cart
                         </button>

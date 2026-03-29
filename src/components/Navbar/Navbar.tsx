@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="flex items-center pointer-events-auto">
         <Link
           href="/Store"
-          className="bg-neon-lime text-[#161e00] h-[48px] md:h-[62px] px-4 md:px-12 flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 shadow-sm active:scale-95"
+          className="bg-neon-lime text-[#161e00] h-[48px] md:h-[62px] px-4 md:px-30 flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 shadow-sm active:scale-95"
         >
           <svg
             width="20"
