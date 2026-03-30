@@ -127,13 +127,12 @@ const Navbar = () => {
                 { name: "HOME", href: "/" },
                 { name: "KEYCAPS", href: "/#keycaps" },
                 { name: "CONTACT", href: "/contact" },
-                { name: "PAYMENT", href: "/Payment" },
                 { name: "STORY", href: "/Story" },
                 { name: "ARCHIVE", href: "/Caps" },
                 // { name: "PROFILE", href: "/LocalProfile" },
                 ...(isAdmin ? [{ name: "DASHBOARD", href: "/dashboard" }] : []),
                 ...(session
-                  ? [{ name: "LOGOUT", isLogout: true }]
+                  ? [{ name: "LOGOUT", isLogout: true }, { name: "PAYMENT", href: "/Payment" }]
                   : [
                     { name: "REGISTER", href: "/register" },
                     { name: "LOGIN", href: "/login" }
