@@ -3,10 +3,16 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import Link from "next/link";
+import { Session } from "next-auth";
+import { useGlobalContext } from "@/context/globalContext";
+interface HeroProps {
+  session: Session | null;
+}
 
-const Hero = () => {
+const Hero = ({ session }: HeroProps) => {
+  const { allUsers } = useGlobalContext();
   const containerRef = useRef<HTMLElement>(null);
-
+  const isUserMatched = allUsers?.some((user: any) => user.email === session?.user?.email);
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -101,6 +107,17 @@ const Hero = () => {
               <span className="relative z-10">Our Story</span>
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             </Link>
+            {isUserMatched ? (
+              <Link href="/Community" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
+                <span className="relative z-10">Community</span>
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              </Link>
+            ) : (
+              <Link href="/CreateProfile" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
+                <span className="relative z-10">Join the Community</span>
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              </Link>
+            )}
           </div>
         </div>
 

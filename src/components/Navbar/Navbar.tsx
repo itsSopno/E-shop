@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
+
+  if (pathname.startsWith("/Community")) return null;
   const isAdmin = session?.user?.email === "admin@user";
 
   return (
@@ -129,7 +133,7 @@ const Navbar = () => {
                 { name: "CONTACT", href: "/contact" },
                 { name: "STORY", href: "/Story" },
                 { name: "ARCHIVE", href: "/Caps" },
-                // { name: "PROFILE", href: "/LocalProfile" },
+                { name: "PROFILE", href: "/Profile" },
                 ...(isAdmin ? [{ name: "DASHBOARD", href: "/dashboard" }] : []),
                 ...(session
                   ? [{ name: "LOGOUT", isLogout: true }, { name: "PAYMENT", href: "/Payment" }]
