@@ -12,7 +12,7 @@ import { ToasterProvider } from "@/components/providers/ToasterProvider";
 import { GlobalProvider } from "@/context/globalContext";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
@@ -37,15 +37,14 @@ export default function RootLayout({
           <GlobalProvider>
             <ToasterProvider />
             <LoadingWrapper>
-            <SmoothScroll>
-              <div className="app-wrapper">
-                <Navbar />
-                <main className="main-content">{children}</main>
-                <AIChat />
-              </div>
-            </SmoothScroll>
-          </LoadingWrapper>
-          {/* <AIChat /> */}
+              <SmoothScroll>
+                <div className="app-wrapper">
+                  <Navbar />
+                  <main className="main-content">{children}</main>
+                  <AIChat />
+                </div>
+              </SmoothScroll>
+            </LoadingWrapper>
           </GlobalProvider>
         </SessionProvider>
       </body>

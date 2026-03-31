@@ -76,9 +76,9 @@ const AIChat = () => {
     if (pathname.includes("/Community")) return null;
 
     return (
-        <div className={`${styles.chatWrapper} ${isOpen ? styles.active : ""}`}>
+        <div className={styles.chatWrapper}>
             {/* Chat Window */}
-            <div className="flex flex-col h-full w-full bg-[#050505]/95 md:bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden relative rounded-none md:rounded-[40px] shadow-2xl" ref={windowRef}>
+            <div className={`${styles.chatWindow} ${isOpen ? styles.active : ""} flex flex-col bg-[#050505]/95 md:bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden rounded-none md:rounded-[40px] shadow-2xl`} ref={windowRef}>
                 <div className={styles.chatHeader}>
                     <div className={styles.status}></div>
                     <h3>Sinners Assistant</h3>

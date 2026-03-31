@@ -1,82 +1,4 @@
-// import React from "react";
-// import Image from "next/image";
-// import styles from "../Aboutt/aboutt.module.scss"
-// import TechPartners from "../Pertner/Partner";
 
-// interface Stat {
-//     label: string;
-//     value: string;
-// }
-
-// const stats: Stat[] = [
-//     { label: "Products Launched", value: "24+" },
-//     { label: "Community Members", value: "10K" },
-//     { label: "Global Partners", value: "08" },
-// ];
-
-// const AboutPage: React.FC = () => {
-//     return (
-//         <>
-//             <main className={styles.aboutWrapper}>
-//                 {/* Hero Section */}
-//                 <section className={styles.hero}>
-//                     <div className="container mx-auto px-6 md:px-16">
-//                         <div className={styles.heroContent}>
-//                             <span className={styles.subtitle}>Our Story</span>
-//                             <h1 className={styles.title}>
-//                                 Engineering <br />
-//                                 <span className="text-black">Performance</span> <br />
-//                                 Through <span className={styles.italic}>Design.</span>
-//                             </h1>
-//                         </div>
-//                     </div>
-//                 </section>
-
-//                 {/* Philosophy Section */}
-//                 <section className={styles.philosophy}>
-//                     <div className="container mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-20">
-//                         <div className={styles.imageBox}>
-//                             <Image
-//                                 src="https://i.pinimg.com/1200x/0b/38/24/0b3824e02cd454af2df5f78c623585bc.jpg" // Use one of your high-res setup shots here
-//                                 alt="Our Workshop"
-//                                 fill
-//                                 className={styles.mainImg}
-//                             />
-//                             <div className={styles.signatureOverlay}><span className="font-creme text-9xl">SINNERS</span></div>
-//                         </div>
-
-//                         <div className={styles.textContent}>
-//                             <h2 className={styles.secTitle}>The Philosophy</h2>
-//                             <p className={styles.lead}>
-//                                 We don’t just build peripherals; we craft tools for those who refuse to settle for the ordinary.
-//                                 Born from a passion for racing and precision engineering.
-//                             </p>
-//                             <p className={styles.body}>
-//                                 Every keypress matters. Every millisecond counts. Our mission is to bridge the gap between
-//                                 human intent and digital execution, using materials that feel as good as they perform.
-//                             </p>
-
-//                             <div className={styles.statsGrid}>
-//                                 {stats.map((stat, i) => (
-//                                     <div key={i} className={styles.statItem}>
-//                                         <span className={styles.statValue}>{stat.value}</span>
-//                                         <span className={styles.statLabel}>{stat.label}</span>
-//                                     </div>
-//                                 ))}
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </section>
-//                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-//             </main>
-//             <TechPartners></TechPartners>
-//         </>
-//     );
-// };
-
-// export default AboutPage;
-// app/story/page.tsx
-// app/story/page.tsx
 import React from "react";
 import Image from "next/image";
 
@@ -123,15 +45,15 @@ export default function LongStoryPage() {
 
             {/* 1. HERO IMAGE: THE GENESIS */}
             <section className="relative h-screen flex flex-col justify-center p-8 lg:p-20 overflow-hidden bg-obsidian-lowest">
-                <div className="absolute inset-0 z-0 opacity-30">
-                    <Image src="https://i.pinimg.com/1200x/c7/16/d5/c716d5cd729c74bc63fc0d211fe32c2b.jpg" alt="Studio Sinners Genesis" fill className="object-cover" priority />
+                <div className="absolute inset-0 z-0 opacity-30 grayscale">
+                    <Image src="https://i.pinimg.com/1200x/ab/6f/fd/ab6ffd4b0c29252b42a907c067960d0e.jpg" alt="Studio Sinners Genesis" fill className="object-cover" priority />
                 </div>
                 <div className="relative z-10">
                     <h1 className="font-display text-2xl md:text-9xl font-black tracking-aggressive leading-none uppercase font-crenzo">
-                        SINNERS_<span className="text-neon-lime">TECH</span>
+                        SINNERS_<span className="text-indigo-500">TECH</span>
                     </h1>
                     <div className="mt-12 flex items-center gap-6">
-                        <div className="w-20 h-[2px] bg-neon-lime" />
+                        <div className="w-20 h-[2px] bg-indigo-500" />
                         <p className="font-mono text-xs tracking-widest text-silver/50 uppercase">
                             Since  2025
                         </p>
