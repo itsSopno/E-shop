@@ -1,10 +1,11 @@
 "use client";
+
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import Link from "next/link";
 import { Session } from "next-auth";
-import { useGlobalContext } from "@/context/globalContext";
+import { useGlobalContext, IUserData } from "@/context/globalContext";
+
 interface HeroProps {
   session: Session | null;
 }
@@ -12,52 +13,43 @@ interface HeroProps {
 const Hero = ({ session }: HeroProps) => {
   const { allUsers } = useGlobalContext();
   const containerRef = useRef<HTMLElement>(null);
-  const isUserMatched = allUsers?.some((user: any) => user.email === session?.user?.email);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Check if current user is in the database
+  const isUserMatched = allUsers?.some((user: IUserData) => user.email === session?.user?.email);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      // Initial Entrance
-      tl.from(".hero-title span", {
-        y: 200,
-        skewY: 10,
-        stagger: 0.1,
-        duration: 1.5,
-        delay: 0.5
+      // Entrance Animations
+      tl.from(".hero-video-container", {
+        scale: 1.1,
+        duration: 2.5,
+        ease: "power2.out",
       })
-        .from(".portal-frame", {
-          scale: 0,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.75)"
-        }, "-=1")
-        .from(".ui-element", {
-          opacity: 0,
-          y: 20,
-          stagger: 0.1
-        }, "-=0.5");
+      .from(".hero-content > *", {
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1.2,
+      }, "-=1.5")
+      .from(".bottom-bar", {
+        y: 20,
+        opacity: 0,
+        duration: 1,
+      }, "-=1");
 
-      // Floating Keycaps Animation (Continuous)
-      gsap.to(".floating-item", {
-        y: "random(-20, 20)",
-        x: "random(-10, 10)",
-        rotation: "random(-10, 10)",
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.5
-      });
-
-      // Mouse Follow Parallax for the Portal
+      // Subtle video parallax/movement on mouse move
       const handleMouseMove = (e: MouseEvent) => {
         const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 40;
-        const yPos = (clientY / window.innerHeight - 0.5) * 40;
+        const xPercent = (clientX / window.innerWidth - 0.5) * 10;
+        const yPercent = (clientY / window.innerHeight - 0.5) * 10;
 
-        gsap.to(".portal-inner", {
-          x: xPos,
-          y: yPos,
-          duration: 1,
+        gsap.to(videoRef.current, {
+          x: xPercent,
+          y: yPercent,
+          duration: 2,
           ease: "power2.out"
         });
       };
@@ -72,101 +64,108 @@ const Hero = ({ session }: HeroProps) => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100vh] bg-obsidian flex flex-col items-center justify-center overflow-hidden px-6"
+      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
     >
-      {/* ── BACKGROUND OVERLAY TEXT ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0">
-        <h2 className="font-space text-[20vw] leading-none text-white/[0.03] uppercase select-none font-crenzo italic">
-          SINNERS_<br></br>TECH
-        </h2>
+      {/* ── BACKGROUND VIDEO ── */}
+      <div className="hero-video-container absolute inset-0 z-0 overflow-hidden bg-black flex items-center justify-center">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover object-center scale-110 absolute inset-0 opacity-60 transition-opacity duration-1000"
+          onCanPlayThrough={(e) => (e.currentTarget.style.opacity = "0.7")}
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        {/* Sleek Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12">
-
-        {/* ── LEFT: DYNAMIC TYPOGRAPHY ── */}
-        <div className="w-full lg:w-1/2">
-          <div className="ui-element flex items-center gap-3 mb-6">
-            <span className="h-[1px] w-12 bg-silver"></span>
-            <span className="tracking-[0.3em] text-sm text-gray-400">MADE BY STUDIO SINNERS</span>
-          </div>
-
-          <h1 className="hero-title font-space font-bold text-[clamp(60px,10vw,140px)] leading-[0.85] text-silver uppercase italic mb-8 -tracking-[0.03em]">
-            <div className="overflow-hidden h-[1.1em]"><span className="block">Ultimate</span></div>
-            <div className="overflow-hidden h-[1.1em] text-transparent [-webkit-text-stroke:1px_var(--color-silver)]">
-              <span className="block">Custom</span>
-            </div>
-            <div className="overflow-hidden h-[1.1em]"><span className="block">Collection</span></div>
-          </h1>
-
-          <div className="ui-element flex flex-wrap gap-4">
-            <Link href="/Store" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
-              <span className="relative z-10">Shop the Drop</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </Link>
-            <Link href="/Story" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
-              <span className="relative z-10">Our Story</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </Link>
-            {isUserMatched ? (
-              <Link href="/Community" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
-                <span className="relative z-10">Community</span>
-                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              </Link>
-            ) : (
-              <Link href="/CreateProfile" className="group relative bg-neon-lime text-[#161e00] px-10 py-5 font-bebas text-2xl uppercase italic transition-transform hover:scale-105 active:scale-95 overflow-hidden shadow-2xl">
-                <span className="relative z-10">Join the Community</span>
-                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              </Link>
-            )}
-          </div>
+      {/* ── CONTENT LAYER ── */}
+      <div className="relative z-10 hero-content flex flex-col items-center justify-center text-center px-6 max-w-6xl w-full">
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <span className="hidden sm:block h-[1px] w-12 bg-white/30"></span>
+          <span className="tracking-[0.5em] text-[10px] sm:text-xs text-white/70 uppercase font-medium">
+            Next Generation Tech Collection
+          </span>
+          <span className="hidden sm:block h-[1px] w-12 bg-white/30"></span>
         </div>
 
-        {/* ── RIGHT: THE PORTAL (Responsive Centerpiece) ── */}
-        <div className="relative w-full lg:w-1/2 h-[450px] sm:h-[600px] flex items-center justify-center">
+        <h1 className="font-space font-extrabold text-[clamp(48px,10vw,140px)] leading-[0.8] text-white uppercase italic mb-12 tracking-tighter select-none">
+          Sinners <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)]">Studio</span><br />
+          <span className="text-white/90">Ecosystem</span>
+        </h1>
 
-          {/* Main Portal Frame */}
-          <div className="portal-frame relative w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] border-[1.5px] border-silver/5 p-4 flex items-center justify-center">
+        {/* Buttons Centering Fix applied here with flex-center and adjusting flex-wrap */}
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 w-full max-w-4xl mx-auto">
+          <Link 
+            href="/Store" 
+            className="group relative px-10 py-4 sm:px-12 sm:py-5 overflow-hidden transition-all duration-300 w-full sm:w-auto text-center"
+          >
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-md border border-white/20 group-hover:bg-white group-hover:scale-105 transition-all duration-300"></div>
+            <span className="relative z-10 font-bebas text-xl sm:text-2xl tracking-[0.1em] text-white group-hover:text-black transition-colors duration-300">
+              Explore Store
+            </span>
+          </Link>
 
-            <div className="portal-inner relative w-full h-full overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)]">
-              <Image
-                src="https://i.pinimg.com/736x/b8/70/55/b870553a9cfde3ad5aa6600f236b5c8a.jpg"
-                alt="Main" fill className="object-cover scale-110" priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
-            </div>
+          <Link 
+            href="/Story" 
+            className="group relative px-10 py-4 sm:px-12 sm:py-5 overflow-hidden w-full sm:w-auto text-center"
+          >
+            <div className="absolute inset-0 border border-white/10 hover:border-white/40 transition-colors duration-300"></div>
+            <span className="relative z-10 font-bebas text-xl sm:text-2xl tracking-[0.1em] text-white/80 hover:text-white transition-colors duration-300">
+              Our Vision
+            </span>
+          </Link>
 
-            {/* Floating Artisan Elements (Macro Shots) */}
-            <div className="floating-item absolute top-0 -left-10 w-24 h-24 sm:w-40 sm:h-40 rounded-2xl border-4 border-white shadow-2xl overflow-hidden z-20">
-              <Image src="https://i.pinimg.com/1200x/ad/f8/2d/adf82db538dda3b52c788333f043fe54.jpg" alt="Artisan 1" fill className="object-cover" />
-            </div>
-
-            <div className="floating-item absolute bottom-10 -right-8 w-20 h-20 sm:w-36 sm:h-36 rounded-2xl border-4 border-white shadow-2xl overflow-hidden z-20">
-              <Image src="https://i.pinimg.com/1200x/23/b1/2d/23b12da7f92b8d7cab9514e485b700be.jpg" alt="Artisan 2" fill className="object-cover" />
-            </div>
-
-            <div className="floating-item absolute -top-4 -right-2 w-16 h-16 sm:w-28 sm:h-28 rounded-full border-4 border-[#CCFF00] shadow-2xl overflow-hidden z-20 bg-white p-1">
-              <div className="relative w-full h-full rounded-full overflow-hidden">
-                <Image src="https://i.pinimg.com/736x/29/5a/8e/295a8eb95f74ac12010e83fc399e1557.jpg" alt="Artisan 3" fill className="object-cover" />
-              </div>
-            </div>
-
-          </div>
-
-          {/* Liquid Badge */}
-          <div className="ui-element absolute bottom-0 left-1/2 -translate-x-1/2 bg-obsidian text-silver px-6 py-2 font-bebas text-lg tracking-widest -rotate-3 border-2 border-neon-lime">
-            LIMIT: 1/100
-          </div>
+          {isUserMatched ? (
+            <Link 
+              href="/Community" 
+              className="group relative px-10 py-4 sm:px-12 sm:py-5 bg-indigo-500/20 backdrop-blur-sm border border-indigo-500/50 hover:bg-indigo-500 transition-all duration-300 shadow-[0_0_30px_rgba(79,70,229,0.2)] w-full sm:w-auto text-center"
+            >
+              <span className="relative z-10 font-bebas text-xl sm:text-2xl tracking-[0.1em] text-white">
+                The Network
+              </span>
+            </Link>
+          ) : (
+            <Link 
+              href="/CreateProfile" 
+              className="group relative px-10 py-4 sm:px-12 sm:py-5 bg-white text-black hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] w-full sm:w-auto text-center"
+            >
+              <span className="relative z-10 font-bebas text-xl sm:text-2xl tracking-[0.1em] uppercase">
+                Join Us
+              </span>
+            </Link>
+          )}
         </div>
       </div>
 
-      {/* ── BOTTOM NAV/SOCIALS ── */}
-      <div className="ui-element absolute bottom-10 left-6 lg:left-12 flex gap-8">
-        {['Instagram', 'Twitter', 'Discord'].map((social) => (
-          <a key={social} href="#" className="font-bebas text-sm tracking-widest text-gray-400 hover:text-black transition-colors">
-            {social}
-          </a>
-        ))}
+      {/* ── BOTTOM BAR ── */}
+      <div className="bottom-bar absolute bottom-10 w-full px-12 flex flex-col md:flex-row justify-between items-center gap-6 text-white/30 font-bebas text-sm tracking-[0.3em]">
+        <div className="flex items-center gap-4">
+          <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
+          <span className="italic">SYSTEM ONLINE / DHAKA HUB</span>
+        </div>
+        
+        <div className="flex gap-8">
+          {['Instagram', 'Discord', 'Github'].map((platform) => (
+            <a 
+              key={platform} 
+              href="#" 
+              className="hover:text-white transition-colors duration-300 uppercase"
+            >
+              {platform}
+            </a>
+          ))}
+        </div>
       </div>
+
+      {/* Subtle Scanline Effect */}
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_2px,3px_100%] z-20"></div>
     </section>
   );
 };
