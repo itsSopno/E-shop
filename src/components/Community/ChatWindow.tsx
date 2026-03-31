@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-import { Send, Loader2, Terminal, X } from "lucide-react";
+import { Send, Loader2, Terminal, X, Image as ImageIcon, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useSocket } from "@/hooks/useSocket";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
@@ -31,8 +32,19 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
   
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // 1. Fetch History
   useEffect(() => {
@@ -91,25 +103,52 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   }, [messages, isTyping]);
 
   // 4. Handlers
+  const uploadToImgBB = async (file: File) => {
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("image", file);
+    
+    try {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
+            method: "POST",
+            body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+            return data.data.url;
+        }
+    } catch (err) {
+        console.error("ImgBB upload failed:", err);
+    } finally {
+        setIsUploading(false);
+    }
+    return null;
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    const url = await uploadToImgBB(file);
+    if (url) {
+        setImageUrl(url);
+    }
+  };
+
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!inputValue.trim() || !socket || !currentUserId) return;
+    if ((!inputValue.trim() && !imageUrl) || !socket || !currentUserId) return;
 
     const messageData = {
       senderId: currentUserId,
       receiverId: recipientId,
       message: inputValue,
-      image: "" 
+      image: imageUrl 
     };
 
-    // Optimistic Update (Optional, let's wait for socket response or emit)
-    // Actually, socketManager emits 'message-sent' back to sender
     socket.emit("send-message", messageData);
-    
-    // Manual local append for immediate feedback (if not returned by socket)
-    // Actually, I'll listen for 'message-sent' in useSocket or here
-    
     setInputValue("");
+    setImageUrl("");
   };
 
   useEffect(() => {
@@ -135,11 +174,16 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   if (!recipientId) return null;
 
   return (
-    <div className="flex flex-col h-[600px] bg-white/[0.02] border border-white/[0.05] rounded-[40px] backdrop-blur-3xl overflow-hidden shadow-2xl relative">
+    <div className={`flex flex-col ${isMobile ? "fixed inset-0 z-[300] h-screen w-screen rounded-none" : "h-[600px] rounded-[40px] shadow-2xl"} bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden relative`}>
       
       {/* Header */}
       <div className="flex items-center justify-between p-6 border-b border-white/[0.05] bg-white/[0.02]">
         <div className="flex items-center gap-4">
+          {isMobile && (
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-white/60">
+              <ArrowLeft size={20} />
+            </button>
+          )}
           <div className="w-10 h-10 rounded-full border border-[#D9FF00]/20 bg-[#050505] overflow-hidden">
              <img src={`https://ui-avatars.com/api/?name=${recipientId.charAt(0)}&background=D9FF00&color=050505`} alt="Recipient" />
           </div>
@@ -180,11 +224,16 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
                   animate={{ opacity: 1, x: 0 }}
                   className={`flex ${msg.senderId === currentUserId ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`max-w-[80%] rounded-2xl p-4 text-sm font-sans ${
+                  <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-4 text-sm font-sans ${
                     msg.senderId === currentUserId 
                     ? "bg-[#D9FF00]/10 border border-[#D9FF00]/20 text-white rounded-br-none" 
                     : "bg-white/[0.05] border border-white/[0.05] text-white/80 rounded-bl-none"
                   }`}>
+                    {msg.image && (
+                        <div className="mb-3 relative aspect-video w-full max-w-[280px] rounded-lg overflow-hidden border border-white/10">
+                            <Image src={msg.image} alt="Sent Image" fill className="object-cover" unoptimized />
+                        </div>
+                    )}
                     <p className="leading-relaxed">{msg.message}</p>
                     <p className="text-[8px] font-jetbrains-mono opacity-20 mt-2 text-right">
                         {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -209,18 +258,46 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
 
       {/* Input */}
       <div className="p-6 border-t border-white/[0.05]">
-         <form onSubmit={handleSendMessage} className="relative flex items-center gap-4">
+          {imageUrl && (
+            <div className="mb-4 relative w-20 h-20 rounded-xl overflow-hidden border border-[#D9FF00]/40 group">
+              <Image src={imageUrl} alt="Preview" fill className="object-cover" unoptimized />
+              <button 
+                onClick={() => setImageUrl("")}
+                className="absolute top-1 right-1 bg-black/60 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <X size={10} className="text-white" />
+              </button>
+            </div>
+          )}
+         <form onSubmit={handleSendMessage} className="relative flex items-center gap-2 md:gap-4">
+            <input 
+                type="file" 
+                ref={fileInputRef}
+                onChange={handleFileSelect}
+                className="hidden"
+                accept="image/*"
+            />
+            <button 
+                type="button" 
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="p-4 bg-white/[0.05] text-white/40 hover:text-[#D9FF00] hover:bg-[#D9FF00]/10 rounded-2xl transition-all disabled:opacity-50"
+            >
+                {isUploading ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
+            </button>
+
             <div className="flex-1 relative">
                 <input 
                    value={inputValue}
                    onChange={handleInputChange}
-                   placeholder="TYPE_COMMAND_HERE..."
+                   placeholder="MESSAGE..."
                    className="w-full bg-[#050505] border border-white/10 rounded-2xl px-6 py-4 text-sm font-jetbrains-mono focus:border-[#D9FF00] focus:ring-1 focus:ring-[#D9FF00]/20 outline-none transition-all placeholder:text-white/10"
                 />
             </div>
             <button 
                 type="submit"
-                className="p-4 bg-[#D9FF00] text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#D9FF00]/10"
+                disabled={isUploading || (!inputValue.trim() && !imageUrl)}
+                className="p-4 bg-[#D9FF00] text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#D9FF00]/10 disabled:opacity-50 disabled:grayscale"
             >
                 <Send size={18} fill="currentColor" />
             </button>

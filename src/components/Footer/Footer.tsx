@@ -5,7 +5,7 @@ const LandoHero = () => {
   return (
     <>
       <section className="footer">
-        <section className="body relative min-h-screen bg-[#1a1d13] text-[#d9ff00] flex flex-col items-center justify-between py-10 md:py-16 px-4 md:px-12 overflow-hidden rounded-[30px] md:rounded-[50px] mx-2 md:mx-4 my-4">
+        <section className="body relative min-h-screen bg-indigo-500/20 text-indigo-500 flex flex-col items-center justify-between py-10 md:py-16 px-4 md:px-12 overflow-hidden rounded-[30px] md:rounded-[50px] mx-2 md:mx-4 my-4">
 
           {/* Background Contour Lines Effect */}
           <div className="absolute inset-0 pointer-events-none opacity-5 md:opacity-10">
@@ -23,12 +23,12 @@ const LandoHero = () => {
             <div className="flex flex-col gap-3 text-center md:text-left order-2 md:order-1 items-center md:items-start">
               <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Navigation</span>
               <div className="flex flex-row md:flex-col flex-wrap justify-center gap-x-6 gap-y-2">
-                <Link href="/" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Home</Link>
-                <Link href="/Contact" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Contact</Link>
-                <Link href="/Payment" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Payments</Link>
-                <Link href="/Story" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Story</Link>
-                <Link href="/Caps" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-[#d9ff00]">Caps</Link>
-                <Link href="/store" className="text-xl md:text-3xl font-bold uppercase text-[#d9ff00] md:mt-4">Store</Link>
+                <Link href="/" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-indigo-500">Home</Link>
+                <Link href="/Contact" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-indigo-500">Contact</Link>
+                <Link href="/Payment" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-indigo-500">Payments</Link>
+                <Link href="/Story" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-indigo-500">Story</Link>
+                <Link href="/Caps" className="text-xl md:text-3xl font-bold uppercase hover:italic transition-all text-white hover:text-indigo-500">Caps</Link>
+                <Link href="/store" className="text-xl md:text-3xl font-bold uppercase text-indigo-500 md:mt-4">Store</Link>
               </div>
             </div>
 
@@ -40,7 +40,7 @@ const LandoHero = () => {
               </div>
 
               <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-center leading-[0.85] uppercase z-20 font-crenzo">
-                <span className="text-[#d9ff00] font-milky italic">Always</span> <br />
+                <span className="text-indigo-500 font-milky italic">Always</span> <br />
                 <span className="text-white italic">Ready</span><br />
                 <span className="text-white italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">For Customers.</span>
               </h2>
@@ -59,10 +59,10 @@ const LandoHero = () => {
             <div className="flex flex-col gap-3 text-center md:text-right order-3 items-center md:items-end">
               <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Follow On</span>
               <div className="flex flex-row md:flex-col flex-wrap justify-center gap-x-6 gap-y-2">
-                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-[#d9ff00] transition-colors">TikTok</a>
-                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-[#d9ff00] transition-colors">Instagram</a>
-                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-[#d9ff00] transition-colors">YouTube</a>
-                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-[#d9ff00] transition-colors">Twitch</a>
+                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-indigo-500 transition-colors">TikTok</a>
+                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-indigo-500 transition-colors">Instagram</a>
+                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-indigo-500 transition-colors">YouTube</a>
+                <a href="#" className="text-lg md:text-2xl font-bold uppercase text-white hover:text-indigo-500 transition-colors">Twitch</a>
               </div>
             </div>
           </div>

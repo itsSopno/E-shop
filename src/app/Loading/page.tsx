@@ -203,7 +203,14 @@ const OchiComponentLoader = ({ onComplete }: { onComplete: () => void }) => {
             tl.to(loaderRef.current, {
                 opacity: 0,
                 duration: 0.4,
-                onComplete: onComplete,
+                onComplete: () => {
+                    // Ensure the overlay doesn't block any clicks after it fades out
+                    if (loaderRef.current) {
+                        loaderRef.current.style.pointerEvents = "none";
+                        loaderRef.current.style.display = "none";
+                    }
+                    onComplete();
+                },
             }, "+=0.1");
 
         }, loaderRef);

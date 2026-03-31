@@ -33,7 +33,7 @@ const KeycapDetail = () => {
       .then((res) => res.json())
       .then((data) => {
         const items: Keycap[] = data.keycaps || data;
-        const found = items.find((item) => item._id === id) || null;
+        const found = items.find((item) => String(item._id) === String(id)) || null;
         setKeycap(found);
       })
       .catch((err) => console.error("Fetch error:", err))

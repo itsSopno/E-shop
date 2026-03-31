@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "./KeycapsSection.module.scss";
@@ -9,17 +9,19 @@ import styles from "./KeycapsSection.module.scss";
 gsap.registerPlugin(ScrollTrigger);
 
 interface Keycap {
-  _id: string; // Updated from id to _id based on common Mongo structure or Vercel API
+  _id?: string;
+  id?: string;
   name: string;
   image: string;
   description: string;
-  price: number;
+  price: number | string;
   brand: string;
 }
 
 const KeycapsSection = () => {
   const [keycaps, setKeycaps] = useState<Keycap[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -28,11 +30,23 @@ const KeycapsSection = () => {
       try {
         const response = await fetch("https://t-mark-4.vercel.app/api/keycaps");
         const data = await response.json();
-        // Adjust based on API structure (usually it's { success: true, keycaps: [...] })
-        setKeycaps(data.keycaps || data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching keycaps:", error);
+        const list = data.keycaps || data;
+        if (Array.isArray(list) && list.length > 0) {
+          setKeycaps(list);
+        } else {
+          const local = await fetch("/key.json");
+          const localData = await local.json();
+          setKeycaps(localData);
+        }
+      } catch {
+        try {
+          const local = await fetch("/key.json");
+          const localData = await local.json();
+          setKeycaps(localData);
+        } catch (e) {
+          console.error("Local fallback failed:", e);
+        }
+      } finally {
         setLoading(false);
       }
     };
@@ -49,18 +63,28 @@ const KeycapsSection = () => {
           duration: 1,
           stagger: 0.1,
           ease: "power4.out",
+          clearProps: "all",
           scrollTrigger: {
             trigger: gridRef.current,
             start: "top 80%",
           },
         });
-
         ScrollTrigger.refresh();
       }, sectionRef);
 
       return () => ctx.revert();
     }
   }, [loading, keycaps]);
+
+  const handleCardClick = (item: Keycap) => {
+    const id = item._id || item.id;
+    console.log("CARD CLICKED:", item.name, "| ID:", id);
+    const destination = id
+      ? `/keycaps/${id}`
+      : `/keycaps/${item.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`;
+    console.log("Navigating to:", destination);
+    router.push(destination);
+  };
 
   if (loading) {
     return (
@@ -81,8 +105,15 @@ const KeycapsSection = () => {
       </div>
 
       <div ref={gridRef} className={styles.grid}>
-        {keycaps.map((item) => (
-          <div key={item._id} className={`${styles.card} card_anim`}>
+        {keycaps.map((item, index) => (
+          <div
+            key={item._id || item.id || index}
+            className={`${styles.card} card_anim`}
+            onClick={() => handleCardClick(item)}
+            role="link"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && handleCardClick(item)}
+          >
             <div className={styles.imageWrapper}>
               <Image
                 src={item.image}
@@ -99,9 +130,15 @@ const KeycapsSection = () => {
 
               <div className={styles.footer}>
                 <span className={styles.price}>${item.price}</span>
-                <Link href={`/keycaps/${item._id}`} className={styles.viewBtn}>
+                <button
+                  className={styles.viewBtn}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCardClick(item);
+                  }}
+                >
                   Details
-                </Link>
+                </button>
               </div>
             </div>
           </div>

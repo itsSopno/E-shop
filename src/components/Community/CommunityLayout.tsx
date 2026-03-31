@@ -17,6 +17,22 @@ export default function CommunityLayout({
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const { activeChat, setActiveChat } = useGlobalContext();
+  const [showMobileChat, setShowMobileChat] = useState(false);
+  const [isMobileLayout, setIsMobileLayout] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileLayout(window.innerWidth < 1024); // Threshold for mobile/tablet behavior
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    const handleToggle = () => setShowMobileChat(prev => !prev);
+    window.addEventListener('toggle-mobile-chat', handleToggle);
+    
+    return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('toggle-mobile-chat', handleToggle);
+    };
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -47,13 +63,26 @@ export default function CommunityLayout({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 80, damping: 20, delay: 0.2 }}
-            className="xl:col-span-8 space-y-8"
+            className={`xl:col-span-8 space-y-8 ${showMobileChat ? "hidden" : "block"}`}
           >
             {children}
           </motion.div>
 
-          {/* RIGHT SIDE: Activity Panel (Desktop Only) */}
-          <aside className="hidden xl:block xl:col-span-4 space-y-6">
+          {/* RIGHT SIDE: Activity Panel & Messaging */}
+          <aside className={`${showMobileChat ? "block" : "hidden"} xl:block xl:col-span-4 space-y-6 w-full`}>
+            
+            {/* Mobile Header for Chat Sidebar */}
+            {showMobileChat && (
+              <div className="flex items-center justify-between mb-6 xl:hidden">
+                <h4 className="font-bebas text-2xl tracking-widest text-[#D9FF00]">COMM_TERMINAL</h4>
+                <button 
+                  onClick={() => setShowMobileChat(false)}
+                  className="px-4 py-2 bg-white/5 rounded-xl text-[10px] font-jetbrains-mono uppercase"
+                >
+                  Close_Term
+                </button>
+              </div>
+            )}
             
             {/* System Status Tracker */}
             <MagneticCard delay={0.4}>
@@ -108,7 +137,7 @@ export default function CommunityLayout({
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-[200] w-full max-w-[400px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] rounded-[40px]"
+            className={`fixed z-[300] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ${isMobileLayout ? "inset-0 w-screen h-screen rounded-none" : "bottom-8 right-8 w-full max-w-[400px] rounded-[40px]"}`}
           >
             <ChatWindow 
               recipientId={activeChat} 

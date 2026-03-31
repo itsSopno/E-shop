@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="flex items-center pointer-events-auto">
         <Link
           href="/Store"
-          className="bg-neon-lime text-[#161e00] h-[48px] md:h-[62px] px-4 md:px-30 flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 shadow-sm active:scale-95"
+          className="text-white h-[48px] md:h-[62px] px-4 md:px-12 flex bg-indigo-500/20 backdrop-blur-sm border border-indigo-500/50 hover:bg-indigo-500 items-center gap-2 hover:text-black transition-all duration-300 shadow-sm active:scale-95"
         >
           <svg
             width="20"
@@ -78,8 +78,8 @@ const Navbar = () => {
           className="group h-[52px] w-[52px] md:h-[62px] md:w-[62px] flex flex-col items-center justify-center gap-[5px] transition-all duration-300 bg-transparent"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <div className="w-6 h-[2.5px] bg-silver group-hover:bg-neon-lime transition-all ml-auto mr-3"></div>
-          <div className="w-6 h-[2.5px] bg-silver group-hover:bg-neon-lime transition-all mr-auto ml-3"></div>
+          <div className="w-6 h-[2.5px] bg-silver group-hover:bg-indigo-500/20 transition-all ml-auto mr-3"></div>
+          <div className="w-6 h-[2.5px] bg-silver group-hover:bg-indigo-500/20 transition-all ml-auto mr-5"></div>
         </button>
       </div>
 
@@ -95,7 +95,7 @@ const Navbar = () => {
             <div className="flex items-center gap-3">
               <Link
                 href="/Store"
-                className="bg-neon-lime text-[#161e00] h-12 px-6 flex items-center gap-2 hover:bg-white transition-all duration-300 shadow-sm active:scale-95 group"
+                className="text-white h-12 px-6 flex bg-indigo-500/20 backdrop-blur-sm border border-indigo-500/50 hover:bg-indigo-500 items-center gap-2 hover:text-black transition-all duration-300 shadow-sm active:scale-95 group"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span className="font-bebas text-xl font-bold uppercase tracking-wider mt-1">Store</span>

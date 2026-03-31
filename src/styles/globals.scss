@@ -39,7 +39,6 @@ body {
   flex-direction: column;
   min-height: 100dvh;
   width: 100%;
-  overflow-x: hidden;
 }
 
 .main-content {
@@ -48,6 +47,8 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 10; // Lift above hidden fragments
+  pointer-events: auto !important;
 }
 
 // --- Centering Utilities ---

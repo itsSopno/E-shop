@@ -36,18 +36,18 @@ export default function CommunityPage() {
 
   return (
     <div className="space-y-8 pb-32 md:pb-0">
-      
+
       {/* Feed Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bebas text-4xl md:text-5xl tracking-[4px] text-white flex items-center gap-4">
-            GLOBAL_FEED <span className="w-3 h-3 bg-[#D9FF00] rounded-full animate-pulse shadow-[0_0_15px_rgba(217,255,0,0.8)]" />
+            Küresel Akış <span className="w-3 h-3 bg-[#D9FF00] rounded-full animate-pulse shadow-[0_0_15px_rgba(217,255,0,0.8)]" />
           </h1>
           <p className="font-jetbrains-mono text-[10px] text-white/40 uppercase tracking-widest mt-1">
-            Displaying live telemetry...
+            Canlı Telemetri Gösteriliyor...
           </p>
         </div>
-        
+
         {/* Filter / Sort Button */}
         <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] border border-white/[0.05] rounded-xl hover:bg-white/[0.08] hover:border-[#D9FF00]/30 transition-all text-xs font-jetbrains-mono uppercase text-white/60 hover:text-white">
           <span>Sort By:</span>
@@ -63,8 +63,8 @@ export default function CommunityPage() {
               <img src="https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505" alt="Current User" className="w-full h-full object-cover opacity-80" />
             </div>
             <div className="flex-1">
-              <textarea 
-                placeholder="BROADCAST_MESSAGE..." 
+              <textarea
+                placeholder="BROADCAST_MESSAGE..."
                 className="w-full bg-transparent border-none outline-none resize-none font-sans text-sm text-white placeholder:text-white/20 mt-2 h-12"
               />
               <div className="flex items-center justify-between pt-4 border-t border-white/[0.05] mt-2">
@@ -85,7 +85,7 @@ export default function CommunityPage() {
         {posts.map((post, i) => (
           <MagneticCard key={post.id} delay={0.3 + (i * 0.1)}>
             <div className="group bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.05] hover:border-white/[0.1] rounded-[32px] p-6 md:p-8 backdrop-blur-3xl transition-colors duration-500">
-              
+
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <div className="relative">
@@ -104,7 +104,7 @@ export default function CommunityPage() {
                     <p className="font-jetbrains-mono text-[9px] text-white/30 uppercase mt-1">{post.time}</p>
                   </div>
                 </div>
-                
+
                 <button className="p-2 text-white/20 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
                   <MoreHorizontal size={18} />
                 </button>
@@ -121,7 +121,7 @@ export default function CommunityPage() {
                   </div>
                   <span className="font-jetbrains-mono text-[10px] text-white/40 group-hover/btn:text-[#D9FF00] transition-colors">{post.likes}</span>
                 </button>
-                
+
                 <button className="flex items-center gap-2 group/btn">
                   <div className="p-2 rounded-full bg-white/[0.02] group-hover/btn:bg-white/[0.1] transition-colors border border-transparent group-hover/btn:border-white/[0.05]">
                     <MessageSquare size={16} className="text-white/40 group-hover/btn:text-white transition-colors" />
@@ -140,7 +140,7 @@ export default function CommunityPage() {
           </MagneticCard>
         ))}
       </div>
-      
+
     </div>
   );
 }

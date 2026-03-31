@@ -40,7 +40,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }:
     { name: "NODES", href: "/dashboard/nodes", icon: <Users size={20} />, badge: "128_ONLINE" },
     { name: "Add_Product", href: "/dashboard/add-product", icon: <Package size={20} /> },
     { name: "Add_Keycaps", href: "/dashboard/add-keycaps", icon: <Package size={20} /> },
-    { name: "Add_Keyboard", href: "/dashboard/add-keyboard", icon: <Package size={20} /> }
+    { name: "Add_Keyboard", href: "/dashboard/add-keyboard", icon: <Package size={20} /> },
+    { name: "Add_Switches", href: "/dashboard/Kaycaps", icon: <Package size={20} /> }
   ];
 
   const systemOps: NavItem[] = [

@@ -37,7 +37,7 @@ export default function PureShowcase() {
         <main className="bg-obsidian-lowest min-h-screen text-white font-body selection:bg-neon-lime selection:text-black">
 
             {/* HEADER: MINIMALIST TACTICAL */}
-            <header className="p-8 lg:p-20 border-b border-white/5 bg-obsidian-base">
+            <header className="p-8 lg:p-20 border-b border-white/[0.03] bg-obsidian-base">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
@@ -67,7 +67,7 @@ export default function PureShowcase() {
             </header>
 
             {/* THE GRID: HIGH-DENSITY VISUALS */}
-            <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-px bg-white/5">
+            <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-px bg-white/[0.02]">
                 {COLLECTIONS.map((unit) => (
                     <div key={unit.id} className="bg-obsidian-base group relative aspect-square flex flex-col overflow-hidden">
 
@@ -98,7 +98,7 @@ export default function PureShowcase() {
                         </div>
 
                         {/* STATIC LABEL (Visible when not hovering) */}
-                        <div className="p-6 border-t border-white/5 flex justify-between items-center group-hover:opacity-0 transition-opacity">
+                        <div className="p-6 border-t border-white/[0.03] flex justify-between items-center group-hover:opacity-0 transition-opacity">
                             <span className="text-[10px] font-mono text-white/20 tracking-widest uppercase">{unit.name}</span>
                             <LayoutGrid size={12} className="text-white/10" />
                         </div>
@@ -107,7 +107,7 @@ export default function PureShowcase() {
             </div>
 
             {/* FOOTER: MINIMALIST LOGS */}
-            <footer className="py-12 px-8 flex justify-between items-center border-t border-white/5 bg-obsidian-lowest">
+            <footer className="py-12 px-8 flex justify-between items-center border-t border-white/[0.03] bg-obsidian-lowest">
                 <p className="text-[9px] font-mono text-white/10 tracking-[5px] uppercase">
                     Total_Units_Indexed: {COLLECTIONS.length}
                 </p>

@@ -24,8 +24,8 @@
   }
 
   &.light {
-    background: var(--neon-lime);
-    color: #161e00;
+    background: #111; // Darker background to avoid 'white box' effect
+    color: var(--silver);
 
     .index, p, .exploreBtn {
       color: rgba(26, 26, 26, 0.7);

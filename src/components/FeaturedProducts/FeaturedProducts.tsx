@@ -54,7 +54,7 @@ const ProductShowcase = () => {
     <section className="w-full min-h-screen lg:h-screen bg-[#0A0A0A] overflow-hidden flex flex-col">
       <div
         ref={containerRef}
-        className="flex flex-col lg:flex-row w-full h-full border-b border-white/10"
+        className="flex flex-col lg:flex-row w-full h-full border-b border-white/[0.02] pointer-events-auto"
         onMouseLeave={!activeId ? undefined : resetLayout}
       >
         {categories.map((cat) => (
@@ -62,7 +62,7 @@ const ProductShowcase = () => {
             key={cat.id}
             onMouseEnter={(e) => handleInteraction(cat.id, e)}
             onClick={(e) => handleInteraction(cat.id, e)}
-            className="relative w-full lg:w-1/5 h-[20vh] lg:h-full border-b lg:border-b-0 lg:border-r border-white/5 overflow-hidden cursor-pointer group transition-all"
+            className="relative w-full lg:w-1/5 h-[20vh] lg:h-full border-b lg:border-b-0 lg:border-r border-white/5 overflow-hidden cursor-pointer group transition-all pointer-events-auto"
           >
             {/* Background Image */}
             <Image

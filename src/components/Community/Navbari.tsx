@@ -40,12 +40,12 @@ export default function Navbari() {
             >
                 {/* Left: Logo */}
                 <div className="flex items-center gap-6">
-                    <Link href="/Community" className="font-bebas text-2xl tracking-[3px] text-white group flex items-center gap-2">
+                    <Link href="/" className="font-bebas text-2xl tracking-[3px] text-white group flex items-center gap-2">
                         SINNERS<span className="text-[#D9FF00] group-hover:scale-110 transition-transform">_</span>
                     </Link>
                     <div className="h-6 w-[1px] bg-white/10 hidden lg:block" />
                     <p className="font-jetbrains-mono text-[9px] text-white/30 uppercase tracking-widest hidden lg:block">
-                        COMMUNITY_NODE // v2.0
+                        SINNERS Topluluk
                     </p>
                 </div>
 
@@ -141,6 +141,18 @@ export default function Navbari() {
                         <DockItem href="/Community/discover" active={pathname === '/Community/discover'}>
                             <Search size={22} />
                         </DockItem>
+                        <button 
+                            onClick={() => {
+                                // We'll trigger a global state or search for the ChatSidebar
+                                if (typeof window !== 'undefined') {
+                                    const event = new CustomEvent('toggle-mobile-chat');
+                                    window.dispatchEvent(event);
+                                }
+                            }}
+                            className="relative p-2 flex items-center justify-center text-white/40 hover:text-[#D9FF00]"
+                        >
+                            <MessageSquare size={22} />
+                        </button>
                     </div>
 
                     <div className="w-14" /> {/* Spacer for center button */}

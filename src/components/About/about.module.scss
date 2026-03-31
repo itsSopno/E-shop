@@ -9,7 +9,7 @@
 
 .hero {
     padding: 150px 0 100px;
-    color: #d9ff00; // Acid Green
+    color: rgba(99, 102, 241, 0.2); // Acid Green
 
     .heroContent {
         .subtitle {
@@ -59,7 +59,7 @@
             position: absolute;
             bottom: -40px;
             right: -20px;
-            color: #d9ff00;
+            color: rgba(99, 102, 241, 0.2);
             transform: rotate(-10deg);
             z-index: 5;
             text-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
