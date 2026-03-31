@@ -8,6 +8,7 @@ import { MessageSquare, Heart, Share2, MoreHorizontal, Image as ImageIcon, Loade
 import axios from "axios";
 import Image from "next/image";
 import { toast } from "sonner";
+import { useGlobalContext } from "@/context/globalContext";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
 const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
@@ -16,7 +17,7 @@ interface PostAuthor {
   userID: string;
   email: string;
   username: string;
-  image?: string;
+  userImage: string;
 }
 
 interface Post {
@@ -38,7 +39,7 @@ interface Post {
 
 export default function CommunityPage() {
   const { data: session } = useSession();
-  
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [isTransmitting, setIsTransmitting] = useState(false);
@@ -48,7 +49,10 @@ export default function CommunityPage() {
   const [commentingId, setCommentingId] = useState<string | null>(null);
   const [commentText, setCommentText] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const { allUsers } = useGlobalContext()
+  const currentUserData = allUsers?.find(
+    (user: any) => user.email === session?.user?.email
+  );
   // Fetch Posts
   const fetchPosts = async () => {
     try {
@@ -103,15 +107,18 @@ export default function CommunityPage() {
       userID: session.user.email || "GHOST",
       email: session.user.email || "",
       username: session.user.name || "Anonymous_Node",
-      image: session.user.image || ""
+      userImage: currentUserData?.image || session.user.image || ""
     };
 
     try {
       const res = await axios.post(`${API_BASE_URL}/api/post/create`, {
         author: authorData,
         content: content,
-        images: images
+        images: images,
       }, {
+        headers: {
+          Authorization: `Bearer ${(session as any)?.user?.backendToken}`
+        },
         withCredentials: true
       });
 
@@ -138,6 +145,9 @@ export default function CommunityPage() {
       const res = await axios.patch(`${API_BASE_URL}/api/post/${postId}/like`, {
         userID: session.user.email // Using email as ID for consistency
       }, {
+        headers: {
+          Authorization: `Bearer ${(session as any)?.user?.backendToken}`
+        },
         withCredentials: true
       });
 
@@ -160,6 +170,9 @@ export default function CommunityPage() {
         image: session.user.image || "",
         comment: commentText
       }, {
+        headers: {
+          Authorization: `Bearer ${(session as any)?.user?.backendToken}`
+        },
         withCredentials: true
       });
 
@@ -203,17 +216,17 @@ export default function CommunityPage() {
         <div className="bg-white/[0.02] border border-white/[0.05] rounded-[32px] p-6 backdrop-blur-3xl">
           <div className="flex gap-4">
             <div className="w-12 h-12 rounded-full border border-[#D9FF00]/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
-              <img 
-                src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"} 
-                alt="Current User" 
-                className="w-full h-full object-cover rounded-full" 
+              <img
+                src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                alt="Current User"
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
             <div className="flex-1">
               {!session ? (
                 <div className="h-20 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-2xl bg-white/[0.01] mt-2">
-                   <p className="text-[10px] font-jetbrains-mono text-white/30 uppercase tracking-[3px]">Protocol_Error: Identity_Unverified</p>
-                   <Link href="/login" className="text-[9px] font-jetbrains-mono text-[#D9FF00] hover:underline mt-2 uppercase tracking-widest">Invoke_Login_Sequence</Link>
+                  <p className="text-[10px] font-jetbrains-mono text-white/30 uppercase tracking-[3px]">Protocol_Error: Identity_Unverified</p>
+                  <Link href="/login" className="text-[9px] font-jetbrains-mono text-[#D9FF00] hover:underline mt-2 uppercase tracking-widest">Invoke_Login_Sequence</Link>
                 </div>
               ) : (
                 <textarea
@@ -223,14 +236,14 @@ export default function CommunityPage() {
                   className="w-full bg-transparent border-none outline-none resize-none font-sans text-sm text-white placeholder:text-white/20 mt-2 h-20"
                 />
               )}
-              
+
               {/* Image Previews */}
               {images.length > 0 && session && (
                 <div className="flex flex-wrap gap-4 mb-4">
                   {images.map((img, idx) => (
                     <div key={idx} className="relative w-24 h-24 rounded-2xl overflow-hidden border border-white/10 group">
                       <Image src={img} alt="Preview" fill className="object-cover" unoptimized />
-                      <button 
+                      <button
                         onClick={() => setImages(prev => prev.filter((_, i) => i !== idx))}
                         className="absolute top-1 right-1 p-1 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                       >
@@ -243,14 +256,14 @@ export default function CommunityPage() {
 
               <div className="flex items-center justify-between pt-4 border-t border-white/[0.05] mt-2">
                 <div className="flex gap-4 items-center">
-                  <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    className="hidden" 
-                    onChange={handleUpload} 
-                    accept="image/*" 
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    onChange={handleUpload}
+                    accept="image/*"
                   />
-                  <button 
+                  <button
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploading || !session}
                     className="flex items-center gap-2 text-[10px] font-jetbrains-mono uppercase text-white/40 hover:text-[#D9FF00] transition-colors disabled:opacity-30 disabled:hover:text-white/40"
@@ -260,7 +273,7 @@ export default function CommunityPage() {
                   </button>
                 </div>
                 {session ? (
-                  <button 
+                  <button
                     onClick={handleTransmit}
                     disabled={isTransmitting || uploading || (!content.trim() && images.length === 0)}
                     className="px-6 py-2 bg-[#D9FF00]/10 hover:bg-[#D9FF00] text-[#D9FF00] hover:text-black hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] transition-all rounded-xl text-xs font-jetbrains-mono uppercase border border-[#D9FF00]/20 hover:border-transparent flex items-center gap-2 disabled:opacity-50 disabled:grayscale"
@@ -294,10 +307,10 @@ export default function CommunityPage() {
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#D9FF00]/20 overflow-hidden bg-[#050505] p-0.5">
-                      <img 
-                        src={post.author?.image || `https://ui-avatars.com/api/?name=${post.author?.username?.charAt(0)}`} 
-                        alt={post.author?.username} 
-                        className="w-full h-full object-cover rounded-full opacity-80" 
+                      <img
+                        src={post.author?.userImage || `https://ui-avatars.com/api/?name=${post.author?.username?.charAt(0)}`}
+                        alt={post.author?.username}
+                        className="w-full h-full object-cover rounded-full opacity-80"
                       />
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#D9FF00] rounded-full border-[2px] border-[#050505]" />
@@ -316,9 +329,9 @@ export default function CommunityPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                   <button className="p-2 text-white/20 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
-                      <MoreHorizontal size={18} />
-                   </button>
+                  <button className="p-2 text-white/20 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+                    <MoreHorizontal size={18} />
+                  </button>
                 </div>
               </div>
 
@@ -338,35 +351,31 @@ export default function CommunityPage() {
               )}
 
               <div className="flex items-center gap-6 mt-8 pt-4 border-t border-white/[0.02]">
-                <button 
+                <button
                   onClick={() => handleLike(post._id)}
                   className="flex items-center gap-2 group/btn"
                 >
-                  <div className={`p-2 rounded-full transition-colors border border-transparent ${
-                    post.likes?.includes(session?.user?.email || "") 
-                    ? "bg-[#D9FF00]/10 border-[#D9FF00]/20" 
+                  <div className={`p-2 rounded-full transition-colors border border-transparent ${post.likes?.includes(session?.user?.email || "")
+                    ? "bg-[#D9FF00]/10 border-[#D9FF00]/20"
                     : "bg-white/[0.02] group-hover/btn:bg-white/[0.1] group-hover/btn:border-white/[0.05]"
-                  }`}>
-                    <Heart size={16} className={`${
-                      post.likes?.includes(session?.user?.email || "") 
-                      ? "text-[#D9FF00] fill-[#D9FF00]" 
+                    }`}>
+                    <Heart size={16} className={`${post.likes?.includes(session?.user?.email || "")
+                      ? "text-[#D9FF00] fill-[#D9FF00]"
                       : "text-white/40 group-hover/btn:text-[#D9FF00]"
-                    } transition-colors`} />
+                      } transition-colors`} />
                   </div>
-                  <span className={`font-jetbrains-mono text-[10px] ${
-                    post.likes?.includes(session?.user?.email || "") ? "text-[#D9FF00]" : "text-white/40 group-hover/btn:text-[#D9FF00]"
-                  } transition-colors`}>{post.likes?.length || 0}</span>
+                  <span className={`font-jetbrains-mono text-[10px] ${post.likes?.includes(session?.user?.email || "") ? "text-[#D9FF00]" : "text-white/40 group-hover/btn:text-[#D9FF00]"
+                    } transition-colors`}>{post.likes?.length || 0}</span>
                 </button>
 
-                <button 
+                <button
                   onClick={() => setCommentingId(commentingId === post._id ? null : post._id)}
                   className="flex items-center gap-2 group/btn"
                 >
-                  <div className={`p-2 rounded-full transition-colors border border-transparent ${
-                    commentingId === post._id 
-                    ? "bg-white/10 border-white/20" 
+                  <div className={`p-2 rounded-full transition-colors border border-transparent ${commentingId === post._id
+                    ? "bg-white/10 border-white/20"
                     : "bg-white/[0.02] group-hover/btn:bg-white/[0.1] group-hover/btn:border-white/[0.05]"
-                  }`}>
+                    }`}>
                     <MessageSquare size={16} className="text-white/40 group-hover/btn:text-white transition-colors" />
                   </div>
                   <span className="font-jetbrains-mono text-[10px] text-white/40 group-hover/btn:text-white transition-colors">{post.comments?.length || 0}</span>
@@ -384,14 +393,14 @@ export default function CommunityPage() {
                 <div className="mt-6 space-y-4 animate-in slide-in-from-top-4 duration-300">
                   <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full border border-[#D9FF00]/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
-                      <img 
-                        src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"} 
-                        alt="User" 
-                        className="w-full h-full object-cover rounded-full" 
+                      <img
+                        src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                        alt="User"
+                        className="w-full h-full object-cover rounded-full"
                       />
                     </div>
                     <div className="flex-1 flex gap-2">
-                      <input 
+                      <input
                         type="text"
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
@@ -399,7 +408,7 @@ export default function CommunityPage() {
                         className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder:text-white/20 focus:border-[#D9FF00]/30 outline-none"
                         onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post._id)}
                       />
-                      <button 
+                      <button
                         onClick={() => handleAddComment(post._id)}
                         disabled={!commentText.trim()}
                         className="p-2 bg-[#D9FF00]/10 hover:bg-[#D9FF00] text-[#D9FF00] hover:text-black rounded-xl transition-all disabled:opacity-30"
@@ -413,9 +422,9 @@ export default function CommunityPage() {
                     <div className="space-y-4 mt-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                       {post.comments.map((comment, idx) => (
                         <div key={idx} className="flex gap-3 group/comment">
-                          <img 
-                            src={comment.image || `https://ui-avatars.com/api/?name=${comment.username?.charAt(0)}`} 
-                            className="w-6 h-6 rounded-full border border-white/10" 
+                          <img
+                            src={comment.image || `https://ui-avatars.com/api/?name=${comment.username?.charAt(0)}`}
+                            className="w-6 h-6 rounded-full border border-white/10"
                             alt=""
                           />
                           <div className="flex-1">

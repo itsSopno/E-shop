@@ -52,7 +52,7 @@ const AIChat = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch("https://t-mark-4.onrender.com/api/ai/recommend", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:10001"}/api/ai/recommend`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userPrompt: userMsg }),
@@ -76,9 +76,9 @@ const AIChat = () => {
     if (pathname.includes("/Community")) return null;
 
     return (
-        <div className={styles.chatWrapper}>
+        <div className={`${styles.chatWrapper} ${isOpen ? styles.active : ""}`}>
             {/* Chat Window */}
-            <div className={`${styles.chatWindow} ${isOpen ? styles.active : ""}`} ref={windowRef}>
+            <div className="flex flex-col h-full w-full bg-[#050505]/95 md:bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden relative rounded-none md:rounded-[40px] shadow-2xl" ref={windowRef}>
                 <div className={styles.chatHeader}>
                     <div className={styles.status}></div>
                     <h3>Sinners Assistant</h3>

@@ -158,3 +158,29 @@ body {
     font-size: 50px !important; // Adjusted for better mobile fit
   }
 }
+
+// --- Custom Scrollbar ---
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(217, 255, 0, 0.2);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: rgba(217, 255, 0, 0.5);
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: rgba(217, 255, 0, 0.2) transparent;
+}

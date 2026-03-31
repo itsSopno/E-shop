@@ -89,7 +89,17 @@ export default function Navbari() {
                 {/* Right: Actions & Profile */}
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 pr-4 border-r border-white/10">
-                        <button className="p-2 text-white/30 hover:text-[#D9FF00] transition-colors"><MessageSquare size={18} /></button>
+                        <button 
+                            onClick={() => {
+                                if (typeof window !== 'undefined') {
+                                    const event = new CustomEvent('toggle-mobile-chat');
+                                    window.dispatchEvent(event);
+                                }
+                            }}
+                            className="p-2 text-white/30 hover:text-[#D9FF00] transition-colors"
+                        >
+                            <MessageSquare size={18} />
+                        </button>
                         <button className="p-2 text-white/30 hover:text-[#D9FF00] transition-colors relative">
                             <Bell size={18} />
                             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#D9FF00] rounded-full border-2 border-[#050505]" />

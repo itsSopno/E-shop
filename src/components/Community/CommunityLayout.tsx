@@ -137,7 +137,7 @@ export default function CommunityLayout({
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className={`fixed z-[300] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ${isMobileLayout ? "top-[72px] inset-x-0 bottom-0 w-full rounded-none" : "bottom-8 right-8 w-full max-w-[400px] rounded-[40px]"}`}
+            className={`fixed z-[300] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ${isMobileLayout ? "top-[72px] inset-x-0 h-[calc(100dvh-72px)] w-full rounded-none" : "bottom-8 right-8 w-[400px] h-[600px] rounded-[40px]"}`}
           >
             <ChatWindow 
               recipientId={activeChat} 

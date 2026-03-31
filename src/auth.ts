@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials?.email || !credentials?.password) return null;
 
         try {
-          const res = await fetch("https://t-mark-4.vercel.app/api/login", {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -64,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google") {
         try {
           // Use the new API URL for Google authentication/registration
-          await fetch("https://t-mark-4.vercel.app/api/google/register", {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/google/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
