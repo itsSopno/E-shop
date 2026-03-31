@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { usePathname } from "next/navigation";
 import styles from "./aiChat.module.scss";
 
 interface Message {
@@ -9,6 +10,7 @@ interface Message {
 }
 
 const AIChat = () => {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         { role: "ai", content: "Hi! I'm your Sinners Assistant. How can I help you find the perfect setup today?" }
@@ -70,6 +72,8 @@ const AIChat = () => {
             setIsLoading(false);
         }
     };
+
+    if (pathname.includes("/Community")) return null;
 
     return (
         <div className={styles.chatWrapper}>

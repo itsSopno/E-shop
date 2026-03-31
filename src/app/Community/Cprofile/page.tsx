@@ -14,6 +14,7 @@ import {
     Calendar
 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useGlobalContext, IUserData } from "@/context/globalContext";
 
 export default function ProfilePage() {
@@ -30,7 +31,25 @@ export default function ProfilePage() {
         </div>
     );
 
-    if (!currentUserData) return null;
+    if (!currentUserData) return (
+        <div className="h-screen flex flex-col items-center justify-center p-6 bg-[#050505]">
+           <div className="max-w-md w-full bg-white/[0.02] border border-white/[0.05] rounded-[40px] p-10 text-center backdrop-blur-3xl shadow-2xl">
+              <div className="w-20 h-20 bg-[#D9FF00]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#D9FF00]/20">
+                 <Mail className="w-8 h-8 text-[#D9FF00] animate-pulse" />
+              </div>
+              <h2 className="font-bebas text-3xl tracking-widest text-white mb-2">Protocol_Error</h2>
+              <p className="font-jetbrains-mono text-[10px] text-white/40 uppercase tracking-[4px] mb-8">Access_Denied: Identity_Not_Linked</p>
+              <div className="space-y-4">
+                 <Link href="/login" className="block w-full py-4 bg-[#D9FF00] text-black font-bebas text-xl tracking-widest rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(217,255,0,0.2)]">
+                    Invoke_Login
+                 </Link>
+                 <Link href="/Community" className="block w-full py-4 bg-white/5 text-white/40 font-bebas text-xl tracking-widest rounded-2xl hover:bg-white/10 transition-all">
+                    Return_To_Base
+                 </Link>
+              </div>
+           </div>
+        </div>
+    );
 
     return (
         <div className="min-h-screen bg-background">

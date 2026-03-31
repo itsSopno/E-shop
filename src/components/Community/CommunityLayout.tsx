@@ -69,7 +69,7 @@ export default function CommunityLayout({
           </motion.div>
 
           {/* RIGHT SIDE: Activity Panel & Messaging */}
-          <aside className={`${showMobileChat ? "block" : "hidden"} xl:block xl:col-span-4 space-y-6 w-full`}>
+          <aside className={`${showMobileChat ? "block" : "hidden"} xl:block xl:col-span-4 space-y-6 w-full pt-20 md:pt-0`}>
             
             {/* Mobile Header for Chat Sidebar */}
             {showMobileChat && (
@@ -137,20 +137,12 @@ export default function CommunityLayout({
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className={`fixed z-[300] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ${isMobileLayout ? "inset-0 w-screen h-screen rounded-none" : "bottom-8 right-8 w-full max-w-[400px] rounded-[40px]"}`}
+            className={`fixed z-[300] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ${isMobileLayout ? "top-[72px] inset-x-0 bottom-0 w-full rounded-none" : "bottom-8 right-8 w-full max-w-[400px] rounded-[40px]"}`}
           >
             <ChatWindow 
               recipientId={activeChat} 
               onClose={() => setActiveChat(null)} 
             />
-            
-            {/* Close trigger for layout consistency */}
-            <button 
-              onClick={() => setActiveChat(null)}
-              className="absolute -top-3 -right-3 w-8 h-8 bg-[#D9FF00] text-black rounded-full flex items-center justify-center font-bold border-2 border-black hover:scale-110 transition-transform z-[210] shadow-xl"
-            >
-              ×
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -6,6 +6,7 @@ import { Send, Loader2, Terminal, X, Image as ImageIcon, ArrowLeft } from "lucid
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSocket } from "@/hooks/useSocket";
+import { useGlobalContext } from "@/context/globalContext";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
 
@@ -20,6 +21,7 @@ interface Message {
 
 interface ChatWindowProps {
   recipientId: string;
+  recipientImage?: string;
   onClose?: () => void;
 }
 
@@ -27,7 +29,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   const { data: session } = useSession();
   const currentUserId = session?.user?.email;
   const { socket, isConnected } = useSocket(currentUserId);
-  
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,9 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  
+  const { allUsers } = useGlobalContext();
+  const recipientData = allUsers.find(u => u.email === recipientId);
+  const displayImage = recipientData?.image || `https://ui-avatars.com/api/?name=${recipientId.charAt(0)}&background=D9FF00&color=050505`;
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -95,10 +99,10 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   // 3. Auto-Scroll
   useEffect(() => {
     if (scrollRef.current) {
-        scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollHeight,
-            behavior: "smooth"
-        });
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
   }, [messages, isTyping]);
 
@@ -107,20 +111,20 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
     setIsUploading(true);
     const formData = new FormData();
     formData.append("image", file);
-    
+
     try {
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
-            method: "POST",
-            body: formData
-        });
-        const data = await res.json();
-        if (data.success) {
-            return data.data.url;
-        }
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      if (data.success) {
+        return data.data.url;
+      }
     } catch (err) {
-        console.error("ImgBB upload failed:", err);
+      console.error("ImgBB upload failed:", err);
     } finally {
-        setIsUploading(false);
+      setIsUploading(false);
     }
     return null;
   };
@@ -128,10 +132,10 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     const url = await uploadToImgBB(file);
     if (url) {
-        setImageUrl(url);
+      setImageUrl(url);
     }
   };
 
@@ -143,7 +147,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
       senderId: currentUserId,
       receiverId: recipientId,
       message: inputValue,
-      image: imageUrl 
+      image: imageUrl
     };
 
     socket.emit("send-message", messageData);
@@ -153,11 +157,11 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
 
   useEffect(() => {
     if (!socket) return;
-    
+
     const handleSent = (message: Message) => {
-        if (message.receiverId === recipientId) {
-            setMessages(prev => [...prev, message]);
-        }
+      if (message.receiverId === recipientId) {
+        setMessages(prev => [...prev, message]);
+      }
     };
 
     socket.on("message-sent", handleSent);
@@ -174,46 +178,54 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   if (!recipientId) return null;
 
   return (
-    <div className={`flex flex-col ${isMobile ? "fixed inset-0 z-[300] h-screen w-screen rounded-none" : "h-[600px] rounded-[40px] shadow-2xl"} bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden relative`}>
-      
+    <div className="flex flex-col h-full w-full bg-[#050505]/95 md:bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl overflow-hidden relative rounded-none md:rounded-[40px] shadow-2xl">
+
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-white/[0.05] bg-white/[0.02]">
-        <div className="flex items-center gap-4">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 md:p-6 border-b border-white/[0.05] bg-[#050505]/40 backdrop-blur-md sticky top-0 z-[310]">
+        <div className="flex items-center gap-3">
           {isMobile && (
-            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-white/60">
-              <ArrowLeft size={20} />
+            <button
+              onClick={onClose}
+              className="p-1.5 -ml-1 hover:bg-white/10 rounded-full text-[#D9FF00] active:scale-90 transition-transform"
+            >
+              <ArrowLeft size={24} />
             </button>
           )}
-          <div className="w-10 h-10 rounded-full border border-[#D9FF00]/20 bg-[#050505] overflow-hidden">
-             <img src={`https://ui-avatars.com/api/?name=${recipientId.charAt(0)}&background=D9FF00&color=050505`} alt="Recipient" />
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#D9FF00]/20 bg-[#050505] overflow-hidden shrink-0">
+            <img
+              src={displayImage}
+              alt="Recipient"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div>
-            <h4 className="font-bebas text-lg tracking-widest text-[#D9FF00] lowercase italic">{recipientId}</h4>
-            <p className="text-[9px] font-jetbrains-mono text-white/30 uppercase tracking-[2px]">
-              {isConnected ? "UPLINK_STABLE" : "SYNCING_SIGNAL..."}
-            </p>
+          <div className="min-w-0">
+            <h4 className="font-bebas text-lg md:text-xl tracking-widest text-white lowercase italic leading-tight truncate">{recipientId}</h4>
+            <div className="flex items-center gap-1.5">
+              <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? "bg-[#D9FF00] shadow-[0_0_8px_#D9FF00]" : "bg-white/20"}`} />
+              <p className="text-[8px] md:text-[9px] font-jetbrains-mono text-white/30 uppercase tracking-[2px]">
+                {isConnected ? "UPLINK_STABLE" : "SYNCING_SIGNAL..."}
+              </p>
+            </div>
           </div>
         </div>
-        <div className="flex gap-4">
-           {onClose && (
-             <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white">
-                <X size={18} />
-             </button>
-           )}
-           <Terminal size={14} className="opacity-40 hover:text-[#D9FF00] cursor-pointer transition-colors" />
+        <div className="flex items-center gap-2">
+          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white md:hidden">
+            <X size={20} />
+          </button>
+          <Terminal size={14} className="hidden md:block opacity-40 hover:text-[#D9FF00] cursor-pointer transition-colors" />
         </div>
       </div>
 
-      {/* Messages */}
-      <div 
+      <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar"
+        className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar scroll-smooth"
       >
         {loading ? (
-             <div className="flex items-center justify-center h-full gap-3 text-white/10">
-                <Loader2 size={16} className="animate-spin" />
-                <span className="text-[10px] uppercase font-jetbrains-mono tracking-[4px]">Fetching_Logs...</span>
-             </div>
+          <div className="flex items-center justify-center h-full gap-3 text-white/10">
+            <Loader2 size={16} className="animate-spin" />
+            <span className="text-[10px] uppercase font-jetbrains-mono tracking-[4px]">Fetching_Logs...</span>
+          </div>
         ) : (
           <>
             <AnimatePresence mode="popLayout">
@@ -224,84 +236,83 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
                   animate={{ opacity: 1, x: 0 }}
                   className={`flex ${msg.senderId === currentUserId ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-4 text-sm font-sans ${
-                    msg.senderId === currentUserId 
-                    ? "bg-[#D9FF00]/10 border border-[#D9FF00]/20 text-white rounded-br-none" 
+                  <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-4 text-sm font-sans ${msg.senderId === currentUserId
+                    ? "bg-[#D9FF00]/10 border border-[#D9FF00]/20 text-white rounded-br-none"
                     : "bg-white/[0.05] border border-white/[0.05] text-white/80 rounded-bl-none"
-                  }`}>
+                    }`}>
                     {msg.image && (
-                        <div className="mb-3 relative aspect-video w-full max-w-[280px] rounded-lg overflow-hidden border border-white/10">
-                            <Image src={msg.image} alt="Sent Image" fill className="object-cover" unoptimized />
-                        </div>
+                      <div className="mb-3 relative aspect-video w-full max-w-[280px] rounded-lg overflow-hidden border border-white/10">
+                        <Image src={msg.image} alt="Sent Image" fill className="object-cover" unoptimized />
+                      </div>
                     )}
                     <p className="leading-relaxed">{msg.message}</p>
                     <p className="text-[8px] font-jetbrains-mono opacity-20 mt-2 text-right">
-                        {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                   </div>
                 </motion.div>
               ))}
             </AnimatePresence>
-            
+
             {isTyping && (
-                <div className="flex justify-start">
-                    <div className="bg-white/[0.03] border border-white/5 px-4 py-2 rounded-full flex gap-1.5 items-center">
-                        <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.3s]" />
-                        <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.15s]" />
-                        <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce" />
-                    </div>
+              <div className="flex justify-start">
+                <div className="bg-white/[0.03] border border-white/5 px-4 py-2 rounded-full flex gap-1.5 items-center">
+                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce" />
                 </div>
+              </div>
             )}
           </>
         )}
       </div>
 
-      {/* Input */}
-      <div className="p-6 border-t border-white/[0.05]">
-          {imageUrl && (
-            <div className="mb-4 relative w-20 h-20 rounded-xl overflow-hidden border border-[#D9FF00]/40 group">
-              <Image src={imageUrl} alt="Preview" fill className="object-cover" unoptimized />
-              <button 
-                onClick={() => setImageUrl("")}
-                className="absolute top-1 right-1 bg-black/60 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <X size={10} className="text-white" />
-              </button>
-            </div>
-          )}
-         <form onSubmit={handleSendMessage} className="relative flex items-center gap-2 md:gap-4">
-            <input 
-                type="file" 
-                ref={fileInputRef}
-                onChange={handleFileSelect}
-                className="hidden"
-                accept="image/*"
-            />
-            <button 
-                type="button" 
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isUploading}
-                className="p-4 bg-white/[0.05] text-white/40 hover:text-[#D9FF00] hover:bg-[#D9FF00]/10 rounded-2xl transition-all disabled:opacity-50"
+      {/* Input Area */}
+      <div className="p-4 md:p-6 border-t border-white/[0.05] bg-white/[0.01]">
+        {imageUrl && (
+          <div className="mb-4 relative w-20 h-20 rounded-xl overflow-hidden border border-[#D9FF00]/40 group">
+            <Image src={imageUrl} alt="Preview" fill className="object-cover" unoptimized />
+            <button
+              onClick={() => setImageUrl("")}
+              className="absolute top-1 right-1 bg-black/60 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
             >
-                {isUploading ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
+              <X size={10} className="text-white" />
             </button>
+          </div>
+        )}
+        <form onSubmit={handleSendMessage} className="relative flex items-center gap-2 md:gap-4">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileSelect}
+            className="hidden"
+            accept="image/*"
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isUploading}
+            className="p-4 bg-white/[0.05] text-white/40 hover:text-[#D9FF00] hover:bg-[#D9FF00]/10 rounded-2xl transition-all disabled:opacity-50"
+          >
+            {isUploading ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
+          </button>
 
-            <div className="flex-1 relative">
-                <input 
-                   value={inputValue}
-                   onChange={handleInputChange}
-                   placeholder="MESSAGE..."
-                   className="w-full bg-[#050505] border border-white/10 rounded-2xl px-6 py-4 text-sm font-jetbrains-mono focus:border-[#D9FF00] focus:ring-1 focus:ring-[#D9FF00]/20 outline-none transition-all placeholder:text-white/10"
-                />
-            </div>
-            <button 
-                type="submit"
-                disabled={isUploading || (!inputValue.trim() && !imageUrl)}
-                className="p-4 bg-[#D9FF00] text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#D9FF00]/10 disabled:opacity-50 disabled:grayscale"
-            >
-                <Send size={18} fill="currentColor" />
-            </button>
-         </form>
+          <div className="flex-1 relative">
+            <input
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="MESSAGE..."
+              className="w-full bg-[#050505] border border-white/10 rounded-2xl px-6 py-4 text-sm font-jetbrains-mono focus:border-[#D9FF00] focus:ring-1 focus:ring-[#D9FF00]/20 outline-none transition-all placeholder:text-white/10"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={isUploading || (!inputValue.trim() && !imageUrl)}
+            className="p-4 bg-[#D9FF00] text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#D9FF00]/10 disabled:opacity-50 disabled:grayscale"
+          >
+            <Send size={18} fill="currentColor" />
+          </button>
+        </form>
       </div>
 
     </div>
