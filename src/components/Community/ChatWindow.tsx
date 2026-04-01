@@ -40,7 +40,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   const [isMobile, setIsMobile] = useState(false);
   const { allUsers } = useGlobalContext();
   const recipientData = allUsers.find(u => u.email === recipientId);
-  const displayImage = recipientData?.image || `https://ui-avatars.com/api/?name=${recipientId.charAt(0)}&background=D9FF00&color=050505`;
+  const displayImage = recipientData?.image || `https://ui-avatars.com/api/?name=${recipientId.charAt(0)}&background=6366f1&color=050505`;
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -107,22 +107,32 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
   }, [messages, isTyping]);
 
   // 4. Handlers
-  const uploadToImgBB = async (file: File) => {
+  const uploadToCloudinary = async (file: File) => {
     setIsUploading(true);
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dhkdtyjsr";
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!uploadPreset) {
+      console.error("Cloudinary upload preset missing");
+      setIsUploading(false);
+      return null;
+    }
+
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
 
     try {
-      const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
         method: "POST",
         body: formData
       });
       const data = await res.json();
-      if (data.success) {
-        return data.data.url;
+      if (data.secure_url) {
+        return data.secure_url;
       }
     } catch (err) {
-      console.error("ImgBB upload failed:", err);
+      console.error("Cloudinary upload failed:", err);
     } finally {
       setIsUploading(false);
     }
@@ -133,7 +143,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const url = await uploadToImgBB(file);
+    const url = await uploadToCloudinary(file);
     if (url) {
       setImageUrl(url);
     }
@@ -187,12 +197,12 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
           {isMobile && (
             <button
               onClick={onClose}
-              className="p-1.5 -ml-1 hover:bg-white/10 rounded-full text-[#D9FF00] active:scale-90 transition-transform"
+              className="p-1.5 -ml-1 hover:bg-white/10 rounded-full text-indigo-500 active:scale-90 transition-transform"
             >
               <ArrowLeft size={24} />
             </button>
           )}
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#D9FF00]/20 bg-[#050505] overflow-hidden shrink-0">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-indigo-500/20 bg-[#050505] overflow-hidden shrink-0">
             <img
               src={displayImage}
               alt="Recipient"
@@ -202,7 +212,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
           <div className="min-w-0">
             <h4 className="font-bebas text-lg md:text-xl tracking-widest text-white lowercase italic leading-tight truncate">{recipientId}</h4>
             <div className="flex items-center gap-1.5">
-              <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? "bg-[#D9FF00] shadow-[0_0_8px_#D9FF00]" : "bg-white/20"}`} />
+              <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? "bg-indigo-500 shadow-[0_0_8px_#6366f1]" : "bg-white/20"}`} />
               <p className="text-[8px] md:text-[9px] font-jetbrains-mono text-white/30 uppercase tracking-[2px]">
                 {isConnected ? "UPLINK_STABLE" : "SYNCING_SIGNAL..."}
               </p>
@@ -213,7 +223,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white md:hidden">
             <X size={20} />
           </button>
-          <Terminal size={14} className="hidden md:block opacity-40 hover:text-[#D9FF00] cursor-pointer transition-colors" />
+          <Terminal size={14} className="hidden md:block opacity-40 hover:text-indigo-500 cursor-pointer transition-colors" />
         </div>
       </div>
 
@@ -237,7 +247,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
                   className={`flex ${msg.senderId === currentUserId ? "justify-end" : "justify-start"}`}
                 >
                   <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-4 text-sm font-sans ${msg.senderId === currentUserId
-                    ? "bg-[#D9FF00]/10 border border-[#D9FF00]/20 text-white rounded-br-none"
+                    ? "bg-indigo-500/10 border border-indigo-500/20 text-white rounded-br-none"
                     : "bg-white/[0.05] border border-white/[0.05] text-white/80 rounded-bl-none"
                     }`}>
                     {msg.image && (
@@ -257,9 +267,9 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
             {isTyping && (
               <div className="flex justify-start">
                 <div className="bg-white/[0.03] border border-white/5 px-4 py-2 rounded-full flex gap-1.5 items-center">
-                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.3s]" />
-                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce [animation-delay:-0.15s]" />
-                  <div className="w-1 h-1 bg-[#D9FF00] rounded-full animate-bounce" />
+                  <div className="w-1 h-1 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <div className="w-1 h-1 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <div className="w-1 h-1 bg-indigo-500 rounded-full animate-bounce" />
                 </div>
               </div>
             )}
@@ -270,7 +280,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
       {/* Input Area */}
       <div className="p-4 md:p-6 border-t border-white/[0.05] bg-white/[0.01]">
         {imageUrl && (
-          <div className="mb-4 relative w-20 h-20 rounded-xl overflow-hidden border border-[#D9FF00]/40 group">
+          <div className="mb-4 relative w-20 h-20 rounded-xl overflow-hidden border border-indigo-500/40 group">
             <Image src={imageUrl} alt="Preview" fill className="object-cover" unoptimized />
             <button
               onClick={() => setImageUrl("")}
@@ -292,7 +302,7 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="p-4 bg-white/[0.05] text-white/40 hover:text-[#D9FF00] hover:bg-[#D9FF00]/10 rounded-2xl transition-all disabled:opacity-50"
+            className="p-4 bg-white/[0.05] text-white/40 hover:text-indigo-500 hover:bg-indigo-500/10 rounded-2xl transition-all disabled:opacity-50"
           >
             {isUploading ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
           </button>
@@ -302,13 +312,13 @@ export default function ChatWindow({ recipientId, onClose }: ChatWindowProps) {
               value={inputValue}
               onChange={handleInputChange}
               placeholder="MESSAGE..."
-              className="w-full bg-[#050505] border border-white/10 rounded-2xl px-6 py-4 text-sm font-jetbrains-mono focus:border-[#D9FF00] focus:ring-1 focus:ring-[#D9FF00]/20 outline-none transition-all placeholder:text-white/10"
+              className="w-full bg-[#050505] border border-white/10 rounded-2xl px-6 py-4 text-sm font-jetbrains-mono focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/10"
             />
           </div>
           <button
             type="submit"
             disabled={isUploading || (!inputValue.trim() && !imageUrl)}
-            className="p-4 bg-[#D9FF00] text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#D9FF00]/10 disabled:opacity-50 disabled:grayscale"
+            className="p-4 bg-indigo-500 text-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-indigo-500/10 disabled:opacity-50 disabled:grayscale"
           >
             <Send size={18} fill="currentColor" />
           </button>

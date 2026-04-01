@@ -22,10 +22,9 @@ export default function Navbari() {
 
     const userImage = session?.user?.image;
 
-    const mainNav = [
+    const mainNav: Array<{ name: string; href: string; icon: React.ReactNode; id: string; badge?: string | number }> = [
         { name: "Feed", href: "/Community", icon: <Home size={20} />, id: "home" },
-        { name: "Discover", href: "/Community/discover", icon: <Search size={20} />, id: "search" },
-        { name: "Squads", href: "/Community/squads", icon: <Users size={20} />, badge: "3", id: "squads" },
+        { name: "Users", href: "/Community/discover", icon: <Users size={20} />, id: "search" },
         { name: "Market", href: "/Store", icon: <Package size={20} />, id: "market" },
         { name: "Profile", href: "/Community/Cprofile", icon: <Users size={20} />, id: "profile" },
     ];
@@ -45,7 +44,7 @@ export default function Navbari() {
                 {/* Left: Logo */}
                 <div className="flex items-center gap-6">
                     <Link href="/" className="font-bebas text-2xl tracking-[3px] text-white group flex items-center gap-2">
-                        SINNERS<span className="text-[#D9FF00] group-hover:scale-110 transition-transform">_</span>
+                        SINNERS<span className="text-indigo-500 group-hover:scale-110 transition-transform">_</span>
                     </Link>
                     <div className="h-6 w-[1px] bg-white/10 hidden lg:block" />
                     <p className="font-jetbrains-mono text-[9px] text-white/30 uppercase tracking-widest hidden lg:block">
@@ -59,7 +58,7 @@ export default function Navbari() {
                         const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== '/Community');
                         return (
                             <Link key={item.id} href={item.href} className="relative group px-1">
-                                <div className={`relative z-10 flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${isActive ? 'text-[#D9FF00]' : 'text-white/40 hover:text-white hover:bg-white/[0.02]'}`}>
+                                <div className={`relative z-10 flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${isActive ? 'text-indigo-500' : 'text-white/40 hover:text-white hover:bg-white/[0.02]'}`}>
                                     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                                         {item.icon}
                                     </motion.div>
@@ -67,7 +66,7 @@ export default function Navbari() {
                                         {item.name}
                                     </span>
                                     {item.badge && (
-                                        <span className="bg-[#D9FF00]/10 text-[#D9FF00] text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-[#D9FF00]/20">
+                                        <span className="bg-indigo-500/10 text-indigo-500 text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-indigo-500/20">
                                             {item.badge}
                                         </span>
                                     )}
@@ -75,7 +74,7 @@ export default function Navbari() {
                                 {isActive && (
                                     <motion.div
                                         layoutId="navbar-active-bg"
-                                        className="absolute inset-0 bg-[#D9FF00]/[0.03] border border-[#D9FF00]/20 rounded-xl z-0"
+                                        className="absolute inset-0 bg-indigo-500/[0.03] border border-indigo-500/20 rounded-xl z-0"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -89,58 +88,58 @@ export default function Navbari() {
                 {/* Right: Actions & Profile */}
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 pr-4 border-r border-white/10">
-                        <button 
+                        <button
                             onClick={() => {
                                 if (typeof window !== 'undefined') {
                                     const event = new CustomEvent('toggle-mobile-chat');
                                     window.dispatchEvent(event);
                                 }
                             }}
-                            className="p-2 text-white/30 hover:text-[#D9FF00] transition-colors"
+                            className="p-2 text-white/30 hover:text-indigo-500 transition-colors"
                         >
                             <MessageSquare size={18} />
                         </button>
-                        <button className="p-2 text-white/30 hover:text-[#D9FF00] transition-colors relative">
+                        <button className="p-2 text-white/30 hover:text-indigo-500 transition-colors relative">
                             <Bell size={18} />
-                            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#D9FF00] rounded-full border-2 border-[#050505]" />
+                            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-[#050505]" />
                         </button>
                     </div>
 
                     <Link href="/Community/Cprofile" className="flex items-center gap-3 pl-2 group">
                         <div className="text-right hidden xl:block">
-                            <p className="text-[10px] font-bebas tracking-widest text-white leading-none group-hover:text-[#D9FF00] transition-colors">
+                            <p className="text-[10px] font-bebas tracking-widest text-white leading-none group-hover:text-indigo-500 transition-colors">
                                 {session?.user?.name || "GHOST_USER"}
                             </p>
                             <p className="text-[8px] font-jetbrains-mono text-white/30 uppercase leading-none mt-1">@uplink_active</p>
                         </div>
-                        <div className="relative w-10 h-10 rounded-full border border-white/10 overflow-hidden shrink-0 group-hover:border-[#D9FF00]/40 transition-all p-[2px]">
+                        <div className="relative w-10 h-10 rounded-full border border-white/10 overflow-hidden shrink-0 group-hover:border-indigo-500/40 transition-all p-[2px]">
                             <div className="w-full h-full rounded-full overflow-hidden">
                                 <img
-                                    src={userImage || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                                    src={userImage || "https://ui-avatars.com/api/?name=User&background=6366f1&color=050505"}
                                     alt="Profile"
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#D9FF00] rounded-full border-[2px] border-[#050505]" />
+                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-indigo-500 rounded-full border-[2px] border-[#050505]" />
                         </div>
                     </Link>
                 </div>
             </motion.nav>
- 
+
             {/* --- MOBILE TOP BAR --- */}
             <div className="md:hidden fixed top-0 left-0 w-full h-18 bg-[#020202] backdrop-blur-3xl border-b border-white/[0.1] z-[150] flex items-center justify-between px-6 py-4 shadow-xl">
                 <Link href="/" className="font-bebas text-xl tracking-[2px] text-white flex items-center gap-2">
-                    SINNERS<span className="text-[#D9FF00]">_</span>
+                    SINNERS<span className="text-indigo-500">_</span>
                 </Link>
-                
+
                 <div className="flex items-center gap-5">
-                    <button className="text-white/40 hover:text-[#D9FF00] transition-colors relative">
+                    <button className="text-white/40 hover:text-indigo-500 transition-colors relative">
                         <Bell size={20} />
-                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#D9FF00] rounded-full border-2 border-[#050505]" />
+                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-500 rounded-full border-2 border-[#050505]" />
                     </button>
                     <Link href="/Community/Cprofile" className="w-8 h-8 rounded-full border border-white/10 overflow-hidden">
                         <img
-                            src={userImage || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                            src={userImage || "https://ui-avatars.com/api/?name=User&background=6366f1&color=050505"}
                             alt="Profile"
                             className="w-full h-full object-cover"
                         />
@@ -161,7 +160,7 @@ export default function Navbari() {
                         <motion.button
                             whileHover={{ scale: 1.1, rotate: 90 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-14 h-14 bg-[#D9FF00] text-black rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(217,255,0,0.3)] border-[4px] border-[#020202]"
+                            className="w-14 h-14 bg-indigo-500 text-black rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(217,255,0,0.3)] border-[4px] border-[#020202]"
                         >
                             <Plus size={28} className="text-black" strokeWidth={3} />
                         </motion.button>
@@ -181,20 +180,20 @@ export default function Navbari() {
 
                     {/* Right Dock Items (2 icons) */}
                     <div className="flex items-center gap-8">
-                        <button 
+                        <button
                             onClick={() => {
                                 if (typeof window !== 'undefined') {
                                     const event = new CustomEvent('toggle-mobile-chat');
                                     window.dispatchEvent(event);
                                 }
                             }}
-                            className={`relative p-2 flex flex-col items-center justify-center transition-colors ${isChatOpen ? 'text-[#D9FF00]' : 'text-white/40 hover:text-white'}`}
+                            className={`relative p-2 flex flex-col items-center justify-center transition-colors ${isChatOpen ? 'text-indigo-500' : 'text-white/40 hover:text-white'}`}
                         >
                             <MessageSquare size={22} />
                             {isChatOpen && (
                                 <motion.div
                                     layoutId="mobile-dock-dot"
-                                    className="absolute -bottom-1 w-1.5 h-1.5 bg-[#D9FF00] rounded-full shadow-[0_0_10px_rgba(217,255,0,0.8)]"
+                                    className="absolute -bottom-1 w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(217,255,0,0.8)]"
                                 />
                             )}
                         </button>
@@ -215,13 +214,13 @@ function DockItem({ children, href, active }: { children: React.ReactNode, href:
             <motion.div
                 whileHover={{ scale: 1.2, y: -4 }}
                 whileTap={{ scale: 0.9 }}
-                className={`relative p-2 flex items-center justify-center transition-colors ${active ? 'text-[#D9FF00]' : 'text-white/40 hover:text-white'}`}
+                className={`relative p-2 flex items-center justify-center transition-colors ${active ? 'text-indigo-500' : 'text-white/40 hover:text-white'}`}
             >
                 {children}
                 {active && (
                     <motion.div
                         layoutId="mobile-dock-dot"
-                        className="absolute -bottom-1 w-1 h-1 bg-[#D9FF00] rounded-full shadow-[0_0_10px_rgba(217,255,0,0.8)]"
+                        className="absolute -bottom-1 w-1 h-1 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(217,255,0,0.8)]"
                     />
                 )}
             </motion.div>

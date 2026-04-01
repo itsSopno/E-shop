@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 
-const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "https://t-mark-4.onrender.com";
 
 export default function CreateProfilePage() {
@@ -53,23 +53,27 @@ export default function CreateProfilePage() {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        if (!IMGBB_API_KEY) {
-            toast.error("Image upload configuration missing (API Key)");
+        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dhkdtyjsr";
+        const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+        if (!uploadPreset) {
+            toast.error("Cloudinary upload preset missing in environment variables.");
             return;
         }
 
         setUploading(true);
         const imgFormData = new FormData();
-        imgFormData.append("image", file);
+        imgFormData.append("file", file);
+        imgFormData.append("upload_preset", uploadPreset);
 
         try {
             const res = await axios.post(
-                `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 imgFormData
             );
-            const imageUrl = res.data.data.url;
+            const imageUrl = res.data.secure_url;
             setFormData({ ...formData, image: imageUrl });
-            toast.success("Identity visual updated");
+            toast.success("Identity visual updated via Cloudinary");
         } catch (error) {
             console.error("Upload error:", error);
             toast.error("V-Sync failed: Could not upload image");

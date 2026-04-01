@@ -56,15 +56,15 @@ export default function ChatSidebar({ onSelectChat }: { onSelectChat: (userId: s
   return (
     <MagneticCard delay={0.4}>
       <div className="bg-white/[0.02] border border-white/[0.05] p-6 rounded-3xl backdrop-blur-xl relative overflow-hidden group min-h-[400px]">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#D9FF00]/5 blur-3xl pointer-events-none group-hover:bg-[#D9FF00]/10 transition-colors duration-500" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-3xl pointer-events-none group-hover:bg-indigo-500/10 transition-colors duration-500" />
         
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <MessageSquare className="text-[#D9FF00]" size={18} />
+            <MessageSquare className="text-indigo-500" size={18} />
             <h4 className="font-bebas tracking-[2px] text-white/50 text-sm uppercase">Active_Terminals</h4>
           </div>
           <div className="flex items-center gap-2">
-             <Circle size={8} className="fill-[#D9FF00] text-[#D9FF00] animate-pulse" />
+             <Circle size={8} className="fill-indigo-500 text-indigo-500 animate-pulse" />
              <span className="text-[10px] font-jetbrains-mono text-white/40 uppercase">Live</span>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ChatSidebar({ onSelectChat }: { onSelectChat: (userId: s
         <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
           {loading ? (
             <div className="text-center py-10">
-              <div className="w-6 h-6 border-2 border-[#D9FF00]/30 border-t-[#D9FF00] rounded-full animate-spin mx-auto" />
+              <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-[#6366f1] rounded-full animate-spin mx-auto" />
               <p className="text-[9px] font-jetbrains-mono text-white/20 mt-4 uppercase tracking-widest">Scanning_Frequencies...</p>
             </div>
           ) : chats.length > 0 ? (
@@ -92,14 +92,14 @@ export default function ChatSidebar({ onSelectChat }: { onSelectChat: (userId: s
                     )}
                   </div>
                   {/* Status indicator mockup */}
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#D9FF00]/20 rounded-full border border-[#050505] flex items-center justify-center">
-                     <div className="w-1.5 h-1.5 bg-[#D9FF00] rounded-full shadow-[0_0_5px_#D9FF00]" />
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-indigo-500/20 rounded-full border border-[#050505] flex items-center justify-center">
+                     <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-[0_0_5px_#6366f1]" />
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
-                    <h5 className="font-bebas text-sm tracking-widest text-white group-hover/item:text-[#D9FF00] transition-colors truncate">
+                    <h5 className="font-bebas text-sm tracking-widest text-white group-hover/item:text-indigo-500 transition-colors truncate">
                       {chat.user.name || "Anonymous_User"}
                     </h5>
                     <span className="text-[8px] font-jetbrains-mono text-white/20 uppercase">

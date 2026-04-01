@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
 
-  if (pathname.startsWith("/Community")) return null;
+  if (pathname.startsWith("/Community") || pathname.startsWith("/dashboard")) return null;
   const isAdmin = session?.user?.email === "admin@user";
 
   return (
@@ -130,7 +130,6 @@ const Navbar = () => {
               {[
                 { name: "HOME", href: "/" },
                 { name: "KEYCAPS", href: "/#keycaps" },
-                { name: "CONTACT", href: "/contact" },
                 { name: "STORY", href: "/Story" },
                 { name: "ARCHIVE", href: "/Caps" },
                 { name: "PROFILE", href: "/Profile" },

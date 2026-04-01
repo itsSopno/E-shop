@@ -46,7 +46,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               id: userObj._id || userObj.id || Date.now().toString(),
               name: userObj.name || userObj.firstName || "",
               email: userObj.email || credentials.email,
-              // ✅ Store backend JWT token so we can use it in session
               backendToken: data.token || null,
             };
           }
@@ -99,7 +98,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } else if (token.sub && session.user) {
         session.user.id = token.sub;
       }
-      // ✅ Expose backend token so client components can use it
       if (token.backendToken && session.user) {
         (session.user as typeof session.user & { backendToken: string }).backendToken = token.backendToken as string;
       }

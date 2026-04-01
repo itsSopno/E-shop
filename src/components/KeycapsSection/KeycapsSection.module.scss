@@ -10,16 +10,16 @@
 .titleWrapper {
   margin-bottom: 60px;
   position: relative;
-  
+
   .subtitle {
     font-family: var(--font-space);
-    color: var(--neon-lime);
+    color: rgba(106, 61, 202, 0.3);
     font-size: 1.2rem;
     letter-spacing: 0.3em;
     display: block;
     margin-bottom: 10px;
   }
-  
+
   h2 {
     font-size: clamp(3rem, 6vw, 5rem);
     text-transform: uppercase;
@@ -53,11 +53,11 @@
   &:hover {
     transform: translateY(-10px);
     border-color: var(--neon-lime);
-    
+
     .image {
       transform: scale(1.05);
     }
-    
+
     .viewBtn {
       background: var(--neon-lime);
       color: #161e00;
@@ -130,9 +130,9 @@
   font-family: $font-bebas;
   font-size: 1rem;
   padding: 8px 30px;
-  border: 1px solid #D9FF00;
+  border: 1px solid rgba(106, 61, 202, 0.3);
   background: transparent;
-  color: #D9FF00;
+  color: rgba(106, 61, 202, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -148,10 +148,10 @@
   font-family: $font-bebas;
 
   &:hover {
-    background: var(--neon-lime);
+    background: rgba(106, 61, 202, 0.3);
     color: #161e00;
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(195, 244, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(106, 61, 202, 0.3);
   }
 
   &:active {
@@ -165,12 +165,12 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  
+
   .spinner {
     width: 50px;
     height: 50px;
-    border: 3px solid rgba(195, 244, 0, 0.1);
-    border-top-color: var(--neon-lime);
+    border: 3px solid rgba(106, 61, 202, 0.3);
+    border-top-color: rgba(106, 61, 202, 0.3);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
@@ -178,5 +178,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

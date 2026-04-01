@@ -74,7 +74,7 @@ export default function CommunityLayout({
             {/* Mobile Header for Chat Sidebar */}
             {showMobileChat && (
               <div className="flex items-center justify-between mb-6 xl:hidden">
-                <h4 className="font-bebas text-2xl tracking-widest text-[#D9FF00]">COMM_TERMINAL</h4>
+                <h4 className="font-bebas text-2xl tracking-widest text-indigo-500">COMM_TERMINAL</h4>
                 <button 
                   onClick={() => setShowMobileChat(false)}
                   className="px-4 py-2 bg-white/5 rounded-xl text-[10px] font-jetbrains-mono uppercase"
@@ -87,10 +87,10 @@ export default function CommunityLayout({
             {/* System Status Tracker */}
             <MagneticCard delay={0.4}>
               <div className="bg-white/[0.02] border border-white/[0.05] p-6 rounded-3xl backdrop-blur-xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D9FF00]/5 blur-3xl pointer-events-none group-hover:bg-[#D9FF00]/10 transition-colors duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-3xl pointer-events-none group-hover:bg-indigo-500/10 transition-colors duration-500" />
                 
                 <div className="flex items-center gap-3 mb-6">
-                  <Activity className="text-[#D9FF00]" size={18} />
+                  <Activity className="text-indigo-500" size={18} />
                   <h4 className="font-bebas tracking-[2px] text-white/50 text-sm uppercase">Active_Nodes</h4>
                 </div>
                 
@@ -102,10 +102,10 @@ export default function CommunityLayout({
                       className="flex items-center justify-between p-3 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/[0.05] transition-all cursor-crosshair"
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-sm ${i === 1 ? 'bg-[#D9FF00] animate-pulse shadow-[0_0_8px_rgba(217,255,0,0.6)]' : 'bg-white/20'}`} />
+                        <div className={`w-2 h-2 rounded-sm ${i === 1 ? 'bg-indigo-500 animate-pulse shadow-[0_0_8px_rgba(217,255,0,0.6)]' : 'bg-white/20'}`} />
                         <span className="text-[11px] font-jetbrains-mono text-white/70 uppercase">Uplink_Relay_0{i}</span>
                       </div>
-                      <span className="text-[10px] font-jetbrains-mono text-[#D9FF00]/60">{100 - i * 5}ms</span>
+                      <span className="text-[10px] font-jetbrains-mono text-indigo-500/60">{100 - i * 5}ms</span>
                     </motion.div>
                   ))}
                 </div>
@@ -118,7 +118,7 @@ export default function CommunityLayout({
                  <span className="text-[9px] font-jetbrains-mono text-white/30 tracking-[4px] uppercase">
                   Telemetry_Log
                 </span>
-                <span className="font-bebas text-2xl text-[#D9FF00] tracking-[4px] mt-1">
+                <span className="font-bebas text-2xl text-indigo-500 tracking-[4px] mt-1">
                   {currentTime}
                 </span>
               </div>

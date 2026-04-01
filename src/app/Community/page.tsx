@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { useGlobalContext } from "@/context/globalContext";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
-const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
 interface PostAuthor {
   userID: string;
@@ -78,18 +77,27 @@ export default function CommunityPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dhkdtyjsr";
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!uploadPreset) {
+      toast.error("Cloudinary upload preset missing");
+      return;
+    }
+
     setUploading(true);
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
 
     try {
-      const res = await axios.post(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, formData);
-      if (res.data.success) {
-        setImages(prev => [...prev, res.data.data.url]);
-        toast.success("UPLOAD_COMPLETE: Data attached");
+      const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
+      if (res.data.secure_url) {
+        setImages(prev => [...prev, res.data.secure_url]);
+        toast.success("UPLOAD_COMPLETE: Data attached via Cloudinary");
       }
     } catch {
-      toast.error("UPLOAD_FAILED: Signal lost");
+      toast.error("UPLOAD_FAILED: Signal lost to Cloudinary");
     } finally {
       setUploading(false);
     }
@@ -197,7 +205,7 @@ export default function CommunityPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bebas text-4xl md:text-5xl tracking-[4px] text-white flex items-center gap-4">
-            Küresel Akış <span className="w-3 h-3 bg-[#D9FF00] rounded-full animate-pulse shadow-[0_0_15px_rgba(217,255,0,0.8)]" />
+            Küresel Akış <span className="w-3 h-3 bg-indigo-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(217,255,0,0.8)]" />
           </h1>
           <p className="font-jetbrains-mono text-[10px] text-white/40 uppercase tracking-widest mt-1">
             Canlı Telemetri Gösteriliyor...
@@ -205,19 +213,19 @@ export default function CommunityPage() {
         </div>
 
         {/* Filter / Sort Button */}
-        <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] border border-white/[0.05] rounded-xl hover:bg-white/[0.08] hover:border-[#D9FF00]/30 transition-all text-xs font-jetbrains-mono uppercase text-white/60 hover:text-white">
+        <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] border border-white/[0.05] rounded-xl hover:bg-white/[0.08] hover:border-indigo-500/30 transition-all text-xs font-jetbrains-mono uppercase text-white/60 hover:text-white">
           <span>Sort By:</span>
-          <span className="text-[#D9FF00]">Latest</span>
+          <span className="text-indigo-500">Latest</span>
         </button>
       </div>
 
       {/* Post Input Card */}
       <MagneticCard delay={0.2}>
-        <div className="bg-white/[0.02] border border-white/[0.05] rounded-[32px] p-6 backdrop-blur-3xl">
+        <div className=" p-6 backdrop-blur-3xl">
           <div className="flex gap-4">
-            <div className="w-12 h-12 rounded-full border border-[#D9FF00]/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
+            <div className="w-12 h-12 rounded-full border border-indigo-500/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
               <img
-                src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=6366f1&color=050505"}
                 alt="Current User"
                 className="w-full h-full object-cover rounded-full"
               />
@@ -226,7 +234,7 @@ export default function CommunityPage() {
               {!session ? (
                 <div className="h-20 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-2xl bg-white/[0.01] mt-2">
                   <p className="text-[10px] font-jetbrains-mono text-white/30 uppercase tracking-[3px]">Protocol_Error: Identity_Unverified</p>
-                  <Link href="/login" className="text-[9px] font-jetbrains-mono text-[#D9FF00] hover:underline mt-2 uppercase tracking-widest">Invoke_Login_Sequence</Link>
+                  <Link href="/login" className="text-[9px] font-jetbrains-mono text-indigo-500 hover:underline mt-2 uppercase tracking-widest">Invoke_Login_Sequence</Link>
                 </div>
               ) : (
                 <textarea
@@ -266,7 +274,7 @@ export default function CommunityPage() {
                   <button
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploading || !session}
-                    className="flex items-center gap-2 text-[10px] font-jetbrains-mono uppercase text-white/40 hover:text-[#D9FF00] transition-colors disabled:opacity-30 disabled:hover:text-white/40"
+                    className="flex items-center gap-2 text-[10px] font-jetbrains-mono uppercase text-white/40 hover:text-indigo-500 transition-colors disabled:opacity-30 disabled:hover:text-white/40"
                   >
                     {uploading ? <Loader2 size={14} className="animate-spin" /> : <ImageIcon size={14} />}
                     {uploading ? "Uploading..." : "Attach_Data"}
@@ -276,7 +284,7 @@ export default function CommunityPage() {
                   <button
                     onClick={handleTransmit}
                     disabled={isTransmitting || uploading || (!content.trim() && images.length === 0)}
-                    className="px-6 py-2 bg-[#D9FF00]/10 hover:bg-[#D9FF00] text-[#D9FF00] hover:text-black hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] transition-all rounded-xl text-xs font-jetbrains-mono uppercase border border-[#D9FF00]/20 hover:border-transparent flex items-center gap-2 disabled:opacity-50 disabled:grayscale"
+                    className="px-6 py-2 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-500 hover:text-black hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] transition-all rounded-xl text-xs font-jetbrains-mono uppercase border border-indigo-500/20 hover:border-transparent flex items-center gap-2 disabled:opacity-50 disabled:grayscale"
                   >
                     {isTransmitting ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                     {isTransmitting ? "Broadcasting..." : "Transmit"}
@@ -296,29 +304,29 @@ export default function CommunityPage() {
       <div className="space-y-6">
         {loading ? (
           <div className="py-20 text-center">
-            <Loader2 className="w-10 h-10 text-[#D9FF00] animate-spin mx-auto mb-4" />
+            <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-4" />
             <p className="font-jetbrains-mono text-[10px] uppercase tracking-[4px] text-white/20">Establishing_Satellite_Link...</p>
           </div>
         ) : posts.map((post) => (
           <MagneticCard key={post._id} delay={0.1}>
-            <div className="group bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.05] hover:border-white/[0.1] rounded-[32px] p-6 md:p-8 backdrop-blur-3xl transition-colors duration-500">
+            <div className="group bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.1] border-white/[0.05] p-6 md:p-8 backdrop-blur-3xl transition-colors duration-500">
 
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#D9FF00]/20 overflow-hidden bg-[#050505] p-0.5">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-indigo-500/20 overflow-hidden bg-[#050505] p-0.5">
                       <img
                         src={post.author?.userImage || `https://ui-avatars.com/api/?name=${post.author?.username?.charAt(0)}`}
                         alt={post.author?.username}
                         className="w-full h-full object-cover rounded-full opacity-80"
                       />
                     </div>
-                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#D9FF00] rounded-full border-[2px] border-[#050505]" />
+                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-indigo-500 rounded-full border-[2px] border-[#050505]" />
                   </div>
                   <div>
                     <h3 className="font-bebas text-lg md:text-xl tracking-[2px] text-white leading-none flex items-center gap-3">
                       {post.author?.username || "Anonymous_Node"}
-                      <span className="font-jetbrains-mono text-[9px] px-2 py-0.5 rounded-full bg-[#D9FF00]/10 border border-[#D9FF00]/20 text-[#D9FF00] tracking-widest uppercase italic">
+                      <span className="font-jetbrains-mono text-[9px] px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 tracking-widest uppercase italic">
                         {post.author?.email === 'nabailahmed303@gmail.com' ? 'CORE_SEC' : 'UPLINK_NODE'}
                       </span>
                     </h3>
@@ -356,15 +364,15 @@ export default function CommunityPage() {
                   className="flex items-center gap-2 group/btn"
                 >
                   <div className={`p-2 rounded-full transition-colors border border-transparent ${post.likes?.includes(session?.user?.email || "")
-                    ? "bg-[#D9FF00]/10 border-[#D9FF00]/20"
+                    ? "bg-indigo-500/10 border-indigo-500/20"
                     : "bg-white/[0.02] group-hover/btn:bg-white/[0.1] group-hover/btn:border-white/[0.05]"
                     }`}>
                     <Heart size={16} className={`${post.likes?.includes(session?.user?.email || "")
-                      ? "text-[#D9FF00] fill-[#D9FF00]"
-                      : "text-white/40 group-hover/btn:text-[#D9FF00]"
+                      ? "text-indigo-500 fill-indigo-500"
+                      : "text-white/40 group-hover/btn:text-indigo-500"
                       } transition-colors`} />
                   </div>
-                  <span className={`font-jetbrains-mono text-[10px] ${post.likes?.includes(session?.user?.email || "") ? "text-[#D9FF00]" : "text-white/40 group-hover/btn:text-[#D9FF00]"
+                  <span className={`font-jetbrains-mono text-[10px] ${post.likes?.includes(session?.user?.email || "") ? "text-indigo-500" : "text-white/40 group-hover/btn:text-indigo-500"
                     } transition-colors`}>{post.likes?.length || 0}</span>
                 </button>
 
@@ -392,9 +400,9 @@ export default function CommunityPage() {
               {commentingId === post._id && (
                 <div className="mt-6 space-y-4 animate-in slide-in-from-top-4 duration-300">
                   <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full border border-[#D9FF00]/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
+                    <div className="w-8 h-8 rounded-full border border-indigo-500/20 overflow-hidden shrink-0 bg-[#050505] p-0.5">
                       <img
-                        src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=D9FF00&color=050505"}
+                        src={session?.user?.image || "https://ui-avatars.com/api/?name=User&background=6366f1&color=050505"}
                         alt="User"
                         className="w-full h-full object-cover rounded-full"
                       />
@@ -405,13 +413,13 @@ export default function CommunityPage() {
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
                         placeholder="ADD_COMMENT..."
-                        className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder:text-white/20 focus:border-[#D9FF00]/30 outline-none"
+                        className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder:text-white/20 focus:border-indigo-500/30 outline-none"
                         onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post._id)}
                       />
                       <button
                         onClick={() => handleAddComment(post._id)}
                         disabled={!commentText.trim()}
-                        className="p-2 bg-[#D9FF00]/10 hover:bg-[#D9FF00] text-[#D9FF00] hover:text-black rounded-xl transition-all disabled:opacity-30"
+                        className="p-2 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-500 hover:text-black rounded-xl transition-all disabled:opacity-30"
                       >
                         <Send size={14} />
                       </button>
@@ -429,7 +437,7 @@ export default function CommunityPage() {
                           />
                           <div className="flex-1">
                             <div className="bg-white/[0.03] rounded-2xl rounded-tl-none p-3 border border-white/[0.05]">
-                              <p className="font-jetbrains-mono text-[8px] text-[#D9FF00] uppercase tracking-widest mb-1">{comment.username}</p>
+                              <p className="font-jetbrains-mono text-[8px] text-indigo-500 uppercase tracking-widest mb-1">{comment.username}</p>
                               <p className="text-white/60 text-[11px] leading-relaxed">{comment.comment}</p>
                             </div>
                             <p className="font-jetbrains-mono text-[7px] text-white/20 uppercase mt-1 px-1">

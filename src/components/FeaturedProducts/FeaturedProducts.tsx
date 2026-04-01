@@ -80,7 +80,7 @@ const ProductShowcase = () => {
               <h3 className="font-bebas text-2xl lg:text-4xl text-white uppercase tracking-tighter leading-none">
                 {cat.title}
               </h3>
-              <div className={`h-[2px] bg-neon-lime mt-2 transition-all duration-300 ${activeId === cat.id ? 'w-full' : 'w-0'}`} />
+              <div className={`h-[2px] bg-indigo-500 mt-2 transition-all duration-300 ${activeId === cat.id ? 'w-full' : 'w-0'}`} />
             </div>
 
             {/* Index Number */}

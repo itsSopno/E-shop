@@ -83,8 +83,8 @@ const PaymentPage = () => {
         return (
             <section className="bg-black min-h-screen flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-10 h-10 border-4 border-[#d9ff00]/20 border-t-[#d9ff00] rounded-full animate-spin"></div>
-                    <p className="font-bebas text-[#d9ff00] tracking-[0.4em] uppercase text-xs">Syncing_Arsenal...</p>
+                    <div className="w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
+                    <p className="font-bebas text-indigo-500 tracking-[0.4em] uppercase text-xs">Syncing_Arsenal...</p>
                 </div>
             </section>
         );
@@ -96,7 +96,7 @@ const PaymentPage = () => {
                 <div className="max-w-md w-full flex flex-col items-center justify-center p-12 border border-white/10 rounded-[40px] bg-white/5 backdrop-blur-3xl text-center">
                     <h2 className="text-4xl font-bebas tracking-widest text-white mb-4 italic">Access_Denied</h2>
                     <p className="text-white/30 mb-10 font-mono text-[10px] uppercase tracking-[0.3em]">Identify yourself to access the log</p>
-                    <Link href="/login" className="w-full py-4 bg-[#d9ff00] text-black font-black uppercase tracking-widest rounded-2xl hover:bg-white transition-all duration-500">
+                    <Link href="/login" className="w-full py-4 bg-indigo-500 text-black font-black uppercase tracking-widest rounded-2xl hover:bg-white transition-all duration-500">
                         Authorize Now
                     </Link>
                 </div>
@@ -111,23 +111,23 @@ const PaymentPage = () => {
 
                     {/* User Profile */}
                     <div className="flex flex-col items-center mb-20 space-y-6">
-                        <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-[#d9ff00] shadow-[0_0_40px_rgba(217,255,0,0.15)]">
+                        <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-indigo-500 shadow-[0_0_40px_rgba(217,255,0,0.15)]">
                             {userImage ? (
                                 <Image src={userImage} alt="User" fill className="object-cover" />
                             ) : (
-                                <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-4xl font-bebas text-[#d9ff00]">
+                                <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-4xl font-bebas text-indigo-500">
                                     {session?.user?.name?.[0] || "S"}
                                 </div>
                             )}
                         </div>
                         <div className="text-center">
                             <h1 className="text-3xl font-bebas italic tracking-widest uppercase mb-2">{session?.user?.name}</h1>
-                            <p className="text-[#d9ff00]/60 text-[10px] font-mono uppercase tracking-[0.4em] px-4 py-1.5 border border-[#d9ff00]/20 rounded-full">{userEmail}</p>
+                            <p className="text-indigo-500/60 text-[10px] font-mono uppercase tracking-[0.4em] px-4 py-1.5 border border-indigo-500/20 rounded-full">{userEmail}</p>
                         </div>
                     </div>
 
                     <h2 className="text-7xl md:text-9xl font-bebas italic mb-16 tracking-tighter text-center uppercase leading-none">
-                        PAYMENT <span className="text-[#d9ff00]">DATA</span>
+                        PAYMENT <span className="text-indigo-500">DATA</span>
                     </h2>
 
                     {paymentData.length > 0 ? (
@@ -135,7 +135,7 @@ const PaymentPage = () => {
                             {paymentData.map((item: Payment) => (
                                 <div
                                     key={item._id}
-                                    className="relative group w-full bg-white/5 border border-white/10 p-12 flex flex-col items-center text-center rounded-[50px] hover:border-[#d9ff00]/30 transition-all duration-700 overflow-hidden hover:bg-white/[0.08]"
+                                    className="relative group w-full bg-white/5 border border-white/10 p-12 flex flex-col items-center text-center rounded-[50px] hover:border-indigo-500/30 transition-all duration-700 overflow-hidden hover:bg-white/[0.08]"
                                 >
                                     <div className="absolute top-10 right-10">
                                         <button
@@ -154,12 +154,12 @@ const PaymentPage = () => {
                                     </div>
 
                                     <div className="mb-10">
-                                        <p className="text-7xl md:text-8xl font-bebas font-black tracking-tighter text-[#d9ff00] leading-none mb-6">
+                                        <p className="text-7xl md:text-8xl font-bebas font-black tracking-tighter text-indigo-500 leading-none mb-6">
                                             ${item.totalAmount.toFixed(2)}
                                         </p>
                                         <span className={`inline-block text-[11px] uppercase font-black tracking-[0.4em] px-10 py-3 rounded-full border-2 ${item.paymentStatus === 'pending'
                                             ? 'border-yellow-500/20 text-yellow-500 bg-yellow-500/5'
-                                            : 'border-[#d9ff00]/20 text-[#d9ff00] bg-[#d9ff00]/5'
+                                            : 'border-indigo-500/20 text-indigo-500 bg-indigo-500/5'
                                             }`}>
                                             {item.paymentStatus}
                                         </span>
@@ -178,7 +178,7 @@ const PaymentPage = () => {
                     ) : (
                         <div className="w-full border-2 border-dashed border-white/5 p-32 flex flex-col items-center justify-center rounded-[60px] bg-white/[0.02]">
                             <p className="text-white/10 font-bebas text-6xl tracking-widest uppercase italic mb-8">Log_Empty</p>
-                            <Link href="/Store" className="px-12 py-4 bg-white/5 text-white/40 text-[10px] font-black uppercase tracking-[0.4em] border border-white/10 rounded-2xl hover:bg-[#d9ff00] hover:text-black transition-all duration-500">
+                            <Link href="/Store" className="px-12 py-4 bg-white/5 text-white/40 text-[10px] font-black uppercase tracking-[0.4em] border border-white/10 rounded-2xl hover:bg-indigo-500 hover:text-black transition-all duration-500">
                                 Return_To_Store
                             </Link>
                         </div>

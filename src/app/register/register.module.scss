@@ -11,16 +11,6 @@
     color: black;
 }
 
-// .bgGlow {
-//     position: absolute;
-//     top: -10%;
-//     left: -10%;
-//     width: 40%;
-//     height: 40%;
-//     background: radial-gradient(circle, rgba(217, 255, 0, 0.08) 0%, transparent 70%);
-//     pointer-events: none;
-// }
-
 .container {
     width: 100%;
     max-width: 1200px;
@@ -47,7 +37,7 @@
         letter-spacing: -1px;
 
         .dot {
-            color: #d9ff00;
+            color: rgba(106, 61, 202, 0.3);
         }
     }
 
@@ -62,7 +52,7 @@
             font-weight: 900;
 
             span {
-                color: #d9ff00;
+                color: rgba(106, 61, 202, 0.3);
             }
 
             .italic {
@@ -101,10 +91,10 @@
 
     .demoItem {
         font-size: 0.8rem;
-        color: black;
+        color: white;
 
         span {
-            color: black;
+            color: white;
             margin-right: 5px;
         }
     }
@@ -118,7 +108,7 @@
 .formCard {
     width: 100%;
     max-width: 450px;
-    background: #1a1d13;
+    background: indigo;
     padding: 50px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 

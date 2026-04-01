@@ -1,9 +1,9 @@
 @use "../../styles/theme" as *;
 
 // CUSTOM COLORS BASED ON YOUR UPLOADED REFERENCES
-$acid-green: #d9ff00; // From Lando Norris Helmet/Branding
+$acid-green: rgba(106, 61, 202, 0.3); // From Lando Norris Helmet/Branding
 $dark-olive: #131410; // Main background
-$card-bg: #1a1d13; // Slightly lighter olive for contrast
+$card-bg: indigo; // Slightly lighter olive for contrast
 $border-white: rgba(255, 255, 255, 0.1);
 
 .authWrapper {
@@ -17,17 +17,6 @@ $border-white: rgba(255, 255, 255, 0.1);
   overflow: hidden;
   color: black;
 }
-
-// Background "Speed" Glow
-// .bgGlow {
-//   position: absolute;
-//   top: -10%;
-//   left: -10%;
-//   width: 50%;
-//   height: 50%;
-//   background: radial-gradient(circle, rgba($acid-green, 0.07) 0%, transparent 70%);
-//   pointer-events: none;
-// }
 
 .container {
   display: grid;
@@ -101,11 +90,11 @@ $border-white: rgba(255, 255, 255, 0.1);
   .demoItem {
     font-family: monospace;
     font-size: 0.9rem;
-    color: black;
+    color: white;
     margin-bottom: 4px;
 
     span {
-      color: black;
+      color: white;
       margin-right: 8px;
     }
   }

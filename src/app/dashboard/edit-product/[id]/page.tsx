@@ -51,18 +51,28 @@ const EditProduct = () => {
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+
+        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dhkdtyjsr";
+        const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+        if (!uploadPreset) {
+            setMessage({ type: "error", text: "Cloudinary upload preset missing." });
+            return;
+        }
+
         SetImageUpload(true);
         const uploadData = new FormData();
-        uploadData.append("image", file);
+        uploadData.append("file", file);
+        uploadData.append("upload_preset", uploadPreset);
+
         try {
-            const apikey = process.env.NEXT_PUBLIC_IMGBB_API_KEY || "d64f020a27541273ea71aaa79e3728db";
-            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apikey}`, {
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
                 method: "POST",
                 body: uploadData,
             });
             const data = await response.json();
-            if (data.success) {
-                setFormData((prev) => ({ ...prev, image: data.data.display_url }));
+            if (data.secure_url) {
+                setFormData((prev) => ({ ...prev, image: data.secure_url }));
                 setMessage({ type: "success", text: "Image uploaded successfully." });
             } else {
                 setMessage({ type: "error", text: "Image upload failed." });

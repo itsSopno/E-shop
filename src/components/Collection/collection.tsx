@@ -41,28 +41,13 @@ export default function PureShowcase() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
-                            <Target size={14} className="text-neon-lime" />
-                            <span className="text-[10px] font-mono tracking-[4px] text-white/40 uppercase">COLLABORATION_SERIES</span>
+                            <Target size={14} className="text-indigo-500" />
+                            <span className="text-[10px] font-mono tracking-[4px] text-white/40 uppercase">SPECIAL_EDITION</span>
                         </div>
-                        <h1 className="font-display text-7xl md:text-8xl font-black tracking-aggressive uppercase font-crenzo leading-none">
-                            LIMITED_<span className="text-white/10">EDITION</span>
+                        <h1 className="font-display text-xl md:text-8xl font-black tracking-aggressive uppercase font-crenzo leading-none">
+                            KEYCAPS_<span className="text-white/10">GALLERY</span>
                         </h1>
                     </div>
-
-                    {/* <div className="flex flex-wrap gap-px bg-white/10 border border-white/10">
-                        {["ALL_UNITS", "VOID_SERIES", "CYBER_SERIES", "GHOST_SERIES"].map((filter) => (
-                            <button
-                                key={filter}
-                                onClick={() => setActiveFilter(filter)}
-                                className={`px-8 py-4 text-[10px] font-black tracking-[4px] transition-all uppercase ${activeFilter === filter
-                                    ? "bg-neon-lime text-black"
-                                    : "bg-obsidian-lowest text-white/30 hover:text-white"
-                                    }`}
-                            >
-                                {filter}
-                            </button>
-                        ))}
-                    </div> */}
                 </div>
             </header>
 
@@ -90,8 +75,8 @@ export default function PureShowcase() {
 
                         {/* INFO OVERLAY (Only visible or emphasized on hover) */}
                         <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 bg-obsidian-lowest/90 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm translate-y-4 group-hover:translate-y-0">
-                            <p className="text-[9px] font-mono text-neon-lime mb-4 tracking-[5px] uppercase">{unit.series}</p>
-                            <h3 className="font-display text-3xl font-black tracking-tighter uppercase mb-8">{unit.name}</h3>
+                            <p className="text-[3px] md:text-[9px] font-mono text-neon-lime mb-4 tracking-[5px] uppercase">{unit.series}</p>
+                            <h3 className="font-display text-xl md:text-3xl font-black tracking-tighter uppercase mb-8">{unit.name}</h3>
                             <button className="flex items-center gap-4 text-[10px] font-black tracking-[4px] text-white/40 hover:text-neon-lime transition-colors uppercase">
                                 Analyze_Unit <ChevronRight size={14} />
                             </button>
