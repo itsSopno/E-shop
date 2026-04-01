@@ -25,7 +25,7 @@ Welcome to the frontend repository of the **Sinners. Tech** web platform. This i
 ## 🖥️ Desgin Screenshot
 ![Dashboard Screenshot](/sinners-hero.png)
 ## 🖥️ Desgin Screenshot
-![Dashboard Screenshot](models.png)
+![Dashboard Screenshot](sinners-social.png)
 
 ## 🛠️ Technology Stack
 
