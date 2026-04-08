@@ -22,6 +22,10 @@ Welcome to the frontend repository of the **Sinners. Tech** web platform. This i
 ### 🎛️ Admin Dashboard
 - **Content Management:** Admins can insert/update/delete products, keycaps, and keyboards.
 - **Media Optimization:** Direct Cloudinary uploads from the frontend ensure fast and optimized media storage.
+## 🖥️ Desgin Screenshot
+![Dashboard Screenshot](/sinners-hero.png)
+## 🖥️ Desgin Screenshot
+![Dashboard Screenshot](sinners.png)
 
 ## 🛠️ Technology Stack
 
