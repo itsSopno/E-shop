@@ -128,7 +128,7 @@ const Hero = ({ session }: HeroProps) => {
               className="group relative px-10 py-4 sm:px-12 sm:py-5 bg-indigo-500/20 backdrop-blur-sm border border-indigo-500/50 hover:bg-indigo-500 transition-all duration-300 shadow-[0_0_30px_rgba(79,70,229,0.2)] w-full sm:w-auto text-center"
             >
               <span className="relative z-10 font-bebas text-xl sm:text-2xl tracking-[0.1em] text-white">
-                The Network
+                Social
               </span>
             </Link>
           ) : (
